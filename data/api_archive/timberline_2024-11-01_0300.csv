@@ -1,0 +1,222 @@
+site,id,name,timestamp,parameter,value,units
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:00:00Z,Baro,12.291162496640966,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:15:00Z,Baro,12.291452831562617,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:30:00Z,Baro,12.296494745323981,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:45:00Z,Baro,12.295496276447082,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:00:00Z,Baro,12.295089099422816,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:15:00Z,Baro,12.297181635260571,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:30:00Z,Baro,12.297323262051622,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:45:00Z,Baro,12.302198764333502,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:00:00Z,Baro,12.300500423064166,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:15:00Z,Baro,12.302981252354051,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:30:00Z,Baro,12.302968269898205,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:45:00Z,Baro,12.302542209301798,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T10:00:00Z,Baro,12.30293522364696,psi
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:00:00Z,Battery Level,96.70067596435547,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:15:00Z,Battery Level,96.694244384765625,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:30:00Z,Battery Level,96.687103271484375,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:45:00Z,Battery Level,96.67638397216797,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:00:00Z,Battery Level,96.669952392578125,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:15:00Z,Battery Level,96.65852355957031,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:30:00Z,Battery Level,96.65137481689453,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:45:00Z,Battery Level,96.64495086669922,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:00:00Z,Battery Level,96.63208770751953,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:15:00Z,Battery Level,96.60350799560547,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:30:00Z,Battery Level,96.59207916259766,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:45:00Z,Battery Level,96.58564758300781,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T10:00:00Z,Battery Level,96.57921600341797,%
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:00:00Z,Temperature,0.6300086975097656,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:15:00Z,Temperature,0.4047813415527344,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:30:00Z,Temperature,0.2975311279296875,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T07:45:00Z,Temperature,0.17955398559570312,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:00:00Z,Temperature,0.050853729248046875,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:15:00Z,Temperature,-0.13147354125976562,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:30:00Z,Temperature,-0.3030738830566406,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T08:45:00Z,Temperature,-0.5390281677246094,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:00:00Z,Temperature,-0.64627838134765625,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:15:00Z,Temperature,-0.63555145263671875,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:30:00Z,Temperature,-0.8071556091308594,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T09:45:00Z,Temperature,-1.0216560363769531,C
+timberline,5550379415764992,timberline- vulink-1059273-current,2024-11-01T10:00:00Z,Temperature,-1.225433349609375,C
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,% Saturation O₂,87.93669945678711,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,% Saturation O₂,88.14529409472657,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,% Saturation O₂,88.469239140625,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,% Saturation O₂,88.62171968017577,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,% Saturation O₂,88.89684147827148,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,% Saturation O₂,89.01061124389648,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,% Saturation O₂,89.03083900634766,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,% Saturation O₂,88.96199017822266,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,% Saturation O₂,89.03508879272461,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,% Saturation O₂,88.91591822143555,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,% Saturation O₂,88.82775057983397,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,% Saturation O₂,88.79573911010742,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,% Saturation O₂,88.82797120605468,% sat
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,Actual Conductivity,226.5939491821289,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,Actual Conductivity,224.6775808935547,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,Actual Conductivity,222.59881795898437,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,Actual Conductivity,218.48580966308594,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,Actual Conductivity,215.11318984863283,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,Actual Conductivity,212.4330119580078,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,Actual Conductivity,211.8169401538086,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,Actual Conductivity,213.13157826904296,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,Actual Conductivity,213.05393990966797,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,Actual Conductivity,211.97447102294922,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,Actual Conductivity,207.99150042724608,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,Actual Conductivity,204.63166904541015,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,Actual Conductivity,202.05290111083985,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,Baro,12.291162580861696,psi
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,Baro,12.291452825897547,psi
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,Baro,12.296494890727486,psi
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,Baro,12.295496339518214,psi
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,Baro,12.295089106976244,psi
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,Baro,12.297181346341919,psi
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,Baro,12.297323278291493,psi
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,Baro,12.30219924019952,psi
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,Baro,12.300500504263528,psi
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,Baro,12.302981219496637,psi
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,Baro,12.3029688439588,psi
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,Baro,12.302542274638958,psi
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,Baro,12.302935197965303,psi
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,Battery Level,96.700676,%
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,Battery Level,96.694244,%
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,Battery Level,96.6871,%
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,Battery Level,96.676384,%
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,Battery Level,96.66995,%
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,Battery Level,96.65852,%
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,Battery Level,96.651375,%
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,Battery Level,96.64495,%
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,Battery Level,96.63209,%
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,Battery Level,96.60351,%
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,Battery Level,96.59208,%
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,Battery Level,96.58565,%
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,Battery Level,96.579216,%
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,DO,8.572729055358888,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,DO,8.601824880218505,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,DO,8.646095137939454,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,DO,8.665479830017091,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,DO,8.694568817016602,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,DO,8.704498145507813,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,DO,8.702290767486573,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,DO,8.695076971221923,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,DO,8.697300955474853,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,DO,8.687363812286378,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,DO,8.679673097442627,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,DO,8.678723167633056,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,DO,8.68593891757202,mg/L
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,Depth,0.7257131914917957,m
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,Depth,0.7369446211611439,m
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,Depth,0.7247564213942982,m
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,Depth,0.7294218232057141,m
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,Depth,0.7279108687833802,m
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,Depth,0.7252578976503297,m
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,Depth,0.7230431472357532,m
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,Depth,0.7329320784729603,m
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,Depth,0.724975018328595,m
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,Depth,0.7348286123599549,m
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,Depth,0.7326502623360975,m
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,Depth,0.7269299806287195,m
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,Depth,0.7302499828083362,m
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,External Voltage,15.659999923706055,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,External Voltage,15.651000011444092,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,External Voltage,15.659999923706055,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,External Voltage,15.659999923706055,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,External Voltage,15.678000225067139,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,External Voltage,15.651000011444092,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,External Voltage,15.678000225067139,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,External Voltage,15.6870001373291,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,External Voltage,15.659999923706055,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,External Voltage,15.668999835968018,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,External Voltage,15.659999923706055,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,External Voltage,15.6870001373291,V
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,External Voltage,15.659999923706055,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,ORP,0.34719552806152343,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,ORP,0.3490718694482422,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,ORP,0.3507741699609375,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,ORP,0.3521236283544922,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,ORP,0.3538283040527344,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,ORP,0.3553136598339844,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,ORP,0.3571590285498047,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,ORP,0.3570350320898438,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,ORP,0.3583487221826172,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,ORP,0.3591736777685547,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,ORP,0.3604539797460937,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,ORP,0.36281670571289065,V
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,ORP,0.3624733943359375,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,Pressure,0.8796167386828613,psi
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,Pressure,0.8821954863586425,psi
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,Pressure,0.8782558420581055,psi
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,Pressure,0.884831414263916,psi
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,Pressure,0.8806591016967773,psi
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,Pressure,0.8804054130126953,psi
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,Pressure,0.8758802406970214,psi
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,Pressure,0.8778486125915528,psi
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,Pressure,0.8771305042114258,psi
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,Pressure,0.8785228864624024,psi
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,Pressure,0.8788337853759766,psi
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,Pressure,0.8800697313330078,psi
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,Pressure,0.8747224903869628,psi
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,Specific Conductivity,330.6089791357422,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,Specific Conductivity,328.1838994628906,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,Specific Conductivity,325.5349060546875,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,Specific Conductivity,319.73319240722657,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,Specific Conductivity,314.89520131835934,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,Specific Conductivity,310.8566594677734,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,Specific Conductivity,309.77917240234376,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,Specific Conductivity,311.5404378955078,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,Specific Conductivity,311.27514824218747,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,Specific Conductivity,309.69320339355465,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,Specific Conductivity,303.90533223632815,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,Specific Conductivity,299.08910566406246,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,Specific Conductivity,295.4639291113281,µS/cm
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,Temperature,8.527931106689454,C
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,Temperature,8.48737415286255,C
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,Temperature,8.444709888916016,C
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,Temperature,8.420831840148926,C
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,Temperature,8.408592112060546,C
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,Temperature,8.422999191009522,C
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,Temperature,8.443323067687988,C
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,Temperature,8.461872050415039,C
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,Temperature,8.479334915618896,C
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,Temperature,8.477748935424804,C
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,Temperature,8.476210797088623,C
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,Temperature,8.465074769592285,C
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,Temperature,8.447624103271483,C
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,Turbidity,4.018072602566528,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,Turbidity,4.499004920425415,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,Turbidity,5.0681252239776615,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,Turbidity,3.7699077064682007,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,Turbidity,3.500008591534424,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,Turbidity,4.383975502914429,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,Turbidity,4.308109291723633,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,Turbidity,3.5251045113525388,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,Turbidity,3.788326989341736,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,Turbidity,3.4376599894332887,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,Turbidity,7.704530219552613,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,Turbidity,4.3422574998474115,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,Turbidity,5.819475675393677,NTU
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,pH,7.876273616024781,pH
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,pH,7.87631130109253,pH
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,pH,7.886091704568481,pH
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,pH,7.894187963623047,pH
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,pH,7.898020722161865,pH
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,pH,7.912301520187378,pH
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,pH,7.91086769552002,pH
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,pH,7.932644922027588,pH
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,pH,7.939608048538208,pH
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,pH,7.935183024124146,pH
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,pH,7.937536219812012,pH
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,pH,7.921377091003418,pH
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,pH,7.91906206880188,pH
+timberline,6239700486848512,timberline - current,2024-11-01T07:00:00Z,pH MV,-0.06405592173095703,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:15:00Z,pH MV,-0.06404876854492188,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:30:00Z,pH MV,-0.06457566916748048,V
+timberline,6239700486848512,timberline - current,2024-11-01T07:45:00Z,pH MV,-0.0650143592602539,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:00:00Z,pH MV,-0.06522178824951172,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:15:00Z,pH MV,-0.06600856890502929,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:30:00Z,pH MV,-0.06593466093261718,V
+timberline,6239700486848512,timberline - current,2024-11-01T08:45:00Z,pH MV,-0.06713390175170898,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:00:00Z,pH MV,-0.06752014080078125,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:15:00Z,pH MV,-0.06727695482543945,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:30:00Z,pH MV,-0.06740570034179688,V
+timberline,6239700486848512,timberline - current,2024-11-01T09:45:00Z,pH MV,-0.06651640159912109,V
+timberline,6239700486848512,timberline - current,2024-11-01T10:00:00Z,pH MV,-0.06638526958251953,V

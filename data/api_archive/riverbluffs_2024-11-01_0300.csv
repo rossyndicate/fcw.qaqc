@@ -1,0 +1,222 @@
+site,id,name,timestamp,parameter,value,units
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:00:00Z,Baro,12.342462080805634,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:15:00Z,Baro,12.345577870208725,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:30:00Z,Baro,12.341965206813702,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:45:00Z,Baro,12.348013851014777,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:00:00Z,Baro,12.346523229038981,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:15:00Z,Baro,12.349918731354393,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:30:00Z,Baro,12.349785366126156,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:45:00Z,Baro,12.350088683503653,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:00:00Z,Baro,12.353661219307877,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:15:00Z,Baro,12.356362750347149,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:30:00Z,Baro,12.355647535052348,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:45:00Z,Baro,12.35258603591916,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T10:00:00Z,Baro,12.353671841317206,psi
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:00:00Z,Battery Level,94.08150482177734,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:15:00Z,Battery Level,94.0743637084961,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:30:00Z,Battery Level,94.066497802734375,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:45:00Z,Battery Level,94.059356689453125,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:00:00Z,Battery Level,94.05149841308594,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:15:00Z,Battery Level,94.04434967041016,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:30:00Z,Battery Level,94.0372085571289,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:45:00Z,Battery Level,94.02935028076172,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:00:00Z,Battery Level,94.02006530761719,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:15:00Z,Battery Level,94.00077056884766,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:30:00Z,Battery Level,93.99291229248047,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:45:00Z,Battery Level,93.98577117919922,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T10:00:00Z,Battery Level,93.97791290283203,%
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:00:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:15:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:30:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:45:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:00:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:15:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:30:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:45:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:00:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:15:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:30:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:45:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T10:00:00Z,Pulse,0,Hz
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:00:00Z,Temperature,2.2280502319335938,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:15:00Z,Temperature,2.0778961181640625,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:30:00Z,Temperature,1.7025184631347656,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T07:45:00Z,Temperature,1.5952682495117188,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:00:00Z,Temperature,1.8097686767578125,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:15:00Z,Temperature,1.8741188049316406,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:30:00Z,Temperature,1.723968505859375,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T08:45:00Z,Temperature,1.3914909362792969,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:00:00Z,Temperature,1.0697364807128906,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:15:00Z,Temperature,0.70508575439453125,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:30:00Z,Temperature,0.35115814208984375,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T09:45:00Z,Temperature,0.08303070068359375,C
+riverbluffs,4886292563361792,riverbluffs-vulink-1011908-current,2024-11-01T10:00:00Z,Temperature,-0.1421966552734375,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,% Saturation O₂,88.96613311767578,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,% Saturation O₂,88.10746765136719,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,% Saturation O₂,87.822906494140625,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,% Saturation O₂,87.2334213256836,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,% Saturation O₂,86.805328369140625,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,% Saturation O₂,86.15428924560547,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,% Saturation O₂,85.9739761352539,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,% Saturation O₂,85.48030853271484,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,% Saturation O₂,85.04756927490234,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,% Saturation O₂,84.9853286743164,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,% Saturation O₂,84.38214874267578,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,% Saturation O₂,84.21831512451172,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,% Saturation O₂,84.0664291381836,% sat
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,Actual Conductivity,795.47308349609375,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,Actual Conductivity,796.99993896484375,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,Actual Conductivity,796.401123046875,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,Actual Conductivity,796.736328125,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,Actual Conductivity,798.18072509765625,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,Actual Conductivity,798.483154296875,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,Actual Conductivity,798.5706787109375,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,Actual Conductivity,798.26513671875,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,Actual Conductivity,798.75115966796875,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,Actual Conductivity,799.8021240234375,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,Actual Conductivity,800.314453125,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,Actual Conductivity,799.45904541015625,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,Actual Conductivity,799.67633056640625,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,Chl-a Fluorescence,6.904153823852539,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,Chl-a Fluorescence,6.61455774307251,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,Chl-a Fluorescence,7.287435531616211,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,Chl-a Fluorescence,7.2018723487854,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,Chl-a Fluorescence,6.991698265075684,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,Chl-a Fluorescence,7.239126682281494,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,Chl-a Fluorescence,7.518431186676025,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,Chl-a Fluorescence,7.1195068359375,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,Chl-a Fluorescence,6.955176830291748,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,Chl-a Fluorescence,6.5690226554870605,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,Chl-a Fluorescence,6.643409252166748,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,Chl-a Fluorescence,6.690571308135986,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,Chl-a Fluorescence,6.448137283325195,RFU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,DO,8.673830032348633,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,DO,8.613115310668945,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,DO,8.606315612792969,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,DO,8.575384140014648,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,DO,8.554715156555176,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,DO,8.515034675598145,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,DO,8.518315315246582,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,DO,8.4929046630859375,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,DO,8.474485397338867,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,DO,8.491762161254883,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,DO,8.453330993652344,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,DO,8.457311630249023,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,DO,8.464107513427734,mg/L
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,Depth,0.476633007144928,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,Depth,0.4824379580497742,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,Depth,0.49264216804504396,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,Depth,0.49732749252319336,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,Depth,0.5089150119781495,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,Depth,0.5153417635917664,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,Depth,0.5267089113235474,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,Depth,0.5341558404922485,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,Depth,0.5439088425636291,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,Depth,0.5497951475143433,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,Depth,0.5593594983100891,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,Depth,0.5705377040863038,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,Depth,0.5780293979644776,m
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,External Voltage,15.597000122070312,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,External Voltage,15.597000122070312,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,External Voltage,15.588000297546387,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,External Voltage,15.588000297546387,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,External Voltage,15.588000297546387,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,External Voltage,15.597000122070312,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,External Voltage,15.588000297546387,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,External Voltage,15.588000297546387,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,External Voltage,15.588000297546387,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,External Voltage,15.588000297546387,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,External Voltage,15.588000297546387,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,External Voltage,15.588000297546387,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,External Voltage,15.597000122070312,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,ORP,0.382174560546875,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,ORP,0.3838577880859375,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,ORP,0.38372186279296877,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,ORP,0.3831544189453125,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,ORP,0.38296606445312503,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,ORP,0.3835597534179688,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,ORP,0.384575439453125,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,ORP,0.3857627563476563,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,ORP,0.3870263671875,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,ORP,0.3876724853515625,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,ORP,0.3879061279296875,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,ORP,0.387972900390625,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,ORP,0.3894320068359375,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,Pressure,0.5678472518920898,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,Pressure,0.5767431259155273,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,Pressure,0.5901069641113281,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,Pressure,0.59832000732421875,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,Pressure,0.6162385940551758,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,Pressure,0.6234273910522461,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,Pressure,0.6387529373168945,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,Pressure,0.6513500213623047,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,Pressure,0.6653251647949219,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,Pressure,0.6742982864379883,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,Pressure,0.685236930847168,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,Pressure,0.7010498046875,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,Pressure,0.7136297225952148,psi
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,Specific Conductivity,1159.0509033203125,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,Specific Conductivity,1163.911376953125,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,Specific Conductivity,1167.883544921875,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,Specific Conductivity,1172.14404296875,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,Specific Conductivity,1175.992919921875,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,Specific Conductivity,1181.2171630859375,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,Specific Conductivity,1184.3082275390625,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,Specific Conductivity,1187.7294921875,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,Specific Conductivity,1192.083740234375,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,Specific Conductivity,1197.087890625,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,Specific Conductivity,1201.55322265625,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,Specific Conductivity,1204.1500244140625,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,Specific Conductivity,1207.8258056640625,µS/cm
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,Temperature,8.584159851074219,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,Temperature,8.482446670532227,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,Temperature,8.368188858032227,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,Temperature,8.262359619140625,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,Temperature,8.152130126953125,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,Temperature,8.047557830810547,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,Temperature,7.945055961608887,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,Temperature,7.832115650177002,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,Temperature,7.724930286407471,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,Temperature,7.624245643615723,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,Temperature,7.516574859619141,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,Temperature,7.404176235198975,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,Temperature,7.306458950042725,C
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,Turbidity,797.00213623046875,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,Turbidity,821.20208740234375,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,Turbidity,778.01422119140625,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,Turbidity,790.70086669921875,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,Turbidity,789.29180908203125,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,Turbidity,807.75811767578125,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,Turbidity,824.68548583984375,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,Turbidity,767.79742431640625,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,Turbidity,807.13067626953125,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,Turbidity,812.16424560546875,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,Turbidity,818.916015625,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,Turbidity,799.63916015625,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,Turbidity,818.64239501953125,NTU
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,pH,8.357098579406738,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,pH,8.342873573303223,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,pH,8.337818145751953,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,pH,8.32540225982666,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,pH,8.315404891967773,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,pH,8.308082580566406,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,pH,8.30007553100586,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,pH,8.292252540588379,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,pH,8.28412914276123,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,pH,8.276984214782715,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,pH,8.268638610839844,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,pH,8.262418746948242,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,pH,8.256640434265137,pH
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:00:00Z,pH MV,-0.09235382080078125,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:15:00Z,pH MV,-0.0915384292602539,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:30:00Z,pH MV,-0.09122371673583984,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T07:45:00Z,pH MV,-0.09050607299804687,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:00:00Z,pH MV,-0.08992195129394531,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:15:00Z,pH MV,-0.08948564147949219,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:30:00Z,pH MV,-0.08901358032226563,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T08:45:00Z,pH MV,-0.08854866027832031,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:00:00Z,pH MV,-0.08806944274902344,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:15:00Z,pH MV,-0.08764505004882812,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:30:00Z,pH MV,-0.08715391540527344,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T09:45:00Z,pH MV,-0.08677959442138672,V
+riverbluffs,6045853742399488,river bluffs at700 - current,2024-11-01T10:00:00Z,pH MV,-0.08643150329589844,V
