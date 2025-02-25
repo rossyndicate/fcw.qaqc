@@ -40,8 +40,8 @@ add_suspect_flag <- function(df) {
     # if data at observation is NA, 1 otherwise 0
     dplyr::mutate(auto_flag_binary = ifelse(is.na(mean), 1, 0)) %>%
     # If eight out of the nine observations around a non-missing value are NA = TRUE, otherwise, FALSE
-    dplyr::mutate(over_90_percent_missing_window_right = zoo::rollapply(auto_flag_binary, width = 8, FUN = check_2_hour_window_fail, fill = NA, align = "right")) %>%
-    dplyr::mutate(over_90_percent_missing_window_center = zoo::rollapply(auto_flag_binary, width = 8, FUN = check_2_hour_window_fail, fill = NA, align = "center")) %>%
+    dplyr::mutate(over_90_percent_missing_window_right = zoo::rollapply(auto_flag_binary, width = 8, FUN = check_2_hour_window_missing, fill = NA, align = "right")) %>%
+    dplyr::mutate(over_90_percent_missing_window_center = zoo::rollapply(auto_flag_binary, width = 8, FUN = check_2_hour_window_missing, fill = NA, align = "center")) %>%
     # Using the info from previous code... if a given observation is not NA, doesn't have a flag itself, but is surrounded by NAs, flag it as suspect.
     dplyr::mutate(auto_flag = as.character(ifelse(is.na(auto_flag) & !is.na(mean) &
                                              (over_90_percent_missing_window_right == TRUE & over_90_percent_missing_window_center == TRUE),
