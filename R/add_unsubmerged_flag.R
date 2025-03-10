@@ -27,7 +27,7 @@ add_unsubmerged_flag <- function(df){
   # add "depth" column to df:
   depth_checked <- df %>%
     dplyr::left_join(., depth, by = "DT_join") %>%
-    # If water temperature is freezing, flag all parameters
+    # If depth is below 0, flag as "sonde unsubmerged"
     add_flag(., Depth <= 0, "sonde unsubmerged") %>%
     # remove the temp column so df is identical in structure to OG df
     dplyr::select(-Depth)
