@@ -1,33 +1,44 @@
 ---
-title: "Using 'fww_qaqc'"
+title: "Using 'fcw_qaqc'"
 author: "Katie Willi"
 date: "2025-02-12"
 output: html_document
 ---
 
-```{r}
+```{r, warning=FALSE, results='hide', echo=FALSE}
 package_loader <- function(x) {
   if (x %in% installed.packages()) {
-    library(x, character.only = TRUE)
+    suppressMessages({
+      library(x, character.only = TRUE)
+    })
   } else {
-    install.packages(x)
-    library(x, character.only = TRUE)
+    suppressMessages({
+      install.packages(x)
+      library(x, character.only = TRUE)
+    })
   }
 }
-lapply(c("data.table", "httr2", "tidyverse", "rvest", "readxl", "lubridate", "zoo", "padr", "stats",
-         "plotly", "feather", "RcppRoll", "yaml", "ggpubr", "profvis", "janitor"), package_loader)
+
+invisible(
+  lapply(c("data.table", "httr2", "tidyverse", 
+           "rvest", "readxl", "lubridate", 
+           "zoo", "padr", "stats",
+           "plotly", "feather", "RcppRoll", 
+           "yaml", "ggpubr", "profvis", 
+           "janitor", "here"), package_loader)
+)
 
 walk(list.files('R/', pattern = "*.R", full.names = TRUE, recursive = TRUE), source)
 ```
 
 ### Creating our test subset of data:
 
-```{eval = FALSE}
+```{r, eval = FALSE}
 # Load in old data that has gone thru the auto-QAQC pipeline:
 # making a dummy version:
-historical_data <- readRDS("data/pwqn_data.RDS") %>%
+historical_data <- readRDS("data/pwqn_data.RDS") %>% 
   dplyr::filter(DT_round <= "2024-11-01 01:00:00 MST") 
-
+  
 saveRDS(historical_data, "data/pwqn_data.RDS")
 ```
 
@@ -43,18 +54,14 @@ if(length(list.files("data/api")) > 0) {stop("ERROR OCCURED - API DATA IN API FO
 *Load in mWater field notes*
 
 ```{r}
-all_field_notes <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"), 
-                                     # what interval to round raw data to:
-                                     summarize_interval = "15 minutes") %>%
-  grab_mWater_sensor_notes() %>%
+mWater_data <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
+
+all_field_notes <- grab_mWater_sensor_notes(mWater_api_data = mWater_data) %>%
   # lil' renaming for consistency across data sets. JD - IS THIS STILL REQUIRED?
   dplyr::mutate(site = ifelse(site == "river bluffs", "riverbluffs", site))
 
 # pull in user-defined instances of sensor or sonde malfunction, burial, drift, etc.
-sensor_malfunction_notes <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"), 
-                                              # what interval to round raw data to:
-                                              summarize_interval = "15 minutes") %>%
-  grab_mWater_malfunction_notes(mWater_api_data = .) 
+sensor_malfunction_notes <- grab_mWater_malfunction_notes(mWater_api_data = mWater_data) 
 ```
 
 *Load in the historically flagged data*
@@ -73,8 +80,7 @@ api_start_dates <- get_start_dates(incoming_historically_flagged_data_list = his
 hv_creds <- yaml::read_yaml("creds/HydroVuCreds.yml")
 
 hv_token <- hv_auth(client_id = as.character(hv_creds["client"]),
-                    client_secret = as.character(hv_creds["secret"]),
-                    url = "https://www.hydrovu.com/public-api/oauth/token")
+                    client_secret = as.character(hv_creds["secret"]))
 
 incoming_data_csvs_upload <-  purrr::walk2(.x = api_start_dates$site,
                                            .y = api_start_dates$DT_round,
@@ -82,19 +88,16 @@ incoming_data_csvs_upload <-  purrr::walk2(.x = api_start_dates$site,
                                                        start_dt = .y, 
                                                        end_dt = .y + hours(3), # CHANGE TO Sys.time()
                                                        api_token = hv_token,
-                                                       dump_dir = "data/api/",
+                                                       dump_dir = here("data", "api"),
                                                        network = "FCW"))
 ```
 
 *Load in all the raw files*
 
 ```{r}
-new_data <- munge_api_data(api_path = "data/api/",
+new_data <- munge_api_data(api_path = here("data", "api"),
                            # select which sondes to download data from
-                           network = "FCW",
-                           # should be the same interval as what was selected for
-                           # all upstream steps
-                           summarize_interval = "15 minutes") %>% #other example: "1 hour"
+                           network = "FCW") %>%
     split(f = list(.$site, .$parameter), sep = "-") %>%
    purrr::keep(~ nrow(.) > 0)
 ```
@@ -106,12 +109,9 @@ new_data <- munge_api_data(api_path = "data/api/",
 # Determine each site and parameter in all_data 
 sites <- unique(dplyr::bind_rows(new_data) %>% dplyr::pull(site))
 params <- c(
-  # "Battery Level",
-  # "Baro",
   "Chl-a Fluorescence",
   "Depth",
   "DO",
-  # "External Voltage",
   "ORP",
   "pH",
   "Specific Conductivity",
@@ -119,7 +119,9 @@ params <- c(
   "Turbidity")
 # 
 # # Constructing a df to iterate over each site-parameter combination
-site_param_combos <- tidyr::crossing(sites, params) %>% dplyr::mutate(combo = paste0(sites, "-", params)) %>% dplyr::pull(combo) 
+site_param_combos <- tidyr::crossing(sites, params) %>% 
+  dplyr::mutate(combo = paste0(sites, "-", params)) %>% 
+  dplyr::pull(combo) 
 
 # Make a list of the 15-minute summarized data, joined with field notes
 new_data_tidied_list <-  new_data[names(new_data) %in% site_param_combos] %>%

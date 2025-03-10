@@ -2,24 +2,68 @@
 % Please edit documentation in R/add_flag.R
 \name{add_flag}
 \alias{add_flag}
-\title{Underlying function for flagging data.}
+\title{Core function for data quality flagging system}
 \usage{
 add_flag(df, condition_arg, description_arg)
 }
 \arguments{
-\item{df}{A data frame with a \code{flag} column.}
+\item{df}{A dataframe containing water quality monitoring data with a \code{flag}
+column that may contain existing quality flags or NA values.}
 
-\item{condition_arg}{A logical statement that is evaluated in the context of
-the data frame.}
+\item{condition_arg}{A logical expression that will be evaluated for each row
+of the dataframe. This expression uses tidyverse-style non-standard evaluation
+allowing direct reference to column names (e.g., mean > threshold).}
 
-\item{description_arg}{Flag added to the \code{flag} column.}
+\item{description_arg}{Character string containing the flag text to add when
+the condition is TRUE (e.g., "outside spec range", "sensor drift").}
 }
 \value{
-An identical data frame with a \code{flag} column that has been updated with the
-flag description provided.
+A dataframe identical to the input, except with the \code{flag} column
+updated to include the new flag description for rows where the condition was
+TRUE. The function preserves existing flags using a semicolon-newline separator
+and avoids adding duplicate flags.
 }
 \description{
-This function adds a flag to the \code{flag} column of a given data frame based on
-specified conditions for each row. The name of the flag is provided
-by the user.
+This function serves as the foundation of the water quality monitoring flagging
+system, providing a consistent mechanism for adding quality indicators to data.
+It evaluates a user-specified condition against each row of the dataframe and
+adds the corresponding flag text to matching rows. The function is designed to
+handles multiple flags by preserving existing flags and avoid duplication.
+
+This design allows specialized flagging functions to focus on their specific
+detection logic while delegating the actual flag application to this centralized
+function, ensuring consistent flag formatting throughout the system.
+}
+\examples{
+# Flag values over 25 as potentially unreliable
+df <- add_flag(water_data, mean > 25, "value exceeds typical range")
+
+# Flag missing values
+df <- add_flag(water_data, is.na(mean), "missing data")
+
+}
+\seealso{
+\code{\link[=add_burial_flag]{add_burial_flag()}}
+
+\code{\link[=add_depth_shit_flag]{add_depth_shit_flag()}}
+
+\code{\link[=add_drift_flag]{add_drift_flag()}}
+
+\code{\link[=add_field_flag]{add_field_flag()}}
+
+\code{\link[=add_frozen_flag]{add_frozen_flag()}}
+
+\code{\link[=add_malfunction_flag]{add_malfunction_flag()}}
+
+\code{\link[=add_na_flag]{add_na_flag()}}
+
+\code{\link[=add_repeat_flag]{add_repeat_flag()}}
+
+\code{\link[=add_seasonal_flag]{add_seasonal_flag()}}
+
+\code{\link[=add_spec_flag]{add_spec_flag()}}
+
+\code{\link[=add_suspect_flag]{add_suspect_flag()}}
+
+\code{\link[=add_unsubmerged_flag]{add_unsubmerged_flag()}}
 }

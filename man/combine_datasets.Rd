@@ -2,22 +2,52 @@
 % Please edit documentation in R/combine_datasets.R
 \name{combine_datasets}
 \alias{combine_datasets}
-\title{Combine historical and incoming data}
+\title{Merge historical and new water quality monitoring data}
 \usage{
 combine_datasets(incoming_data_list, historical_data_list)
 }
 \arguments{
-\item{incoming_data_list}{A list of dataframes with the incoming data.}
+\item{incoming_data_list}{A list of dataframes containing newly collected water
+quality data, typically the output from tidy_api_data(). Each list element
+should be named with the "site-parameter" naming convention.}
 
-\item{historical_data_list}{A list of dataframes with the historical data.}
+\item{historical_data_list}{A list of dataframes containing previously processed
+and flagged historical data. Each list element should follow the same
+"site-parameter" naming convention as the incoming_data_list.}
 }
 \value{
-A list of dataframes with the combined historical and incoming data.
+A list of dataframes containing merged historical and incoming data.
+Each dataframe includes:
+\itemize{
+\item All columns from the original dataframes
+\item A "historical" boolean column indicating data source (TRUE for historical data)
+\item Quality flags preserved from historical data
+The result contains only site-parameter combinations present in both input lists,
+unless one list is empty, in which case all elements from the non-empty list
+are returned.
+}
 }
 \description{
-A function that combines the subset of historically flagged data and creates historical columns.
-NOTE: historical columns should be a part of the historically flagged data, but it is not at this point.
+Combines newly collected water quality data with recent historical data to
+create continuous time series for each site-parameter combination. This function
+is critical for maintaining data continuity across data collection cycles.
+
+The function preserves quality flags from historical data, adds a marker to
+distinguish historical from new observations, and handles several special cases
+including missing data scenarios. By integrating the most recent 24 hours of
+historical data with new readings, it creates an overlap period that helps
+identify sensor drift and ensures smooth transitions between data collection cycles.
 }
 \examples{
-combine_hist_inc_data(incoming_data_list = incoming_data_list, historical_data_list = historical_data_list)
+# Combine new site data with historical records
+combined_data <- combine_datasets(incoming_data_list = new_data_tidied_list,
+                                historical_data_list = historical_data)
+
+}
+\seealso{
+\code{\link[=tidy_api_data]{tidy_api_data()}}
+
+\code{\link[=add_field_notes]{add_field_notes()}}
+
+\code{\link[=generate_summary_statistics]{generate_summary_statistics()}}
 }

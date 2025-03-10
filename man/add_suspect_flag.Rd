@@ -10,11 +10,10 @@ add_suspect_flag(df)
 \item{df}{A data frame with a \code{flag} column.}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the relevant calculated seasonal range flags.
+A data frame with a \code{flag} column that has been updated with the suspect flag when applicable.
 }
 \description{
-"24hr anomaly flag" is added if more than 50\% of the data points in a 24 hour window are flagged.
-"anomaly window" flag is added if the point is included in a 24hr anomaly.
+"suspect flag" is added if more than 50\% of the data points in a 2-hour window are flagged, or if over 90\% of the data is missing around it.
 }
 \examples{
 add_range_flags(df = all_data_flagged$`archery-Actual Conductivity`)

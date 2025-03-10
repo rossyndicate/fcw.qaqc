@@ -2,21 +2,66 @@
 % Please edit documentation in R/api_puller.R
 \name{api_puller}
 \alias{api_puller}
-\title{Download API data from HydroVu}
+\title{Download water quality data from HydroVu API}
 \usage{
 api_puller(site, network, start_dt, end_dt = Sys.time(), api_token, dump_dir)
 }
 \arguments{
-\item{site}{List of sites to download data for.}
+\item{site}{Character string or vector specifying the site name(s) to download
+data for. Site names are matched case-insensitively against the HydroVu
+location names.}
 
-\item{start_dt}{Start DT for downloading data.}
+\item{network}{Character string specifying which network of sensors to query.
+Options include "FCW", "CSU", "virridy", or "all". Different networks may have
+different data processing requirements.}
 
-\item{end_dt}{End DT for downloading data. Default is the current time.}
+\item{start_dt}{POSIXct timestamp indicating the starting point for data
+retrieval. Usually derived from the most recent timestamp in existing
+historical data.}
 
-\item{api_token}{API token for accessing HydroVu. Pulled in via \code{hv_auth()}.}
+\item{end_dt}{POSIXct timestamp indicating the endpoint for data retrieval.
+Default is the current system time (Sys.time()).}
 
-\item{dump_dir}{Directory where raw API data will be saved to.}
+\item{api_token}{OAuth client object obtained from hv_auth() function, used
+for authentication with the HydroVu API.}
+
+\item{dump_dir}{Character string specifying the directory path where
+downloaded CSV files should be saved.}
+}
+\value{
+No direct return value. The function writes CSV files to the specified
+dump_dir, with filenames formatted as "sitename_timestamp.csv".
 }
 \description{
-A function designed to download raw API data from HydroVu and store in a user-selected file location.
+Downloads raw water quality monitoring data from the HydroVu platform for
+specified sites and time periods. This function handles the connection to
+HydroVu, processes the API responses, and saves the raw data as CSV files
+in a specified directory.
+
+The function can retrieve data from different networks (FCW, CSU, or Virridy),
+with appropriate filtering applied depending on the network. It also handles
+special cases such as sites with multiple sondes from different networks.
+}
+\examples{
+# Get start dates from historical data
+start_dates <- get_start_dates(incoming_historically_flagged_data_list = historical_data)
+
+# Authenticate with HydroVu
+hv_token <- hv_auth(client_id = as.character(hv_creds["client"]),
+                    client_secret = as.character(hv_creds["secret"]))
+
+# Download data for a specific site
+api_puller(site = "riverbluffs",
+           network = "FCW", 
+           start_dt = start_dates$DT_round[start_dates$site == "riverbluffs"],
+           api_token = hv_token,
+           dump_dir = "data/api")
+
+}
+\seealso{
+\code{\link[=get_start_dates]{get_start_dates()}}
+
+\code{\link[=hv_auth]{hv_auth()}}
+
+\code{\link[=munge_api_data]{munge_api_data()}}
 }

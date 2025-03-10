@@ -8,17 +8,36 @@ flagged data}
 get_start_dates(incoming_historically_flagged_data_list)
 }
 \arguments{
-\item{incoming_historically_flagged_data_list}{This is the output from
-\code{flagged_data_dfs} and is the historically flagged data.}
+\item{incoming_historically_flagged_data_list}{A list of dataframes containing
+historical water quality data that has already been processed through the QAQC
+workflow. Each list element should represent a site-parameter combination and
+be named with the "site-parameter" naming convention.}
 }
 \value{
-A data frame that has the sites and their corresponding starting
-date-times' for the HydroVu API pull. This data frame will then get passed into
-\code{incoming_data_csvs_upload}.
+A dataframe containing two columns:
+\itemize{
+\item site: The monitoring location identifier
+\item DT_round: The timestamp (in MST timezone) of the most recent Temperature
+reading for each site, which will be used as the start date for new API pulls
+}
 }
 \description{
-This function finds the max datetime in the temperature data
-frames for each site's historically flagged data. We use temperature because
-it is always being tracked in the sensors and thus is the most accurate
-representation of the last API pull for a given sensor.
+This function finds the most recent timestamp (max datetime) in the Temperature
+parameter data frames for each monitoring site's historically flagged data.
+Temperature is used as the reference parameter because it is consistently
+tracked by all sondes and therefore provides the most reliable indication of
+when data was last collected from each site.
+
+The resulting timestamps serve as starting points for new API data requests,
+ensuring continuous data collection without gaps or unnecessary duplication.
+}
+\examples{
+# Get start dates from historical data
+start_dates <- get_start_dates(incoming_historically_flagged_data_list = historical_data)
+
+}
+\seealso{
+\code{\link[=api_puller]{api_puller()}}
+
+\code{\link[=munge_api_data]{munge_api_data()}}
 }
