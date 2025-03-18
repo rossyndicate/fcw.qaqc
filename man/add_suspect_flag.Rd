@@ -2,20 +2,37 @@
 % Please edit documentation in R/add_suspect_flag.R
 \name{add_suspect_flag}
 \alias{add_suspect_flag}
-\title{Add flags to the \code{flag} column of a dataframe based on large swaths of suspect data, or random values within a wide time period of missing data.}
+\title{Flag suspect data based on context patterns}
 \usage{
 add_suspect_flag(df)
 }
 \arguments{
-\item{df}{A data frame with a \code{flag} column.}
+\item{df}{A dataframe containing water quality measurements. Must include columns:
+\itemize{
+\item \code{mean}: The measurement value (NA indicates missing data)
+\item \code{auto_flag}: Existing quality flags
+}}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the suspect flag when applicable.
+A dataframe with the same structure as the input, but with the \code{auto_flag}
+column updated to include "suspect data" flags for measurements that match the
+specified conditions.
 }
 \description{
-"suspect flag" is added if more than 50\% of the data points in a 2-hour window are flagged, or if over 90\% of the data is missing around it.
+Identifies and flags potentially problematic measurements that appear valid in isolation
+but are suspect due to surrounding data patterns. The function applies the "suspect data"
+flag in two scenarios:
+\enumerate{
+\item When an unflagged measurement falls within a 2-hour window where ≥50\% of surrounding
+data points have quality flags
+\item When an isolated measurement appears within a 2-hour window where ≥90\% of surrounding
+data is missing
+}
 }
 \examples{
-add_range_flags(df = all_data_flagged$`archery-Actual Conductivity`)
-add_range_flags(df = all_data_flagged$`boxelder-Temperature`)
+# Flag suspect data in conductivity measurements
+archery_conductivity_flagged <- add_suspect_flag(df = final_flags$`archery-Actual Conductivity`)
+
+# Flag suspect data in temperature measurements
+boxelder_temp_flagged <- add_suspect_flag(df = final_flags$`boxelder-Temperature`)
 }

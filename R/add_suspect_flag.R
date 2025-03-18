@@ -1,53 +1,68 @@
-#' @title Add flags to the `flag` column of a dataframe based on large swaths of suspect data, or random values within a wide time period of missing data.
+#' @title Flag suspect data based on context patterns
+#'
 #' @description
-#' "suspect flag" is added if more than 50% of the data points in a 2-hour window are flagged, or if over 90% of the data is missing around it.
-#' @param df A data frame with a `flag` column.
-#' @return A data frame with a `flag` column that has been updated with the suspect flag when applicable.
+#' Identifies and flags potentially problematic measurements that appear valid in isolation 
+#' but are suspect due to surrounding data patterns. The function applies the "suspect data" 
+#' flag in two scenarios:
+#' 
+#' 1. When an unflagged measurement falls within a 2-hour window where ≥50% of surrounding 
+#'    data points have quality flags
+#' 
+#' 2. When an isolated measurement appears within a 2-hour window where ≥90% of surrounding 
+#'    data is missing
+#'
+#' @param df A dataframe containing water quality measurements. Must include columns:
+#' - `mean`: The measurement value (NA indicates missing data)
+#' - `auto_flag`: Existing quality flags
+#'
+#' @return A dataframe with the same structure as the input, but with the `auto_flag` 
+#' column updated to include "suspect data" flags for measurements that match the 
+#' specified conditions.
+#'
 #' @examples
-#' add_range_flags(df = all_data_flagged$`archery-Actual Conductivity`)
-#' add_range_flags(df = all_data_flagged$`boxelder-Temperature`)
-
+#' # Flag suspect data in conductivity measurements
+#' archery_conductivity_flagged <- add_suspect_flag(df = final_flags$`archery-Actual Conductivity`)
+#'
+#' # Flag suspect data in temperature measurements
+#' boxelder_temp_flagged <- add_suspect_flag(df = final_flags$`boxelder-Temperature`)
 
 add_suspect_flag <- function(df) {
-
-  # these are the flags that we don't want to perform this exercise across
+  # Define flags that should be excluded from the suspect data analysis
   auto_flag_string <- "sonde not employed|missing data|site visit|sv window|reported sonde burial|reported sensor biofouling|reported depth calibration malfunction|reported sensor malfunction"
-
-  # Define a function to check if a given 2-hour window has >= 50% fails
+  
+  # Function to check if ≥50% of points in a window have flags
   check_2_hour_window_fail <- function(x) {
     sum(x) / length(x) >= 0.5
   }
-
+  
+  # First pass: Flag isolated good data points within mostly flagged regions
   df_test <- df %>%
-    # Is there a relevant flag at a given time step? Yes = 1, No = 0
+    # Create binary indicator for relevant flags (1 = flagged, 0 = not flagged or excluded flag type)
     dplyr::mutate(auto_flag_binary = ifelse(is.na(auto_flag) | grepl(auto_flag_string, auto_flag) | auto_flag == "suspect data", 0, 1)) %>%
-    # Are there there any relevant flags in a 2-hour window (right and center)? If over 50% do in the two hour window, TRUE. Otherwise, FALSE
+    # Check if ≥50% of data in 2-hour windows (8 observations) has flags
     dplyr::mutate(over_50_percent_fail_window_right = zoo::rollapply(auto_flag_binary, width = 8, FUN = check_2_hour_window_fail, fill = NA, align = "right")) %>%
     dplyr::mutate(over_50_percent_fail_window_center = zoo::rollapply(auto_flag_binary, width = 8, FUN = check_2_hour_window_fail, fill = NA, align = "center")) %>%
-    # Using the info from previous code... if a given observation has no flags, but one of the time windows had over 50% flagged data, consider that obs "suspect"
+    # Flag unflagged observations within heavily flagged windows as "suspect data"
     dplyr::mutate(auto_flag = as.character(ifelse(is.na(auto_flag) &
-                                             (over_50_percent_fail_window_right == TRUE | over_50_percent_fail_window_center == TRUE),
-                                              "suspect data", auto_flag)))
+                                                    (over_50_percent_fail_window_right == TRUE | over_50_percent_fail_window_center == TRUE),
+                                                  "suspect data", auto_flag)))
   
-  
-  
-  # Define a function to check if a given 2-hour window has >= 90% missing data
+  # Function to check if ≥90% of points in a window are missing
   check_2_hour_window_missing <- function(x) {
     sum(x) / length(x) >= (8/9)
   }
   
+  # Second pass: Flag isolated measurements within mostly missing data regions
   df_test <- df_test %>%
-    # if data at observation is NA, 1 otherwise 0
+    # Create binary indicator for missing data (1 = missing, 0 = present)
     dplyr::mutate(auto_flag_binary = ifelse(is.na(mean), 1, 0)) %>%
-    # If eight out of the nine observations around a non-missing value are NA = TRUE, otherwise, FALSE
+    # Check if ≥90% of data in 2-hour windows is missing
     dplyr::mutate(over_90_percent_missing_window_right = zoo::rollapply(auto_flag_binary, width = 8, FUN = check_2_hour_window_missing, fill = NA, align = "right")) %>%
     dplyr::mutate(over_90_percent_missing_window_center = zoo::rollapply(auto_flag_binary, width = 8, FUN = check_2_hour_window_missing, fill = NA, align = "center")) %>%
-    # Using the info from previous code... if a given observation is not NA, doesn't have a flag itself, but is surrounded by NAs, flag it as suspect.
+    # Flag valid but isolated measurements as "suspect data"
     dplyr::mutate(auto_flag = as.character(ifelse(is.na(auto_flag) & !is.na(mean) &
-                                             (over_90_percent_missing_window_right == TRUE & over_90_percent_missing_window_center == TRUE),
-                                           "suspect data", auto_flag)))
+                                                    (over_90_percent_missing_window_right == TRUE & over_90_percent_missing_window_center == TRUE),
+                                                  "suspect data", auto_flag)))
   
-    return(df_test)
+  return(df_test)
 }
-
-

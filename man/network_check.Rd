@@ -2,23 +2,40 @@
 % Please edit documentation in R/network_check.R
 \name{network_check}
 \alias{network_check}
-\title{Network Check}
+\title{Reduce overflagging by comparing across monitoring network}
 \usage{
 network_check(df, network = "all")
 }
 \arguments{
-\item{df}{A site-parameter data frame that has gone through the initial flagging
-process.}
+\item{df}{A site-parameter dataframe that has undergone initial flagging. Must include:
+\itemize{
+\item \code{site}: Standardized site name
+\item \code{parameter}: The measurement type
+\item \code{DT_round}: Timestamp for measurements
+\item \code{flag}: Existing quality flags
+}}
 
-\item{network}{Whether the network check is happening across all sites or CSU sites.}
+\item{network}{Character string specifying the monitoring network to use for site
+relationships. Options are "all" (default), "CSU", or "FCW" (case-insensitive).}
 }
 \value{
-A modified data frame flags that have been altered based on the network check.
+A dataframe with the same structure as the input, plus an \code{auto_flag} column
+that contains cleaned flags where network-wide events have been accounted for.
 }
 \description{
-This function performs a network check on a given data frame, flagging potential
-issues in the data based on upstream and downstream sites.
+Identifies and corrects overflagging by comparing data patterns across upstream
+and downstream monitoring sites. When quality flags at a site coincide with similar
+patterns at neighboring sites, these flags are often indicating real water quality
+events rather than sensor malfunctions and can be removed.
+
+Different site configurations are handled based on the monitoring network specified.
+For chlorophyll measurements in the FCW/CSU network, no changes are made as these
+measurements are site-specific.
 }
 \examples{
-network_check(df = all_data_flagged$`archery-Actual Conductivity`)
+# Check for network-wide events in conductivity data
+archery_conductivity_checked <- network_check(
+  df = intersensor_flags$`archery-Actual Conductivity`, 
+  network = "FCW"
+)
 }

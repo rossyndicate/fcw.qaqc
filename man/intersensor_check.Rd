@@ -2,21 +2,48 @@
 % Please edit documentation in R/intersensor_check.R
 \name{intersensor_check}
 \alias{intersensor_check}
-\title{intersensor_check}
+\title{Remove redundant slope violation flags across parameters}
 \usage{
 intersensor_check(df)
 }
 \arguments{
-\item{df}{An updated data frame with a \code{flag} column.}
+\item{df}{A data frame containing all parameters for a single site. Must include columns:
+\itemize{
+\item \code{DT_round}: Timestamp for each measurement
+\item \code{DT_join}: Character timestamp used for joining
+\item \code{parameter}: Measurement type
+\item \code{mean}: The calculated mean value of measurements
+\item \code{flag}: Existing quality flags containing "slope violation" flags to be checked
+}}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the
-inter-sensor flag reduction step.
+A data frame with the same structure as the input, but with the \code{flag}
+column updated to remove "slope violation" flags that coincide with temperature
+or depth changes, and with all "slope violation" flags removed from temperature
+and depth parameters.
 }
 \description{
-A function designed to reduce overflagging: if a slope violation occurs at the
-same time as a slope violation in either depth or temperature, it is likely
-not a sensor malfunction and instead a real product of the river.
+Reduces overflagging by identifying and removing "slope violation" flags that likely
+represent real environmental changes rather than sensor malfunctions. When rapid changes
+occur simultaneously in multiple parameters, especially in temperature or depth, these
+changes typically reflect actual hydrologic events rather than sensor problems.
+
+This function processes all parameters from a single site and:
+\enumerate{
+\item Identifies concurrent slope violations across parameters
+\item Removes "slope violation" flags from non-temperature, non-depth parameters when they
+coincide with similar flags in temperature or depth
+\item Removes all "slope violation" flags from temperature and depth parameters, as these
+parameters rarely exhibit false spikes
+}
+}
+\examples{
+# Remove redundant slope violation flags at the riverbluffs site
+riverbluffs_corrected <- intersensor_check(df = all_flagged_data$riverbluffs)
+
+# Remove redundant slope violation flags at the boxelder site
+boxelder_corrected <- intersensor_check(df = all_flagged_data$boxelder)
+
 }
 \seealso{
 \code{\link[=add_flag]{add_flag()}}

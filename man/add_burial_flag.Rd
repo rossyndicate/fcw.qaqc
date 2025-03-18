@@ -7,22 +7,31 @@
 add_burial_flag(df)
 }
 \arguments{
-\item{df}{A dataframe containing all parameters for a single site, with a \code{flag} column.
-Must include DO parameter readings with pre-existing flags.}
+\item{df}{A dataframe containing all parameters for a single site. Must include columns:
+\itemize{
+\item \code{parameter}: Measurement type (function looks for "DO" parameter)
+\item \code{DT_join}: Character timestamp used for joining measurements across parameters
+\item \code{flag}: Existing quality flags, with "Possible burial" flags already applied to DO
+measurements by the \code{find_do_noise()} function
+}}
 }
 \value{
-A dataframe with the \code{flag} column updated to include "Possible burial" flags
-for all non-DO parameters when the DO sensor indicates burial conditions.
+A dataframe with the same structure as the input, but with the \code{flag}
+column updated to include "Possible burial" flags for all parameters when burial
+is detected by the DO sensor.
 }
 \description{
-A function designed to identify instances of likely sonde burial by examining
-dissolved oxygen (DO) sensors for burial indicators, then propagating these flags
-to all other parameters measured at the same time point. This function works on
-site-specific dataframes containing multiple parameters.
+Identifies and flags all sensor parameters when evidence of sonde burial is detected
+by the dissolved oxygen (DO) sensor. When a monitoring sonde becomes buried in sediment,
+all measurements are affected, but the DO sensor often provides the clearest indication
+of burial events.
 
-When sediment buries a sonde, the DO sensor often shows distinctive patterns
-(already flagged as "Possible burial" by upstream functions like \code{find_do_noise()}).
-This function ensures all parameters are consistently flagged during burial events.
+This function propagates burial flags detected by the \code{find_do_noise()} function to all
+other parameters measured at the same time points. This ensures consistent flagging
+across all measurements during burial events.
+
+Unlike most flagging functions, this function operates on site-level dataframes
+containing multiple parameters rather than individual site-parameter combinations.
 }
 \examples{
 add_burial_flag(df = site_data$riverbluffs)

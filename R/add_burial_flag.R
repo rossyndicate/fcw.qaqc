@@ -1,20 +1,27 @@
 #' @title Flag all parameters within sonde when sonde burial is detected by DO sensor
 #'
 #' @description
-#' A function designed to identify instances of likely sonde burial by examining
-#' dissolved oxygen (DO) sensors for burial indicators, then propagating these flags
-#' to all other parameters measured at the same time point. This function works on
-#' site-specific dataframes containing multiple parameters.
+#' Identifies and flags all sensor parameters when evidence of sonde burial is detected
+#' by the dissolved oxygen (DO) sensor. When a monitoring sonde becomes buried in sediment,
+#' all measurements are affected, but the DO sensor often provides the clearest indication
+#' of burial events.
 #'
-#' When sediment buries a sonde, the DO sensor often shows distinctive patterns
-#' (already flagged as "Possible burial" by upstream functions like `find_do_noise()`).
-#' This function ensures all parameters are consistently flagged during burial events.
+#' This function propagates burial flags detected by the `find_do_noise()` function to all
+#' other parameters measured at the same time points. This ensures consistent flagging
+#' across all measurements during burial events.
 #'
-#' @param df A dataframe containing all parameters for a single site, with a `flag` column.
-#' Must include DO parameter readings with pre-existing flags.
+#' Unlike most flagging functions, this function operates on site-level dataframes
+#' containing multiple parameters rather than individual site-parameter combinations.
 #'
-#' @return A dataframe with the `flag` column updated to include "Possible burial" flags
-#' for all non-DO parameters when the DO sensor indicates burial conditions.
+#' @param df A dataframe containing all parameters for a single site. Must include columns:
+#' - `parameter`: Measurement type (function looks for "DO" parameter)
+#' - `DT_join`: Character timestamp used for joining measurements across parameters
+#' - `flag`: Existing quality flags, with "Possible burial" flags already applied to DO
+#'   measurements by the `find_do_noise()` function
+#'
+#' @return A dataframe with the same structure as the input, but with the `flag`
+#' column updated to include "Possible burial" flags for all parameters when burial
+#' is detected by the DO sensor.
 #'
 #' @examples
 #' add_burial_flag(df = site_data$riverbluffs)
