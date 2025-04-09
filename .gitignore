@@ -11,3 +11,5 @@ creds/
 # remove the annoying Mac .DS_Store
 .DS_Store
 **.DS_Store
+# remove linting files
+.lintr/

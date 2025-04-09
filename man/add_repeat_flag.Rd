@@ -2,22 +2,37 @@
 % Please edit documentation in R/add_repeat_flag.R
 \name{add_repeat_flag}
 \alias{add_repeat_flag}
-\title{Add a flag if the value in the \code{mean} column repeats sequentially.}
+\title{Flag sequentially repeated measurements}
 \usage{
 add_repeat_flag(df)
 }
 \arguments{
-\item{df}{A data frame with a \code{flag} column.}
+\item{df}{A data frame containing water quality measurements. Must include columns:
+\itemize{
+\item \code{mean}: The calculated mean value of measurements
+\item \code{front1}: The next measurement value
+\item \code{back1}: The previous measurement value
+\item \code{flag}: Existing quality flags (will be updated by this function)
+}}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the
-'repeated value' flag.
-
-add_range_flags(df = all_data_flagged$\verb{archery-Actual Conductivity})
-add_range_flags(df = all_data_flagged$\code{boxelder-Temperature})
+A data frame with the same structure as the input, but with the \code{flag}
+column updated to include "repeated value" for any measurements that match
+either the preceding or following value.
 }
 \description{
-A function designed to append the 'repeated value' flag to a row if the value
-in the \code{mean} column is equal to the previous or next value in the \code{mean}
-column.
+Identifies and flags water quality measurements that have the exact same value
+as either the preceding or following measurement. Repeated values can indicate
+sensor malfunction, signal processing issues, or data transmission problems.
+}
+\examples{
+# Flag repeated conductivity measurements
+archery_conductivity_flagged <- add_repeat_flag(df = all_data_flagged$`archery-Actual Conductivity`)
+
+# Flag repeated temperature measurements
+boxelder_temp_flagged <- add_repeat_flag(df = all_data_flagged$`boxelder-Temperature`)
+
+}
+\seealso{
+\code{\link[=add_flag]{add_flag()}}
 }

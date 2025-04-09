@@ -2,30 +2,64 @@
 % Please edit documentation in R/generate_summary_statistics.R
 \name{generate_summary_statistics}
 \alias{generate_summary_statistics}
-\title{Generate summary statistics for a given site parameter data frame.}
+\title{Calculate contextual statistics for water quality time series}
 \usage{
 generate_summary_statistics(site_param_df)
 }
 \arguments{
-\item{site_param_df}{A single site-parameter data frame with a \code{mean} column}
+\item{site_param_df}{A dataframe containing time series data for a single
+site-parameter combination. Must include:
+\itemize{
+\item DT_round: Timestamp for each observation
+\item mean: The measured parameter value
+}}
 }
 \value{
-A data frame with summary statistics for a given site parameter data frame.
+A dataframe containing all original columns plus the following added
+statistical context columns:
+\itemize{
+\item front1/back1: Values immediately ahead of and behind each point
+\item rollmed/rollavg/rollsd: 7-point rolling median, mean, and standard deviation
+\item slope_ahead/slope_behind: Rate of change to adjacent points
+\item rollslope: 7-point rolling slope average
+\item month/year/y_m: Temporal classification components
+\item season: Hydrological season classification (winter_baseflow, snowmelt,
+monsoon, fall_baseflow)
+}
 }
 \description{
-A function that generates summary statistics for a given site parameter data frame. The generated statistics include:
+Enhances water quality time series data with a comprehensive set of statistical
+context metrics that support anomaly detection and pattern analysis. This function
+calculates both temporal relationships (how each reading relates to adjacent points)
+and rolling statistics (how each reading fits within recent trends).
+
+The function generates several types of contextual information:
 \itemize{
-\item The next observation and previous observation values.
-\item The rolling 7-point median of the value.
-\item The rolling 7-point mean of the value.
-\item The rolling 7-point standard deviation of the values.
-\item The slope in relation to the observations ahead and behind.
-\item The rolling 7-point slope of the observations.
-\item The month and year of each data point.
-\item The year-month combination.
+\item Adjacent value comparison: Values immediately before and after each point
+\item Rolling statistics: 7-point rolling median, mean, and standard deviation
+\item Rate-of-change metrics: Slope calculations for trend analysis
+\item Temporal context: Month, year, and seasonal classification
 }
+
+These statistics provide the foundation for subsequent quality control processes
+by establishing the expected behavior patterns and natural variability of each
+parameter at each site. The 7-point window (covering ~90 minutes for 15-minute
+data) captures short-term patterns while accommodating brief anomalies.
 }
 \examples{
-generate_summary_statistics(site_param_df = all_data_flagged$`archery-Actual Conductivity`)
-generate_summary_statistics(site_param_df = all_data_flagged$`boxelder-Temperature`)
+# Calculate summary statistics for conductivity data at Archery site
+archery_cond_stats <- generate_summary_statistics(
+  site_param_df = combined_data$`archery-Specific Conductivity`
+)
+
+# Calculate summary statistics for temperature data at Boxelder site
+boxelder_temp_stats <- generate_summary_statistics(
+  site_param_df = combined_data$`boxelder-Temperature`
+)
+
+}
+\seealso{
+\code{\link[=combine_datasets]{combine_datasets()}}
+
+\code{\link[=add_field_notes]{add_field_notes()}}
 }

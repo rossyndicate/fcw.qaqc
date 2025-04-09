@@ -2,18 +2,33 @@
 % Please edit documentation in R/move_api_data.R
 \name{move_api_data}
 \alias{move_api_data}
-\title{Move api to archive folder.}
+\title{Archive API data files after processing}
 \usage{
 move_api_data(api_dir, archive_dir)
 }
 \arguments{
-\item{api_dir}{File path to the api folder}
+\item{api_dir}{File path to the working API directory containing processed data files}
 
-\item{archive_dir}{File path to the api archive folder}
+\item{archive_dir}{File path to the archive directory where files will be stored}
 }
 \value{
-Nothing returned.
+No return value, called for side effects (file operations)
 }
 \description{
-A function designed to move the api data to the archival api folder
+Moves raw data files from the working API directory to an archive directory
+after they have been processed through the water quality monitoring workflow.
+This function performs several steps:
+\enumerate{
+\item Identifies files in the API directory that aren't already in the archive
+\item Copies those files to the archive directory
+\item Verifies the copy operation
+\item Removes all files from the original API directory
+}
+
+This function is typically called at the end of the data processing workflow
+to maintain a clean working environment while preserving raw data files.
+}
+\examples{
+# Archive processed API files
+move_api_data(api_dir = "data/api/", archive_dir = "data/api_archive/")
 }

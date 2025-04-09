@@ -2,25 +2,48 @@
 % Please edit documentation in R/add_malfunction_flag.R
 \name{add_malfunction_flag}
 \alias{add_malfunction_flag}
-\title{Add malfunction flags to a data frame based on field notes and HydroVu.}
+\title{Flag known sensor malfunctions from field notes}
 \usage{
 add_malfunction_flag(df, malfunction_records)
 }
 \arguments{
-\item{df}{A data frame with a \code{flag} column.}
+\item{df}{A data frame containing water quality measurements. Must include columns:
+\itemize{
+\item \code{site}: Standardized site name
+\item \code{parameter}: The measurement type
+\item \code{DT_round}: Timestamp for each measurement
+\item \code{flag}: Existing quality flags
+}}
 
-\item{malfunction_records}{The malfunction records pulled from mWater}
+\item{malfunction_records}{A data frame containing records of known sensor malfunctions
+with columns:
+\itemize{
+\item \code{site}: Site name matching the df site column
+\item \code{parameter}: Parameter name (NA indicates the entire sonde was malfunctioning)
+\item \code{start_DT}: Start timestamp of the malfunction period
+\item \code{end_DT}: End timestamp of the malfunction period (NA indicates ongoing)
+\item \code{notes}: Text description of the malfunction
+}}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the
-'sensor malfunction' flag.
+A data frame with the same structure as the input, plus a \code{mal_flag} column
+containing descriptions of malfunction types for affected measurements.
 }
 \description{
-This function adds the 'sensor malfunction' flag to a data frame by the dates,
-sites, and parameters that members of the lab know contain erroneous data due
-to sensor malfunctions. Note that this flag is used in two instances: first
-when removing erroneous data from our statistics calculations and again during
-the actual flagging step in the QAQC pipeline.
+Adds malfunction flags to water quality data based on field technician observations
+and notes. This function identifies periods when sensors were known to be malfunctioning
+and categorizes these into specific types of malfunctions.
+
+The function uses a separate \code{mal_flag} column rather than the standard \code{flag} column,
+allowing malfunction information to be treated differently in downstream processing.
+}
+\examples{
+# Flag known malfunctions in dissolved oxygen data
+riverbluffs_do_flagged <- add_malfunction_flag(
+  df = intersensor_flags$`riverbluffs-DO`,
+  malfunction_records = sensor_malfunction_notes
+)
+
 }
 \seealso{
 \code{\link[=grab_mWater_malfunction_notes]{grab_mWater_malfunction_notes()}}

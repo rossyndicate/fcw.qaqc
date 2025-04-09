@@ -2,20 +2,44 @@
 % Please edit documentation in R/add_burial_flag.R
 \name{add_burial_flag}
 \alias{add_burial_flag}
-\title{add_burial_flag}
+\title{Flag all parameters within sonde when sonde burial is detected by DO sensor}
 \usage{
 add_burial_flag(df)
 }
 \arguments{
-\item{df}{An updated data frame with a \code{flag} column.}
+\item{df}{A dataframe containing all parameters for a single site. Must include columns:
+\itemize{
+\item \code{parameter}: Measurement type (function looks for "DO" parameter)
+\item \code{DT_join}: Character timestamp used for joining measurements across parameters
+\item \code{flag}: Existing quality flags, with "Possible burial" flags already applied to DO
+measurements by the \code{find_do_noise()} function
+}}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the
-DO-related possible burial flag.
+A dataframe with the same structure as the input, but with the \code{flag}
+column updated to include "Possible burial" flags for all parameters when burial
+is detected by the DO sensor.
 }
 \description{
-A function designed to identify instances of likely sonde burial
+Identifies and flags all sensor parameters when evidence of sonde burial is detected
+by the dissolved oxygen (DO) sensor. When a monitoring sonde becomes buried in sediment,
+all measurements are affected, but the DO sensor often provides the clearest indication
+of burial events.
+
+This function propagates burial flags detected by the \code{find_do_noise()} function to all
+other parameters measured at the same time points. This ensures consistent flagging
+across all measurements during burial events.
+
+Unlike most flagging functions, this function operates on site-level dataframes
+containing multiple parameters rather than individual site-parameter combinations.
+}
+\examples{
+add_burial_flag(df = site_data$riverbluffs)
+add_burial_flag(df = site_data$boxelder)
+
 }
 \seealso{
 \code{\link[=add_flag]{add_flag()}}
+
+\code{\link[=find_do_noise]{find_do_noise()}}
 }

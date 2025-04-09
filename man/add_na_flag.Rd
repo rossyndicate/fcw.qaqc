@@ -2,22 +2,34 @@
 % Please edit documentation in R/add_na_flag.R
 \name{add_na_flag}
 \alias{add_na_flag}
-\title{Add NA flags to a data frame based on \code{mean} column.}
+\title{Flag missing data in water quality measurements}
 \usage{
 add_na_flag(df)
 }
 \arguments{
-\item{df}{A data frame with a \code{flag} column.}
+\item{df}{A data frame containing water quality measurements. Must include columns:
+\itemize{
+\item mean: The calculated mean value of measurements (function checks this for NA values)
+\item flag: Existing quality flags (will be updated by this function)
+}}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the
-'missing data' flag.
+A data frame with the same structure as the input, but with the flag
+column updated to include "missing data" for any rows where the mean value is NA.
 }
 \description{
-A function designed to append the 'missing data' flag to a row if the \code{mean}
-column in that row contains NA values.
+Identifies and flags rows in water quality data where measurements are missing (NA values).
+This function helps maintain data quality by explicitly marking gaps in the continuous
+monitoring record, allowing downstream analysis to properly handle these missing values.
 }
 \examples{
-add_range_flags(df = all_data_flagged$`archery-Actual Conductivity`)
-add_range_flags(df = all_data_flagged$`boxelder-Temperature`)
+# Flag missing conductivity measurements
+archery_conductivity_flagged <- add_na_flag(df = all_data_flagged$`archery-Actual Conductivity`)
+
+# Flag missing temperature measurements
+boxelder_temp_flagged <- add_na_flag(df = all_data_flagged$`boxelder-Temperature`)
+
+}
+\seealso{
+\code{\link[=add_flag]{add_flag()}}
 }

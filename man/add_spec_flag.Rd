@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_spec_flag.R
 \name{add_spec_flag}
 \alias{add_spec_flag}
-\title{Add a flag if the value of a parameter exceeds its sensor specification range.}
+\title{Flag data outside sensor specification ranges}
 \usage{
 add_spec_flag(
   df,
@@ -10,26 +10,46 @@ add_spec_flag(
 )
 }
 \arguments{
-\item{df}{A data frame with a \code{flag} column.}
+\item{df}{A data frame containing water quality measurements. Must include columns:
+\itemize{
+\item \code{parameter}: The measurement type (e.g., "Temperature", "DO", "Actual Conductivity")
+\item \code{mean}: The calculated mean value of measurements
+\item \code{flag}: Existing quality flags (will be updated by this function)
+}}
 
-\item{spec_table}{file containing In-Situ spec ranges for each sensor}
+\item{spec_table}{The path to a YAML file containing sensor specification thresholds,
+or a pre-loaded list of thresholds. Default is \code{"data/qaqc/sensor_spec_thresholds.yml"}.
+The file should be structured with parameter names as top-level keys, each containing
+'min' and 'max' subkeys defining the acceptable range.}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the
-'outside of sensor specification range' flag.
+A data frame with the same structure as the input, but with the flag
+column updated to include "outside of sensor specification range" for any
+measurements that exceed manufacturer specifications.
 }
 \description{
-A function designed to append the 'outside of sensor specification range' flag to
-a row if the \code{mean} column in that row exceeds the sensor specification ranges that are
-set in the \code{src/qaqc/sensor_spec_thresholds.yml} file. These are instances
-where a value exceeds the expected ranges for the Poudre based on the sensor
-manufacturer's specifications.
+Identifies and flags water quality measurements that fall outside the manufacturer's
+specified operating ranges for each sensor type. These flags help distinguish between
+extreme but valid environmental conditions and readings that exceed the sensor's
+technical capabilities, which may be less reliable.
+
+The function references predefined minimum and maximum threshold values stored in
+a configuration file (by default in \code{'data/qaqc/sensor_spec_thresholds.yml'}). When
+measurements in the \code{mean} column fall below the minimum or above the maximum
+specification for that particular parameter, the function adds an appropriate quality flag.
 }
 \examples{
-add_spec_flag(df = all_data_flagged$`archery-Actual Conductivity`)
-add_spec_flag(df = all_data_flagged$`boxelder-Temperature`)
+# Flag conductivity measurements outside sensor specifications
+archery_conductivity_flagged <- add_spec_flag(df = all_data_flagged$`archery-Actual Conductivity`)
+
+# Flag temperature measurements outside sensor specifications
+boxelder_temp_flagged <- add_spec_flag(df = all_data_flagged$`boxelder-Temperature`)
+
+# Use custom specification thresholds
+custom_specs <- yaml::read_yaml("path/to/custom/thresholds.yml")
+custom_flagged <- add_spec_flag(df = all_data_flagged$`riverbluffs-DO`, spec_table = custom_specs)
 
 }
 \seealso{
-\code{\link[=flag_all_data]{flag_all_data()}}
+\code{\link[=add_flag]{add_flag()}} For the underlying function that adds flags
 }

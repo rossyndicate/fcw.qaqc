@@ -2,20 +2,64 @@
 % Please edit documentation in R/add_depth_shift_flag.R
 \name{add_depth_shift_flag}
 \alias{add_depth_shift_flag}
-\title{Add a depth shift flag}
+\title{Flag periods when sonde depth was changed}
 \usage{
 add_depth_shift_flag(df, level_shift_table, post2024 = TRUE)
 }
 \arguments{
-\item{df}{A data frame with a \code{flag} column.}
+\item{df}{A data frame containing water quality measurements. Must include columns:
+\itemize{
+\item \code{site}: Standardized site name
+\item \code{DT_join}: Character timestamp in a format compatible with joining to field notes
+\item \code{flag}: Existing quality flags (will be updated by this function)
+\item \code{sonde_moved}: Boolean field indicating if sonde was moved (only required when \code{post2024 = TRUE})
+}}
 
-\item{level_shift_table}{The data frame containing information about when the sonde was shifted.}
+\item{level_shift_table}{A data frame containing field notes with information about
+when sondes were physically moved. When \code{post2024 = FALSE}, must include columns:
+\itemize{
+\item \code{site}: Site name matching the df site column
+\item \code{DT_join}: Timestamp of the sonde movement
+\item \code{type}: Field identifying records where type = "sonde moved"
+}}
 
-\item{post2024}{Whether the data in the QAQC pipeline is before (FALSE) or after (TRUE) the 2024 field season.}
+\item{post2024}{Logical value indicating whether the data is from before (FALSE) or
+after (TRUE) the 2024 field season. Default is TRUE.}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the "sonde moved" flag.
+A data frame with the same structure as the input, plus an additional
+\code{depth_change} column containing "sonde moved" flags where applicable.
 }
 \description{
-A function for determining when sonde was moved in its housing
+Identifies and flags time periods when sondes were physically
+moved or repositioned in their housings. Sonde depth changes can affect multiple
+parameters and cause discontinuities in the data that aren't related to actual
+environmental changes.
+
+The function handles two different data processing workflows:
+\itemize{
+\item Pre-2024 data: Uses a separate table that tracks when sondes were moved
+\item Post-2024 data: Uses information already integrated into field notes
+through the \code{sonde_moved} boolean field
+}
+}
+\examples{
+# Flag depth changes in post-2024 data
+riverbluffs_do_flagged <- add_depth_shift_flag(
+  df = combined_data$`riverbluffs-DO`, 
+  level_shift_table = all_field_notes
+)
+
+# Flag depth changes in pre-2024 historical data
+historical_do_flagged <- add_depth_shift_flag(
+  df = historical_data$`riverbluffs-DO`,
+  level_shift_table = depth_shift_records,
+  post2024 = FALSE
+)
+
+}
+\seealso{
+\code{\link[=add_field_flag]{add_field_flag()}}
+
+\code{\link[=add_flag]{add_flag()}}
 }

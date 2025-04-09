@@ -2,22 +2,52 @@
 % Please edit documentation in R/tidy_api_data.R
 \name{tidy_api_data}
 \alias{tidy_api_data}
-\title{Summarize site parameter data from the API}
+\title{Process and summarize site-parameter combinations from API data}
 \usage{
 tidy_api_data(api_data, summarize_interval = "15 minutes")
 }
 \arguments{
-\item{api_data}{A dataframe with the munged API data.}
+\item{api_data}{A dataframe containing processed data for a single
+site-parameter combination, typically a single element from the list
+returned by splitting the munge_api_data() output.}
 
-\item{summarize_interval}{At what time interval the user would like the data set to be aggregated and rounded to. Default is 15 minutes}
-
-\item{site_arg}{A site name.}
-
-\item{parameter_arg}{A parameter name.}
+\item{summarize_interval}{Character string specifying the time interval for
+aggregating and rounding data points. Default is "15 minutes". Accepts any
+interval format compatible with padr::pad() like "1 hour", "30 mins", etc.}
 }
 \value{
-A dataframe with summary statistics for a given site parameter data frame
+A dataframe containing processed time series data with consistent
+time intervals and summary statistics:
+\itemize{
+\item DT_round: Rounded timestamp defining each time interval
+\item site: Monitoring location identifier
+\item parameter: Measurement type (e.g., "Temperature", "DO")
+\item units: Measurement units (e.g., "°C", "mg/L")
+\item mean: Average value for the interval
+\item spread: Range of values within the interval (max - min)
+\item n_obs: Number of observations in each interval
+\item DT_join: Character representation of DT_round for joining operations
+\item flag: Empty column for subsequent quality control flagging
+}
 }
 \description{
-A function that summarizes and joins site parameter data from the API
+Transforms raw water quality monitoring data for a specific site-parameter
+combination into a standardized time series with consistent intervals and
+summary statistics. This function handles the essential task of converting
+potentially irregular raw sensor readings into evenly-spaced time series
+data required for effective quality control and analysis. The function
+calculates mean values, data spread, and observation counts for each time
+interval, then ensures a complete time series by filling in any missing
+intervals with NA values.
+}
+\examples{
+# Process Temperature data for riverbluffs site with 15-minute intervals
+riverbluffs_temp <- new_data[["riverbluffs-Temperature"]] \%>\%
+  tidy_api_data(summarize_interval = "15 minutes")
+
+}
+\seealso{
+\code{\link[=munge_api_data]{munge_api_data()}}
+
+\code{\link[=combine_datasets]{combine_datasets()}}
 }

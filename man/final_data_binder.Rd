@@ -2,18 +2,41 @@
 % Please edit documentation in R/final_data_binder.R
 \name{final_data_binder}
 \alias{final_data_binder}
-\title{Update Historical Flag List}
+\title{Combine new and historical water quality data}
 \usage{
 final_data_binder(new_flagged_data, historical_flagged_data)
 }
 \arguments{
-\item{new_flagged_data}{A list of data frames that have been flagged.}
+\item{new_flagged_data}{A list of dataframes containing newly processed and flagged
+water quality data. Each list element should be named with a site-parameter combination
+(e.g., "riverbluffs-Temperature") and include a \code{historical} column indicating which
+records overlap with the historical dataset.}
 
-\item{historical_flagged_data}{A list of data frames that have been flagged.}
+\item{historical_flagged_data}{A list of dataframes containing previously processed
+water quality data. Each list element should be named with a site-parameter combination
+matching elements in \code{new_flagged_data}.}
 }
 \value{
-A list of data frames that have been updated with new flagged data.
+A list of dataframes containing the merged data, with dataframes named by
+site-parameter combinations. Records in the 24-hour overlap period will retain flags
+from the new data.
 }
 \description{
-A function that updates the historical flag list with new flagged data.
+Merges newly processed water quality data with the existing historical dataset,
+handling the overlap period appropriately. This function ensures continuity in
+the long-term dataset while incorporating the latest quality control flags.
+
+The function handles a 24-hour overlap period specifically, where new data may
+contain updated flags for historical data based on context that wasn't available
+during previous processing runs.
+}
+\examples{
+# Combine new flagged data with historical records
+updated_dataset <- final_data_binder(
+  new_flagged_data = final_flags,
+  historical_flagged_data = historical_data
+)
+
+# Save the updated dataset
+saveRDS(updated_dataset, "data/pwqn_data.RDS")
 }

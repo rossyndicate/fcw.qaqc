@@ -2,26 +2,42 @@
 % Please edit documentation in R/add_frozen_flag.R
 \name{add_frozen_flag}
 \alias{add_frozen_flag}
-\title{Add a flag if the water temperature is freezing.}
+\title{Flag measurements taken during freezing conditions}
 \usage{
 add_frozen_flag(df)
 }
 \arguments{
-\item{df}{A data frame with a \code{flag} column.}
+\item{df}{A data frame containing all parameters for a single site. Must include columns:
+\itemize{
+\item \code{DT_round}: Timestamp for each measurement
+\item \code{DT_join}: Character timestamp used for joining
+\item \code{parameter}: Measurement type (function looks for "Temperature")
+\item \code{mean}: The calculated mean value of measurements
+\item \code{flag}: Existing quality flags (will be updated by this function)
+}}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the
-'frozen' flag.
+A data frame with the same structure as the input, but with the \code{flag}
+column updated to include "frozen" for all parameters when water temperature
+is at or below 0°C.
 }
 \description{
-A function designed to append the 'frozen' flag to a row if the value
-in the \code{mean} column is less than or equal to 0.
+Identifies and flags water quality measurements collected when water temperature
+was at or below freezing (0°C). This function helps identify periods when ice formation
+may affect sensor readings across all parameters at a site.
+
+Unlike most flagging functions that operate on individual parameters, this function
+requires a site-level dataframe containing temperature data and applies freezing
+flags across all parameters.
 }
 \examples{
-add_frozen_flag(df = all_data_flagged$`archery-Actual Conductivity`)
-add_frozen_flag(df = all_data_flagged$`boxelder-Temperature`)
+# Flag freezing conditions at the archery site
+archery_flagged <- add_frozen_flag(df = all_data_flagged$archery)
+
+# Flag freezing conditions at the boxelder site
+boxelder_flagged <- add_frozen_flag(df = all_data_flagged$boxelder)
 
 }
 \seealso{
-\code{\link[=flag_all_data]{flag_all_data()}}
+\code{\link[=add_flag]{add_flag()}}
 }

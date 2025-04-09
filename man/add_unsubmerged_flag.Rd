@@ -2,26 +2,39 @@
 % Please edit documentation in R/add_unsubmerged_flag.R
 \name{add_unsubmerged_flag}
 \alias{add_unsubmerged_flag}
-\title{Add a flag if the sonde was not fully submerged by water.}
+\title{Flag measurements when sonde was not fully submerged}
 \usage{
 add_unsubmerged_flag(df)
 }
 \arguments{
-\item{df}{A data frame with a \code{flag} column.}
+\item{df}{A dataframe containing all parameters for a single site. Must include columns:
+\itemize{
+\item \code{parameter}: Measurement type (function requires "Depth" parameter to be present)
+\item \code{DT_join}: Character timestamp used for joining
+\item \code{mean}: The calculated mean value of measurements
+\item \code{flag}: Existing quality flags (will be updated by this function)
+}}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the
-'sonde unsubmerged' flag.
+A dataframe with the same structure as the input, but with the \code{flag}
+column updated to include "sonde unsubmerged" for all parameters when depth
+readings indicate the sonde was not fully underwater.
 }
 \description{
-A function designed to append the 'unsubmerged' flag to a row if the value
-in the \code{relative_depth} column is less than or equal to 0.
+Identifies and flags water quality measurements collected when the monitoring
+sonde was not fully submerged in water. This function uses depth sensor readings
+to determine submersion status and applies flags across all parameters measured
+at the same time. The data will be flagged if the value in the \code{relative_depth}
+column is less than or equal to 0.
 }
 \examples{
-add_unsubmerged_flag(df = all_data_flagged$`archery-Actual Conductivity`)
-add_unsubmerged_flag(df = all_data_flagged$`boxelder-Temperature`)
+# Flag unsubmerged periods at the riverbluffs site
+riverbluffs_flagged <- add_unsubmerged_flag(df = all_data_flagged$riverbluffs)
+
+# Flag unsubmerged periods at the boxelder site
+boxelder_flagged <- add_unsubmerged_flag(df = all_data_flagged$boxelder)
 
 }
 \seealso{
-\code{\link[=flag_all_data]{flag_all_data()}}
+\code{\link[=add_flag]{add_flag()}}
 }

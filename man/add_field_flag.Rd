@@ -2,27 +2,52 @@
 % Please edit documentation in R/add_field_flag.R
 \name{add_field_flag}
 \alias{add_field_flag}
-\title{Add field related flags to a data frame based on field notes.}
+\title{Flag data periods affected by field activities}
 \usage{
 add_field_flag(df)
 }
 \arguments{
-\item{df}{A data frame with a \code{flag} column.}
+\item{df}{A dataframe containing water quality data with field notes already
+joined. Must include columns:
+\itemize{
+\item flag: Existing quality flags
+\item sonde_employed: Binary indicator of sonde deployment status (1 = not in water)
+\item last_site_visit: Timestamp of the most recent site visit
+\item DT_round: Rounded timestamp for each data record
+}}
 }
 \value{
-A data frame with a \code{flag} column that has been updated with the
-relevant field note flags.
+A dataframe with the same structure as the input, but with the flag
+column updated to include "sonde not employed", "site visit", and/or "sv window"
+flags as appropriate.
 }
 \description{
-A function that checks 3 different and separate conditions related to the
-field notes and adds the corresponding flags accordingly. The "sonde not
-employed" flag is added if the sonde was not employed at the site.
-"site visit" flag is added if the last site visit date is the same as the
-date of the data. "sv window" flag is added if site visit flag is detected
-within a 75 minute window before (15 mins) and after (60 mins). Note that this function will only work on data
-that has already been joined to field notes.
+Identifies and flags time periods in water quality data that are affected by
+field activities such as sensor maintenance, calibration, or deployment changes.
+This function marks three distinct conditions related to field operations:
+\enumerate{
+\item "sonde not employed" - Periods when the sensor was physically removed from
+the water body (indicated by sonde_employed = 1 in field notes)
+\item "site visit" - Exact timestamps when field technicians were actively
+working with the equipment on site
+\item "sv window" - A buffer period around site visits (15 minutes before and
+60 minutes after) when data may be affected by field activities
+}
+
+These flags identify periods when readings may not reflect natural environmental
+conditions due to human interference. The function requires that field notes
+have already been joined to the water quality data.
 }
 \examples{
-add_range_flags(df = all_data_flagged$`archery-Actual Conductivity`)
-add_range_flags(df = all_data_flagged$`boxelder-Temperature`)
+# Flag field activities in dissolved oxygen data for riverbluffs site
+riverbluffs_do_flagged <- add_field_flag(df = combined_data$`riverbluffs-DO`)
+
+# Flag field activities in temperature data for boxelder site
+boxelder_temp_flagged <- add_field_flag(df = combined_data$`boxelder-Temperature`)
+
+}
+\seealso{
+\code{\link[=add_field_notes]{add_field_notes()}}
+
+\code{\link[=add_flag]{add_flag()}}
 }

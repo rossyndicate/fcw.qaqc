@@ -10,13 +10,40 @@ load_mWater(
 )
 }
 \arguments{
-\item{creds}{A .yml file with necessary credentials for accessing the field notes. Contact Sam Struthers if you need access.}
+\item{creds}{A .yml file with necessary credentials for accessing the field
+notes. Must contain a 'url' field.}
 
-\item{summarize_interval}{At what time interval the user would like the data set to be aggregated and rounded to. Default is 15 minutes.}
+\item{summarize_interval}{Character string specifying the time interval to round timestamps to.
+Default is "15 minutes". Accepts any interval format compatible with
+lubridate::floor_date() like "1 hour", "30 mins", etc.}
 }
 \value{
-A dataframe with the field notes.
+A dataframe containing processed field notes with standardized columns:
+\itemize{
+\item site: Standardized site name (lowercase, no spaces)
+\item DT_round: Rounded timestamp for joining with sensor data
+\item start_DT/end_dt: Start and end times of field visits (MST timezone)
+\item visit_type: Type of field visit (standardized)
+\item sensor_pulled/sensor_deployed: Serial numbers of equipment
+\item And various other field observation columns
+}
 }
 \description{
-A function that uploads and cleans the field notes submitted to mWater.
+A function that downloads and cleasn field notes from mWater. This
+funciton handles time zone conversion, standardizes text fields, and prepares
+the data for integration with sonde readings.
+}
+\examples{
+# Load field notes with default 15-minute interval
+field_notes <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
+
+# Load field notes with hourly interval
+hourly_notes <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"),
+                          summarize_interval = "1 hour")
+
+}
+\seealso{
+\code{\link[=grab_mWater_sensor_notes]{grab_mWater_sensor_notes()}}
+
+\code{\link[=grab_mWater_malfunction_notes]{grab_mWater_malfunction_notes()}}
 }
