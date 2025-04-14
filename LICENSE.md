@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2025 pack authors
+Copyright (c) 2025 Kathryn Willi, Juan De La Torre
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

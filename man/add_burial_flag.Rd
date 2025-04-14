@@ -34,9 +34,7 @@ Unlike most flagging functions, this function operates on site-level dataframes
 containing multiple parameters rather than individual site-parameter combinations.
 }
 \examples{
-add_burial_flag(df = site_data$riverbluffs)
-add_burial_flag(df = site_data$boxelder)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_flag]{add_flag()}}

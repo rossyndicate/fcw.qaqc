@@ -1,4 +1,5 @@
 #' @title Flag sequentially repeated measurements
+#' @export
 #'
 #' @description
 #' Identifies and flags water quality measurements that have the exact same value
@@ -16,12 +17,7 @@
 #' either the preceding or following value.
 #'
 #' @examples
-#' # Flag repeated conductivity measurements
-#' archery_conductivity_flagged <- add_repeat_flag(df = all_data_flagged$`archery-Actual Conductivity`)
-#'
-#' # Flag repeated temperature measurements
-#' boxelder_temp_flagged <- add_repeat_flag(df = all_data_flagged$`boxelder-Temperature`)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()]
 
 add_repeat_flag <- function(df){

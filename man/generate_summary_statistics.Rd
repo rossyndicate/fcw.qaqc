@@ -47,16 +47,7 @@ parameter at each site. The 7-point window (covering ~90 minutes for 15-minute
 data) captures short-term patterns while accommodating brief anomalies.
 }
 \examples{
-# Calculate summary statistics for conductivity data at Archery site
-archery_cond_stats <- generate_summary_statistics(
-  site_param_df = combined_data$`archery-Specific Conductivity`
-)
-
-# Calculate summary statistics for temperature data at Boxelder site
-boxelder_temp_stats <- generate_summary_statistics(
-  site_param_df = combined_data$`boxelder-Temperature`
-)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=combine_datasets]{combine_datasets()}}

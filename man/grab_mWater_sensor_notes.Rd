@@ -31,10 +31,7 @@ and explicitly excludes sensor malfunction records, which are handled separately
 \code{grab_mWater_malfunction_notes()}.
 }
 \examples{
-# Load mWater data and extract sensor notes
-mWater_data <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
-sensor_notes <- grab_mWater_sensor_notes(mWater_data)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=load_mWater]{load_mWater()}}

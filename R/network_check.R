@@ -1,4 +1,5 @@
 #' @title Reduce overflagging by comparing across monitoring network
+#' @export
 #'
 #' @description
 #' Identifies and corrects overflagging by comparing data patterns across upstream 
@@ -23,11 +24,7 @@
 #' that contains cleaned flags where network-wide events have been accounted for.
 #'
 #' @examples
-#' # Check for network-wide events in conductivity data
-#' archery_conductivity_checked <- network_check(
-#'   df = intersensor_flags$`archery-Actual Conductivity`, 
-#'   network = "FCW"
-#' )
+#' # Examples are temporarily disabled
 
 network_check <- function(df, network = "all") {
   # Extract site and parameter name from dataframe
@@ -43,22 +40,15 @@ network_check <- function(df, network = "all") {
   
   # Define site order based on spatial arrangement along river
   if(network  %in% c("csu", "CSU", "fcw", "FCW")){
-    sites_order <- c("tamasag", # rist
-                     "legacy",
-                     "lincoln",
-                     "timberline",
-                     "prospect",
-                     "boxelder", # elc
+    sites_order <- c("bellvue", # rist
+                     "salyer",
+                     "udall",
+                     "riverbend",
+                     "cottonwood",
+                     "elc", # elc
                      "archery",
                      "riverbluffs")
-    width_fun = ifelse(site_name == "tamasag", 17, # 2 hours before/after
-                       ifelse(site_name == "legacy", 17,
-                              ifelse(site_name == "lincoln", 17,
-                                     ifelse(site_name == "timberline", 17,
-                                            ifelse(site_name == "prospect", 17,
-                                                   ifelse(site_name == "boxelder", 17,
-                                                          ifelse(site_name == "archery", 17,
-                                                                 ifelse(site_name == "riverbluffs", 17, NA))))))))
+    width_fun = 17 #2 hours before/after
   } else if(network %in% c("all", "All")){
     # More extensive site order for full network
     sites_order <-  c("joei",
@@ -66,37 +56,15 @@ network_check <- function(df, network = "all") {
                       "chd",
                       "pfal",
                       "pbd",
-                      "tamasag",
-                      "legacy",
-                      "lincoln",
-                      "timberline",
-                      #"springcreek",
-                      "prospect",
-                      "boxelder",
-                      #boxcreek,"
+                      "bellvue", # rist
+                      "salyer",
+                      "udall",
+                      "riverbend",
+                      "cottonwood",
+                      "elc", # elc
                       "archery",
                       "riverbluffs")
-    width_fun = ifelse(site_name == "joei", 17, # 2 hours before/after
-                       ifelse(site_name == "cbri", 17,
-                              ifelse(site_name == "chd", 17,
-                                     ifelse(site_name == "pfal", 17,
-                                            ifelse(site_name == "pbd", 17,
-                                                   ifelse(site_name == "sfm", 17,
-                                                          ifelse(site_name == "lbea", 17,
-                                                                 ifelse(site_name == "penn", 17,
-                                                                        ifelse(site_name == "tamasag", 17,
-                                                                               ifelse(site_name == "legacy", 17,
-                                                                                      ifelse(site_name == "lincoln", 17,
-                                                                                             ifelse(site_name == "timberline", 17,
-                                                                                                    ifelse(site_name == "timberline virridy", 17,
-                                                                                                           ifelse(site_name == "springcreek", 17,
-                                                                                                                  ifelse(site_name == "prospect", 17,
-                                                                                                                         ifelse(site_name == "prospect virridy", 17,
-                                                                                                                                ifelse(site_name == "boxelder", 17,
-                                                                                                                                       ifelse(site_name == "boxcreek", 17,
-                                                                                                                                              ifelse(site_name == "archery", 17,
-                                                                                                                                                     ifelse(site_name == "archery virridy", 17,
-                                                                                                                                                            ifelse(site_name == "riverbluffs", 17, NA)))))))))))))))))))))
+    width_fun = 17 # 2 hours before/after
     
     # Special cases for certain site groups
     if(site_name %in% c("penn", "sfm", "lbea")){

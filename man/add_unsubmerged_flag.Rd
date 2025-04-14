@@ -28,12 +28,7 @@ at the same time. The data will be flagged if the value in the \code{relative_de
 column is less than or equal to 0.
 }
 \examples{
-# Flag unsubmerged periods at the riverbluffs site
-riverbluffs_flagged <- add_unsubmerged_flag(df = all_data_flagged$riverbluffs)
-
-# Flag unsubmerged periods at the boxelder site
-boxelder_flagged <- add_unsubmerged_flag(df = all_data_flagged$boxelder)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_flag]{add_flag()}}

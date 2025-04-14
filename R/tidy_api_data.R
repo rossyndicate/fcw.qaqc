@@ -1,4 +1,5 @@
 #' @title Process and summarize site-parameter combinations from API data
+#' @export
 #'
 #' @description
 #' Transforms raw water quality monitoring data for a specific site-parameter
@@ -31,10 +32,7 @@
 #' - flag: Empty column for subsequent quality control flagging
 #'
 #' @examples
-#' # Process Temperature data for riverbluffs site with 15-minute intervals
-#' riverbluffs_temp <- new_data[["riverbluffs-Temperature"]] %>%
-#'   tidy_api_data(summarize_interval = "15 minutes")
-#'
+#' # Examples are temporarily disabled
 #' @seealso [munge_api_data()]
 #' @seealso [combine_datasets()]
 
@@ -43,7 +41,7 @@ tidy_api_data <- function(api_data, summarize_interval = "15 minutes") {
   # Standardize "minutes" to "mins" for compatibility with padr::pad()
   if(grepl("minutes", summarize_interval)){
     summarize_interval <- gsub("minutes", "mins", summarize_interval, 
-                             ignore.case = TRUE)
+                               ignore.case = TRUE)
   }
   
   # Extract site and parameter information from the input data
@@ -66,7 +64,8 @@ tidy_api_data <- function(api_data, summarize_interval = "15 minutes") {
         # Calculate the range of values within this time interval (max - min)
         spread = abs(min(value, na.rm = T) - max(value, na.rm = T)),
         # Count how many observations occurred in this time interval
-        n_obs = n()
+        n_obs = n(),
+        .groups = "drop"
       ) %>%
       dplyr::ungroup() %>%
       dplyr::arrange(DT_round) %>%

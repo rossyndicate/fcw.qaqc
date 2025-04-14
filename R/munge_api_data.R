@@ -1,4 +1,5 @@
 #' @title Process raw API data for water quality monitoring workflow
+#' @export
 #'
 #' @description
 #' Transforms raw CSV files downloaded from the HydroVu API into a standardized
@@ -19,6 +20,8 @@
 #' @param summarize_interval Character string specifying the time interval to
 #' round timestamps to. Default is "15 minutes". Accepts any interval format
 #' compatible with lubridate::round_date().
+#' 
+#' @param fs Logical, whether to use the file system functions
 #'
 #' @return A dataframe containing processed water quality monitoring data with
 #' standardized columns:
@@ -31,27 +34,51 @@
 #' - units: Measurement units (e.g., "°C", "mg/L")
 #'
 #' @examples
-#' # Process data for FCW network with 15-minute intervals
-#' fcw_data <- munge_api_data(api_path = "data/api",
-#'                          network = "FCW",
-#'                          summarize_interval = "15 minutes")
-#'
+#' # Examples are temporarily disabled
 #' @seealso [api_puller()]
 #' @seealso [tidy_api_data()]
 
-munge_api_data <- function(api_path, network, summarize_interval = "15 minutes") {
+munge_api_data <- function(api_path, network, summarize_interval = "15 minutes", 
+                           synapse_env = FALSE, fs = NULL) {
   
-  # Read and combine all CSV files in the specified directory
-  # This creates a single dataframe from potentially many site-specific files
-  api_data <- list.files(path = api_path, full.names = TRUE, 
-                        recursive = TRUE, pattern = "*.csv") %>%
-    purrr::map_dfr(~data.table::fread(.) %>%
-                  dplyr::select(-id)) %>%  # Remove location ID column
-    dplyr::mutate(units = as.character(units)) %>%  # Ensure units is character type
-    # Remove any duplicate rows that might exist from overlapping API pulls
-    dplyr::distinct()
+  if (synapse_env) {
+    
+    # List files in ADLS
+    file_list <- AzureStor::list_adls_files(fs, api_path, info = "name")
+    
+    # check if file list is a list that is not empty
+    
+    # Map files into a dataframe
+    api_data <- map_dfr(file_list, function(adls_path){
+      # set temp file
+      temp_file <- tempfile(fileext = '.csv')
+      
+      # download file from folder into temp file
+      AzureStor::download_adls_file(fs, adls_path, temp_file)
+      
+      # read the temp file with read.csv
+      site_df <- data.table::fread(temp_file) %>% 
+        dplyr::select(-id) 
+      
+      return(site_df)
+    }) %>% 
+      dplyr::mutate(units = as.character(units)) %>%
+      dplyr::distinct()
+    
+  } else {
+    
+    api_data <- map_dfr(list.files(api_path, full.names = TRUE), 
+                        function(file_path) {
+                          site_df <- data.table::fread(file_path) %>% 
+                            dplyr::select(-id)
+                        }) %>% 
+      dplyr::mutate(units = as.character(units)) %>%
+      dplyr::distinct()
+    
+  }
   
   # Apply network-specific processing for CSU/FCW networks
+  # do we need to fix site names here?
   if(network %in% c("csu", "CSU", "FCW", "fcw")){
     api_data <- api_data %>%
       # Filter out VuLink data (not used in CSU/FCW networks)
@@ -75,7 +102,6 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes")
       ) %>%
       
       # Apply site name standardization and handle historical equipment relocations
-      # These adjustments ensure data continuity despite physical changes
       dplyr::mutate(
         # Map alternative site names to standard names
         site = dplyr::case_when(
@@ -87,14 +113,14 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes")
       # Handle a specific case where equipment was moved between sites
       dplyr::mutate(
         site = ifelse(site == "tamasag" & 
-                    DT > lubridate::ymd("2022-09-20", tz = "MST") & 
-                    DT < lubridate::ymd("2023-01-01", tz = "MST"), 
-                    "boxelder", site)
+                        DT > lubridate::ymd("2022-09-20", tz = "MST") & 
+                        DT < lubridate::ymd("2023-01-01", tz = "MST"), 
+                      "boxelder", site)
       ) %>%
       # Standardize "river bluffs" to "riverbluffs" (remove spaces)
       dplyr::mutate(
         site = ifelse(grepl("river bluffs", site, ignore.case = TRUE), 
-                     "riverbluffs", site)
+                      "riverbluffs", site)
       ) %>%
       # Ensure no duplicates after all transformations
       dplyr::distinct(.keep_all = TRUE)
@@ -110,7 +136,6 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes")
       dplyr::select(-name) %>%
       
       # Apply the same timestamp and site name standardization
-      # But retain Virridy sondes in the dataset
       dplyr::mutate(DT = lubridate::as_datetime(timestamp, tz = "UTC")) %>%
       dplyr::mutate(
         DT = lubridate::with_tz(DT, tzone = "MST"),
@@ -122,13 +147,13 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes")
       # Apply the same site name standardization and equipment relocation handling
       dplyr::mutate(
         site = ifelse(site == "rist", "tamasag",
-                    ifelse(site == "elc", "boxelder", site))
+                      ifelse(site == "elc", "boxelder", site))
       ) %>%
       dplyr::mutate(
         site = ifelse(site == "tamasag" & 
-                    DT > lubridate::ymd("2022-09-20", tz = "MST") & 
-                    DT < lubridate::ymd("2023-01-01", tz = "MST"), 
-                    "boxelder", site)
+                        DT > lubridate::ymd("2022-09-20", tz = "MST") & 
+                        DT < lubridate::ymd("2023-01-01", tz = "MST"), 
+                      "boxelder", site)
       ) %>%
       # Ensure no duplicates after all transformations
       dplyr::distinct(.keep_all = TRUE)

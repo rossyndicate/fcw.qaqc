@@ -35,17 +35,12 @@ detection logic while delegating the actual flag application to this centralized
 function, ensuring consistent flag formatting throughout the system.
 }
 \examples{
-# Flag values over 25 as potentially unreliable
-df <- add_flag(water_data, mean > 25, "value exceeds typical range")
-
-# Flag missing values
-df <- add_flag(water_data, is.na(mean), "missing data")
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_burial_flag]{add_burial_flag()}}
 
-\code{\link[=add_depth_shit_flag]{add_depth_shit_flag()}}
+\code{\link[=add_depth_shift_flag]{add_depth_shift_flag()}}
 
 \code{\link[=add_drift_flag]{add_drift_flag()}}
 

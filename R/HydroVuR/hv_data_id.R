@@ -1,4 +1,5 @@
 #' @title Retrieve time series data for a specific HydroVu location
+#' @export
 #'
 #' @description
 #' Fetches water quality monitoring data for a specific location ID from the 
@@ -41,19 +42,7 @@
 #' The data is arranged by Parameter and timestamp for easy analysis.
 #'
 #' @examples
-#' # Authenticate with HydroVu
-#' hv_token <- hv_auth(client_id = "your_client_id", client_secret = "your_client_secret")
-#'
-#' # Get all locations
-#' locations <- hv_locations_all(hv_token)
-#'
-#' # Retrieve data for first location in the list
-#' site_data <- hv_data_id(loc_id = locations$id[1],
-#'                         start_time = "2023-01-01 00:00:00",
-#'                         end_time = "2023-01-02 00:00:00",
-#'                         tz = "UTC",
-#'                         token = hv_token)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [hv_auth()]
 #' @seealso [hv_locations_all()]
 #' @seealso [api_puller()]

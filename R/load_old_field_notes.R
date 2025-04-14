@@ -1,4 +1,5 @@
 #' @title Load and tidy old field notes
+#' @export
 #'
 #' @description A function that uploads and cleans the field notes excel file. This function adds datetime
 #' columns to the field notes dataframe and filters out field notes where the sensor

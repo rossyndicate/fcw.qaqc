@@ -31,12 +31,5 @@ contain updated flags for historical data based on context that wasn't available
 during previous processing runs.
 }
 \examples{
-# Combine new flagged data with historical records
-updated_dataset <- final_data_binder(
-  new_flagged_data = final_flags,
-  historical_flagged_data = historical_data
-)
-
-# Save the updated dataset
-saveRDS(updated_dataset, "data/pwqn_data.RDS")
+# Examples are temporarily disabled
 }

@@ -1,4 +1,5 @@
 #' @title Flag measurements when sonde was not fully submerged
+#' @export
 #'
 #' @description
 #' Identifies and flags water quality measurements collected when the monitoring
@@ -18,12 +19,7 @@
 #' readings indicate the sonde was not fully underwater.
 #'
 #' @examples
-#' # Flag unsubmerged periods at the riverbluffs site
-#' riverbluffs_flagged <- add_unsubmerged_flag(df = all_data_flagged$riverbluffs)
-#'
-#' # Flag unsubmerged periods at the boxelder site
-#' boxelder_flagged <- add_unsubmerged_flag(df = all_data_flagged$boxelder)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()]
 
 add_unsubmerged_flag <- function(df){

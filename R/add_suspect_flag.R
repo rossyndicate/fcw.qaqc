@@ -1,4 +1,5 @@
 #' @title Flag suspect data based on context patterns
+#' @export
 #'
 #' @description
 #' Identifies and flags potentially problematic measurements that appear valid in isolation 
@@ -20,11 +21,7 @@
 #' specified conditions.
 #'
 #' @examples
-#' # Flag suspect data in conductivity measurements
-#' archery_conductivity_flagged <- add_suspect_flag(df = final_flags$`archery-Actual Conductivity`)
-#'
-#' # Flag suspect data in temperature measurements
-#' boxelder_temp_flagged <- add_suspect_flag(df = final_flags$`boxelder-Temperature`)
+#' # Examples are temporarily disabled
 
 add_suspect_flag <- function(df) {
   # Define flags that should be excluded from the suspect data analysis

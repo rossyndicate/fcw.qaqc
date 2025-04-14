@@ -4,7 +4,16 @@
 \alias{api_puller}
 \title{Download water quality data from HydroVu API}
 \usage{
-api_puller(site, network, start_dt, end_dt = Sys.time(), api_token, dump_dir)
+api_puller(
+  site,
+  network,
+  start_dt,
+  end_dt = Sys.time(),
+  api_token,
+  dump_dir,
+  synapse_env = FALSE,
+  fs = NULL
+)
 }
 \arguments{
 \item{site}{Character string or vector specifying the site name(s) to download
@@ -27,6 +36,8 @@ for authentication with the HydroVu API.}
 
 \item{dump_dir}{Character string specifying the directory path where
 downloaded CSV files should be saved.}
+
+\item{fs}{Logical, whether to use the file system functions}
 }
 \value{
 No direct return value. The function writes CSV files to the specified
@@ -43,20 +54,7 @@ with appropriate filtering applied depending on the network. It also handles
 special cases such as sites with multiple sondes from different networks.
 }
 \examples{
-# Get start dates from historical data
-start_dates <- get_start_dates(incoming_historically_flagged_data_list = historical_data)
-
-# Authenticate with HydroVu
-hv_token <- hv_auth(client_id = as.character(hv_creds["client"]),
-                    client_secret = as.character(hv_creds["secret"]))
-
-# Download data for a specific site
-api_puller(site = "riverbluffs",
-           network = "FCW", 
-           start_dt = start_dates$DT_round[start_dates$site == "riverbluffs"],
-           api_token = hv_token,
-           dump_dir = "data/api")
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=get_start_dates]{get_start_dates()}}

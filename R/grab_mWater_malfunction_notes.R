@@ -1,4 +1,5 @@
 #' @title Extract sensor malfunction records from mWater field data
+#' @export
 #'
 #' @description
 #' Processes mWater field data to extract and format records specifically related to
@@ -19,10 +20,7 @@
 #' - notes: Technician observations about the malfunction
 #'
 #' @examples
-#' # Load mWater data and extract malfunction records
-#' mWater_data <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
-#' malfunction_data <- grab_mWater_malfunction_notes(mWater_data)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [load_mWater()]
 #' @seealso [add_malfunction_flag()]
 

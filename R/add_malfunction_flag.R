@@ -1,4 +1,5 @@
 #' @title Flag known sensor malfunctions from field notes
+#' @export
 #'
 #' @description
 #' Adds malfunction flags to water quality data based on field technician observations
@@ -26,13 +27,9 @@
 #' containing descriptions of malfunction types for affected measurements.
 #'
 #' @examples
-#' # Flag known malfunctions in dissolved oxygen data
-#' riverbluffs_do_flagged <- add_malfunction_flag(
-#'   df = intersensor_flags$`riverbluffs-DO`,
-#'   malfunction_records = sensor_malfunction_notes
-#' )
-#'
+#' # Examples are temporarily disabled
 #' @seealso [grab_mWater_malfunction_notes()]
+
 add_malfunction_flag <- function(df, malfunction_records){
   
   # Extract unique site and parameter from input dataframe
@@ -61,7 +58,7 @@ add_malfunction_flag <- function(df, malfunction_records){
                     grepl("not submerged", notes, ignore.case = TRUE)) %>%
     # Handle ongoing malfunctions (no end date)
     dplyr::mutate(end_DT = ifelse(is.na(end_DT), lubridate::ymd_hms("9999-12-31 23:59:59", tz = "MST"), end_DT)) %>%
-    dplyr::mutate(end_DT = as.POSIXct(end_DT, tz = "MST")) %>%
+    dplyr::mutate(end_DT = as.POSIXct(end_DT, tz = "MST", origin = "1970-01-01")) %>%
     tibble::rowid_to_column()
   
   # Special handling for ORP parameter, which is affected by pH sensor issues
@@ -73,12 +70,12 @@ add_malfunction_flag <- function(df, malfunction_records){
                       grepl("buried|burial|bury|sediment|roots", notes, ignore.case = TRUE) | 
                       grepl("not submerged", notes, ignore.case = TRUE)) %>%
       dplyr::mutate(end_DT = ifelse(is.na(end_DT), lubridate::ymd_hms("9999-12-31 23:59:59", tz = "MST"), end_DT)) %>%
-      dplyr::mutate(end_DT = as.POSIXct(end_DT, tz = "MST")) %>%
+      dplyr::mutate(end_DT = as.POSIXct(end_DT, tz = "MST", origin = "1970-01-01")) %>%
       tibble::rowid_to_column()
   }
   
   # Only process if there are relevant malfunction records
-  if (nrow(malfunction_records_filtered > 0)) {
+  if (nrow(malfunction_records_filtered) > 0) {
     
     # Categorize malfunctions into specific types based on notes
     

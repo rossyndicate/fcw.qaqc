@@ -1,4 +1,5 @@
 #' @title Flag data outside sensor specification ranges
+#' @export
 #'
 #' @description
 #' Identifies and flags water quality measurements that fall outside the manufacturer's 
@@ -26,16 +27,7 @@
 #' measurements that exceed manufacturer specifications.
 #'
 #' @examples
-#' # Flag conductivity measurements outside sensor specifications
-#' archery_conductivity_flagged <- add_spec_flag(df = all_data_flagged$`archery-Actual Conductivity`)
-#'
-#' # Flag temperature measurements outside sensor specifications
-#' boxelder_temp_flagged <- add_spec_flag(df = all_data_flagged$`boxelder-Temperature`)
-#'
-#' # Use custom specification thresholds
-#' custom_specs <- yaml::read_yaml("path/to/custom/thresholds.yml")
-#' custom_flagged <- add_spec_flag(df = all_data_flagged$`riverbluffs-DO`, spec_table = custom_specs)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()] For the underlying function that adds flags
 
 add_spec_flag <- function(df, spec_table = yaml::read_yaml("data/qaqc/sensor_spec_thresholds.yml")){

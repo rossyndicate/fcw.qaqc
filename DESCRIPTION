@@ -1,9 +1,17 @@
-Package: pack
+Package: fcw.qaqc
 Type: Package
-Title: What the Package Does in One 'Title Case' Line
+Title: Quality Assurance and Quality Control for Fort Collins Poudre Sonde Network Data
 Version: 1.0
 Date: 2025-02-12
-Description: One paragraph description of what the package does as one or more full sentences.
+Authors@R: c(
+    person("Kathryn Willi", email = "Kathryn.Willi@colostate.edu", 
+           role = c("aut", "cre")),
+    person("Juan De La Torre", email = "Juan.DeLaTorre@colostate.edu", 
+           role = "aut")
+  )
+Description: Tools for processing, flagging, and analyzing water quality data 
+    from the Fort Collins Watershed monitoring network. This package provides 
+    functions for data validation, quality control flagging, and summary statistics.
 License: MIT 
 Encoding: UTF-8
 LazyData: true
@@ -12,23 +20,19 @@ RoxygenNote: 7.3.2
 Imports: 
     data.table,
     tidyverse,
-    rvest,
-    readxl,
     lubridate,
     zoo,
     padr,
     stats,
-    plotly,
-    feather,
     RcppRoll,
     yaml,
-    ggpubr,
-    profvis,
     janitor,
     Rcpp,
-    magrittr
+    magrittr,
+    dplyr,
+    purrr,
+    rlang,
+    httr2
 Suggests: 
-    rmarkdown,
-    knitr,
-    ggplot2
-VignetteBuilder: knitr
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

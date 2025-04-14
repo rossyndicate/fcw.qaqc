@@ -44,19 +44,7 @@ through the \code{sonde_moved} boolean field
 }
 }
 \examples{
-# Flag depth changes in post-2024 data
-riverbluffs_do_flagged <- add_depth_shift_flag(
-  df = combined_data$`riverbluffs-DO`, 
-  level_shift_table = all_field_notes
-)
-
-# Flag depth changes in pre-2024 historical data
-historical_do_flagged <- add_depth_shift_flag(
-  df = historical_data$`riverbluffs-DO`,
-  level_shift_table = depth_shift_records,
-  post2024 = FALSE
-)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_field_flag]{add_field_flag()}}

@@ -38,12 +38,7 @@ The function uses a separate \code{mal_flag} column rather than the standard \co
 allowing malfunction information to be treated differently in downstream processing.
 }
 \examples{
-# Flag known malfunctions in dissolved oxygen data
-riverbluffs_do_flagged <- add_malfunction_flag(
-  df = intersensor_flags$`riverbluffs-DO`,
-  malfunction_records = sensor_malfunction_notes
-)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=grab_mWater_malfunction_notes]{grab_mWater_malfunction_notes()}}

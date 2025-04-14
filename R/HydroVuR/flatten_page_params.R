@@ -1,4 +1,5 @@
 #' @title Process paginated parameter readings from HydroVu API responses
+#' @export
 #'
 #' @description
 #' Transforms the complex nested structure of a HydroVu API response page into a
@@ -14,12 +15,7 @@
 #' and value.
 #'
 #' @examples
-#' # Process a single page
-#' page_df <- flatten_page_params(data[[1]])
-#'
-#' # Process all pages
-#' all_data <- purrr::map_dfr(data, flatten_page_params)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [hv_data_id()]
 
 flatten_page_params <- function(page_data) {

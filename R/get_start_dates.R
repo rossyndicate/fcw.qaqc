@@ -1,5 +1,5 @@
-#' @title Get the start dates for the HydroVu API pull from the historically
-#' flagged data
+#' @title Get the start dates for the HydroVu API pull from the historically flagged data
+#' @export
 #'
 #' @description
 #' This function finds the most recent timestamp (max datetime) in the Temperature 
@@ -22,26 +22,62 @@
 #' reading for each site, which will be used as the start date for new API pulls
 #'
 #' @examples
-#' # Get start dates from historical data
-#' start_dates <- get_start_dates(incoming_historically_flagged_data_list = historical_data)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [api_puller()]
 #' @seealso [munge_api_data()]
 
 get_start_dates <- function(incoming_historically_flagged_data_list) {
   
+  # Create the start date directly in Denver time
+  denver_date <- as.POSIXct(paste0(lubridate::year(Sys.time()), "-03-01"), tz = "America/Denver")
+  
+  # Convert the start date to UTC for API use
+  converted_start_DT <- lubridate::with_tz(denver_date, "UTC")
+  
+  # Generate the default start dates tibble
+  default_start_dates <- tibble(
+    site = c("bellvue", # rist
+             "salyer",
+             "udall",
+             "riverbend",
+             "cottonwood",
+             "elc", # elc
+             "archery",
+             "riverbluffs"),
+    start_DT = converted_start_DT, 
+    end_DT = as.POSIXct(Sys.time(), tz = "UTC") 
+  )
+  
   # Extract only the Temperature parameter dataframes from the historical data list
   temperature_subset <- grep("Temperature", names(incoming_historically_flagged_data_list))
   
-  # For each site's Temperature dataframe, extract the most recent timestamp
-  start_dates_df <- purrr::map_dfr(incoming_historically_flagged_data_list[temperature_subset],
-                                  function(temperature_df){
-                                    temperature_df %>%
-                                      # Select only the timestamp and site columns
-                                      dplyr::select(DT_round, site) %>%
-                                      # Filter to keep only the row with the maximum (most recent) timestamp
-                                      dplyr::filter(DT_round == max(DT_round))
-                                  })
   
-  return(start_dates_df)
+  if (length(incoming_historically_flagged_data_list) > 0) {
+    
+    # Extract each sites most recent timestamp based on their temperature data
+    historical_start_dates_df <- incoming_historically_flagged_data_list[temperature_subset] %>% 
+      dplyr::bind_rows(.) %>% 
+      dplyr::mutate(DT_round = lubridate::with_tz(DT_round, "UTC")) %>% 
+      dplyr::group_by(site) %>% 
+      dplyr::slice_max(DT_round) %>% 
+      dplyr::select(start_DT = DT_round, site) %>% 
+      dplyr::ungroup()
+    
+    # update default df
+    final_start_dates_df <- default_start_dates %>% 
+      left_join(historical_start_dates_df, by = "site") %>% 
+      mutate(start_DT = coalesce(start_DT.y, start_DT.x),
+             end_DT = as.POSIXct(Sys.time(), tz = "UTC") ) %>% 
+      select(-c(start_DT.y, start_DT.x)) %>% 
+      relocate(site, start_DT, end_DT)
+    
+    return(final_start_dates_df)
+    
+  } else { 
+    
+    # If the historical data is empty, default to default_start_dates
+    final_start_dates_df <- default_start_dates
+    
+    return(final_start_dates_df)
+  }
 }

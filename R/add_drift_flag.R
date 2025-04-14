@@ -1,4 +1,5 @@
 #' @title Flag sensor drift in optical measurements
+#' @export
 #'
 #' @description
 #' Identifies and flags periods when optical sensors show evidence of progressive drift,
@@ -23,15 +24,7 @@
 #' column updated to include "drift" for periods showing evidence of sensor drift.
 #'
 #' @examples
-#' # Flag drift in turbidity measurements
-#' turbidity_flagged <- add_drift_flag(df = all_data_summary_stats_list$`riverbluffs-Turbidity`)
-#'
-#' # Flag drift in chlorophyll measurements
-#' chlorophyll_flagged <- add_drift_flag(df = all_data_summary_stats_list$`boxelder-Chl-a Fluorescence`)
-#'
-#' # Function will not modify non-optical parameter data
-#' temperature_data <- add_drift_flag(df = all_data_summary_stats_list$`riverbluffs-Temperature`)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()]
 
 add_drift_flag <- function(df){

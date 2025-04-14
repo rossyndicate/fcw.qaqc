@@ -2,8 +2,7 @@
 % Please edit documentation in R/get_start_dates.R
 \name{get_start_dates}
 \alias{get_start_dates}
-\title{Get the start dates for the HydroVu API pull from the historically
-flagged data}
+\title{Get the start dates for the HydroVu API pull from the historically flagged data}
 \usage{
 get_start_dates(incoming_historically_flagged_data_list)
 }
@@ -32,9 +31,7 @@ The resulting timestamps serve as starting points for new API data requests,
 ensuring continuous data collection without gaps or unnecessary duplication.
 }
 \examples{
-# Get start dates from historical data
-start_dates <- get_start_dates(incoming_historically_flagged_data_list = historical_data)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=api_puller]{api_puller()}}

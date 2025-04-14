@@ -1,4 +1,5 @@
 #' @title Core function for data quality flagging system
+#' @export
 #'
 #' @description
 #' This function serves as the foundation of the water quality monitoring flagging
@@ -27,14 +28,9 @@
 #' and avoids adding duplicate flags.
 #'
 #' @examples
-#' # Flag values over 25 as potentially unreliable
-#' df <- add_flag(water_data, mean > 25, "value exceeds typical range")
-#'
-#' # Flag missing values
-#' df <- add_flag(water_data, is.na(mean), "missing data")
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_burial_flag()]
-#' @seealso [add_depth_shit_flag()]
+#' @seealso [add_depth_shift_flag()]
 #' @seealso [add_drift_flag()]
 #' @seealso [add_field_flag()]
 #' @seealso [add_frozen_flag()]

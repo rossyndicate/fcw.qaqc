@@ -1,4 +1,5 @@
 #' @title Retrieve all monitoring locations from HydroVu
+#' @export
 #'
 #' @description
 #' Fetches the complete list of water quality monitoring locations accessible to
@@ -26,12 +27,7 @@
 #' filtered out.
 #'
 #' @examples
-#' # Authenticate with HydroVu
-#' hv_token <- hv_auth(client_id = "your_client_id", client_secret = "your_client_secret")
-#'
-#' # Retrieve all locations
-#' all_locations <- hv_locations_all(client = hv_token)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [hv_auth()]
 #' @seealso [api_puller()]
 #' @seealso [hv_data_id()]

@@ -1,4 +1,5 @@
 #' @title Load and tidy mWater field notes
+#' @export
 #'
 #' @description A function that downloads and cleasn field notes from mWater. This
 #' funciton handles time zone conversion, standardizes text fields, and prepares
@@ -20,20 +21,14 @@
 #' - And various other field observation columns
 #' 
 #' @examples
-#' # Load field notes with default 15-minute interval
-#' field_notes <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
-#'
-#' # Load field notes with hourly interval
-#' hourly_notes <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"),
-#'                           summarize_interval = "1 hour")
-#' 
+#' # Examples are temporarily disabled
 #' @seealso [grab_mWater_sensor_notes()]
 #' @seealso [grab_mWater_malfunction_notes()]
 
 load_mWater <- function(creds = yaml::read_yaml("creds/mWaterCreds.yml"), summarize_interval = "15 minutes"){
 
   # Retrieve the API URL from the credentials file
-  api_url <- as.character(creds["url"])
+  api_url <- as.character(creds)
   # TODO: how do we want to handle access when this package is public? (in relation to 
   # creds file)
 

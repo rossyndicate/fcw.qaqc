@@ -1,4 +1,5 @@
 #' @title Remove redundant slope violation flags across parameters
+#' @export
 #'
 #' @description
 #' Reduces overflagging by identifying and removing "slope violation" flags that likely 
@@ -26,12 +27,7 @@
 #' and depth parameters.
 #'
 #' @examples
-#' # Remove redundant slope violation flags at the riverbluffs site
-#' riverbluffs_corrected <- intersensor_check(df = all_flagged_data$riverbluffs)
-#'
-#' # Remove redundant slope violation flags at the boxelder site
-#' boxelder_corrected <- intersensor_check(df = all_flagged_data$boxelder)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()]
 
 intersensor_check <- function(df){

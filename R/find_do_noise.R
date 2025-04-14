@@ -1,4 +1,5 @@
 #' @title Flag dissolved oxygen (DO) sensor noise and potential sonde burial
+#' @export
 #' 
 #' @description 
 #' This function identifies two types of issues with DO sensors:
@@ -21,8 +22,7 @@
 #' updated to include "DO interference" and/or "Possible burial" flags where applicable.
 #' 
 #' @examples
-#' df <- find_do_noise(df = all_data_summary_stats_list$`riverbluffs-DO`)
-#' 
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()]
  
 find_do_noise <- function(df){
@@ -35,7 +35,6 @@ find_do_noise <- function(df){
     # 2. DO is abnormally low (≤ 5 mg/L)
     df <- df %>%
       add_flag((back1 - mean >= 0.5 & front1 - mean >= 0.5) | (mean <= 5), "DO interference")
-    
     
     # Define a function to check if a given window has at least 24 instances of interference
     check_day_hour_window_fail <- function(x) {

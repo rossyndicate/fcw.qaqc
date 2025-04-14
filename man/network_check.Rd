@@ -33,9 +33,5 @@ For chlorophyll measurements in the FCW/CSU network, no changes are made as thes
 measurements are site-specific.
 }
 \examples{
-# Check for network-wide events in conductivity data
-archery_conductivity_checked <- network_check(
-  df = intersensor_flags$`archery-Actual Conductivity`, 
-  network = "FCW"
-)
+# Examples are temporarily disabled
 }

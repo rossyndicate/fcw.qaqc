@@ -1,0 +1,13 @@
+Places to update file uploads and downloads to parquet files:
+
+1. Defining folder paths for `CFC_curated_file_path`.
+2. The `pwqn_data.RDS` file, that also needs to get renamed appropriately.
+4. When saving the mWater data, which needs to get renamed properly as well.
+5. The sensor specific seasonal thresholds need to be saved as a parquet file and renamed properly.
+6. `final_historical_bind` object needs to be saved as parquet and renamed properly.
+7. yaml credential files
+
+3. Files saved in `api_puller()` function, that also need to get renamed appropriately.
+
+naming convention pattern:
+<FileName><YYYYMMDD>-T<HHMMSS>Z.parquet

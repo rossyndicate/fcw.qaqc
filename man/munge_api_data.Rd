@@ -4,7 +4,13 @@
 \alias{munge_api_data}
 \title{Process raw API data for water quality monitoring workflow}
 \usage{
-munge_api_data(api_path, network, summarize_interval = "15 minutes")
+munge_api_data(
+  api_path,
+  network,
+  summarize_interval = "15 minutes",
+  synapse_env = FALSE,
+  fs = NULL
+)
 }
 \arguments{
 \item{api_path}{Character string specifying the directory path containing the
@@ -17,6 +23,8 @@ networks may have different processing requirements.}
 \item{summarize_interval}{Character string specifying the time interval to
 round timestamps to. Default is "15 minutes". Accepts any interval format
 compatible with lubridate::round_date().}
+
+\item{fs}{Logical, whether to use the file system functions}
 }
 \value{
 A dataframe containing processed water quality monitoring data with
@@ -41,11 +49,7 @@ step that bridges the gap between raw API data and the structured format
 required by downstream quality control functions.
 }
 \examples{
-# Process data for FCW network with 15-minute intervals
-fcw_data <- munge_api_data(api_path = "data/api",
-                         network = "FCW",
-                         summarize_interval = "15 minutes")
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=api_puller]{api_puller()}}

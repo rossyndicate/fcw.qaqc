@@ -1,4 +1,5 @@
 #' @title Flag all parameters within sonde when sonde burial is detected by DO sensor
+#' @export
 #'
 #' @description
 #' Identifies and flags all sensor parameters when evidence of sonde burial is detected
@@ -24,9 +25,7 @@
 #' is detected by the DO sensor.
 #'
 #' @examples
-#' add_burial_flag(df = site_data$riverbluffs)
-#' add_burial_flag(df = site_data$boxelder)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()]
 #' @seealso [find_do_noise()]
 

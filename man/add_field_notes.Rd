@@ -43,16 +43,7 @@ to maintain continuity of status information (like deployment status) between
 field visits.
 }
 \examples{
-# Load field notes
-mWater_data <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
-field_notes <- grab_mWater_sensor_notes(mWater_api_data = mWater_data)
-
-# Add field notes to temperature data for riverbluffs site
-riverbluffs_temp_with_notes <- add_field_notes(
-  df = tidy_api_data(new_data[["riverbluffs-Temperature"]]),
-  notes = field_notes
-)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=grab_mWater_sensor_notes]{grab_mWater_sensor_notes()}}

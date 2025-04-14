@@ -4,7 +4,7 @@
 \alias{move_api_data}
 \title{Archive API data files after processing}
 \usage{
-move_api_data(api_dir, archive_dir)
+move_api_data(api_dir, archive_dir, synapse_env = FALSE, fs = NULL)
 }
 \arguments{
 \item{api_dir}{File path to the working API directory containing processed data files}
@@ -29,6 +29,5 @@ This function is typically called at the end of the data processing workflow
 to maintain a clean working environment while preserving raw data files.
 }
 \examples{
-# Archive processed API files
-move_api_data(api_dir = "data/api/", archive_dir = "data/api_archive/")
+# Examples are temporarily disabled
 }

@@ -26,9 +26,5 @@ consistency across the dataset. This function handles several formatting tasks:
 }
 }
 \examples{
-# Clean quality flags across all parameters and sites
-final_flags <- intersensor_flags \%>\%
-  dplyr::bind_rows() \%>\%
-  tidy_flag_column() \%>\%
-  split(f = list(.$site, .$parameter), sep = "-")
+# Examples are temporarily disabled
 }

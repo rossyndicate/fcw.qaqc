@@ -1,4 +1,5 @@
 #' @title Retrieve friendly names for HydroVu parameters and units
+#' @export
 #'
 #' @description
 #' Fetches human-readable names for parameter IDs and unit IDs from the HydroVu
@@ -26,16 +27,7 @@
 #' - If an invalid 'return' value is provided, returns NULL with an error message
 #'
 #' @examples
-#' # Get authentication token
-#' hv_token <- hv_auth(client_id = "your_client_id", 
-#'                    client_secret = "your_client_secret")
-#'
-#' # Get both parameter and unit mappings
-#' all_names <- hv_names(client = hv_token)
-#'
-#' # Get only parameter mappings
-#' params <- hv_names(client = hv_token, return = "params")
-#'
+#' # Examples are temporarily disabled
 #' @seealso [hv_data_id()]
 
 hv_names <- function(client, return = "both", 

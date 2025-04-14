@@ -1,4 +1,5 @@
 #' @title Combine new and historical water quality data
+#' @export
 #'
 #' @description
 #' Merges newly processed water quality data with the existing historical dataset,
@@ -23,14 +24,7 @@
 #' from the new data.
 #'
 #' @examples
-#' # Combine new flagged data with historical records
-#' updated_dataset <- final_data_binder(
-#'   new_flagged_data = final_flags,
-#'   historical_flagged_data = historical_data
-#' )
-#'
-#' # Save the updated dataset
-#' saveRDS(updated_dataset, "data/pwqn_data.RDS")
+#' # Examples are temporarily disabled
 
 final_data_binder <- function(new_flagged_data, historical_flagged_data){
   

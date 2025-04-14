@@ -1,4 +1,5 @@
 #' @title Authenticate with the HydroVu API
+#' @export
 #'
 #' @description
 #' Creates an OAuth client for authenticating with the HydroVu API service. This 
@@ -23,13 +24,7 @@
 #' subsequent API requests to retrieve water quality data.
 #'
 #' @examples
-#' # Load credentials from a YAML file
-#' hv_creds <- yaml::read_yaml("creds/HydroVuCreds.yml")
-#'
-#' # Create the authentication client
-#' hv_token <- hv_auth(client_id = as.character(hv_creds["client"]),
-#'                    client_secret = as.character(hv_creds["secret"]))
-#'
+#' # Examples are temporarily disabled
 #' @seealso [api_puller()]
 
 hv_auth <- function(client_id, client_secret, url = "https://www.hydrovu.com/public-api/oauth/token") {

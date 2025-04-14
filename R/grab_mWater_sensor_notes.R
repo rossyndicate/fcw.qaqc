@@ -1,4 +1,5 @@
 #' @title Extract sensor maintenance field notes from mWater data
+#' @export
 #'
 #' @description
 #' Processes mWater field data to extract and format records specifically related to 
@@ -21,10 +22,7 @@
 #' - Various maintenance fields (sensors_cleaned, cals_performed, etc.)
 #'
 #' @examples
-#' # Load mWater data and extract sensor notes
-#' mWater_data <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
-#' sensor_notes <- grab_mWater_sensor_notes(mWater_data)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [load_mWater()]
 #' @seealso [add_field_notes()]
 

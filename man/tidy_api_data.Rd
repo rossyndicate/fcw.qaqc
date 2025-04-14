@@ -41,10 +41,7 @@ interval, then ensures a complete time series by filling in any missing
 intervals with NA values.
 }
 \examples{
-# Process Temperature data for riverbluffs site with 15-minute intervals
-riverbluffs_temp <- new_data[["riverbluffs-Temperature"]] \%>\%
-  tidy_api_data(summarize_interval = "15 minutes")
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=munge_api_data]{munge_api_data()}}

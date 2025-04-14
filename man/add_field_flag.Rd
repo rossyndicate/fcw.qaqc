@@ -39,12 +39,7 @@ conditions due to human interference. The function requires that field notes
 have already been joined to the water quality data.
 }
 \examples{
-# Flag field activities in dissolved oxygen data for riverbluffs site
-riverbluffs_do_flagged <- add_field_flag(df = combined_data$`riverbluffs-DO`)
-
-# Flag field activities in temperature data for boxelder site
-boxelder_temp_flagged <- add_field_flag(df = combined_data$`boxelder-Temperature`)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_field_notes]{add_field_notes()}}
