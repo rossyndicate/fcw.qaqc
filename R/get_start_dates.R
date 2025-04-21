@@ -18,7 +18,7 @@
 #'
 #' @return A dataframe containing two columns:
 #' - site: The monitoring location identifier
-#' - DT_round: The timestamp (in MST timezone) of the most recent Temperature 
+#' - DT_round: The timestamp (in UTC timezone) of the most recent Temperature 
 #' reading for each site, which will be used as the start date for new API pulls
 #'
 #' @examples
@@ -29,33 +29,32 @@
 get_start_dates <- function(incoming_historically_flagged_data_list) {
   
   # Create the start date directly in Denver time
-  denver_date <- as.POSIXct(paste0(lubridate::year(Sys.time()), "-03-01"), tz = "America/Denver")
+  default_denver_date <- as.POSIXct(paste0(lubridate::year(Sys.time()), "-03-01"), tz = "America/Denver")
   
   # Convert the start date to UTC for API use
-  converted_start_DT <- lubridate::with_tz(denver_date, "UTC")
+  default_converted_start_DT <- lubridate::with_tz(default_denver_date, "UTC")
   
   # Generate the default start dates tibble
   default_start_dates <- tibble(
-    site = c("bellvue", # rist
+    site = c("bellvue",
              "salyer",
              "udall",
              "riverbend",
              "cottonwood",
-             "elc", # elc
+             "elc",
              "archery",
              "riverbluffs"),
-    start_DT = converted_start_DT, 
+    start_DT = default_converted_start_DT, 
     end_DT = as.POSIXct(Sys.time(), tz = "UTC") 
   )
   
-  # Extract only the Temperature parameter dataframes from the historical data list
-  temperature_subset <- grep("Temperature", names(incoming_historically_flagged_data_list))
-  
-  
   if (length(incoming_historically_flagged_data_list) > 0) {
     
+    # Extract only Temperature parameter dataframes from the historical data list
+    temperature_subset <- grep("Temperature", names(incoming_historically_flagged_data_list))
+    
     # Extract each sites most recent timestamp based on their temperature data
-    historical_start_dates_df <- incoming_historically_flagged_data_list[temperature_subset] %>% 
+    temperature_subset_start_dates_df <- incoming_historically_flagged_data_list[temperature_subset] %>% 
       dplyr::bind_rows(.) %>% 
       dplyr::mutate(DT_round = lubridate::with_tz(DT_round, "UTC")) %>% 
       dplyr::group_by(site) %>% 
@@ -63,10 +62,14 @@ get_start_dates <- function(incoming_historically_flagged_data_list) {
       dplyr::select(start_DT = DT_round, site) %>% 
       dplyr::ungroup()
     
+    # min start dt from temp
+    temp_startDT <- min(temperature_subset_start_dates_df$start_DT)
+    
     # update default df
     final_start_dates_df <- default_start_dates %>% 
       left_join(historical_start_dates_df, by = "site") %>% 
       mutate(start_DT = coalesce(start_DT.y, start_DT.x),
+             start_DT = min(start_DT),
              end_DT = as.POSIXct(Sys.time(), tz = "UTC") ) %>% 
       select(-c(start_DT.y, start_DT.x)) %>% 
       relocate(site, start_DT, end_DT)
@@ -80,4 +83,5 @@ get_start_dates <- function(incoming_historically_flagged_data_list) {
     
     return(final_start_dates_df)
   }
+  
 }
