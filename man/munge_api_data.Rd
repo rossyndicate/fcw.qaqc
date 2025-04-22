@@ -31,7 +31,7 @@ A dataframe containing processed water quality monitoring data with
 standardized columns:
 \itemize{
 \item site: Standardized site name (lowercase, no spaces)
-\item DT: Original timestamp (MST timezone)
+\item DT: Original timestamp (UTC timezone)
 \item DT_round: Rounded timestamp for consistent time intervals
 \item DT_join: Character representation of rounded timestamp for joining
 \item parameter: Measurement type (e.g., "Temperature", "DO")

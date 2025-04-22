@@ -12,15 +12,15 @@
 #' @param df A data frame containing water quality measurements. Must include columns:
 #' - `site`: Standardized site name
 #' - `parameter`: The measurement type
-#' - `DT_round`: Timestamp for each measurement
+#' - `DT_round`: Timestamp for each measurement, in UTC
 #' - `flag`: Existing quality flags
 #'
 #' @param malfunction_records A data frame containing records of known sensor malfunctions 
 #' with columns:
 #' - `site`: Site name matching the df site column
 #' - `parameter`: Parameter name (NA indicates the entire sonde was malfunctioning)
-#' - `start_DT`: Start timestamp of the malfunction period
-#' - `end_DT`: End timestamp of the malfunction period (NA indicates ongoing)
+#' - `start_DT`: Start timestamp of the malfunction period, in UTC
+#' - `end_DT`: End timestamp of the malfunction period (NA indicates ongoing), in UTC
 #' - `notes`: Text description of the malfunction
 #'
 #' @return A data frame with the same structure as the input, plus a `mal_flag` column
@@ -57,8 +57,8 @@ add_malfunction_flag <- function(df, malfunction_records){
                     grepl("buried|burial|bury|sediment|roots", notes, ignore.case = TRUE) | 
                     grepl("not submerged", notes, ignore.case = TRUE)) %>%
     # Handle ongoing malfunctions (no end date)
-    dplyr::mutate(end_DT = ifelse(is.na(end_DT), lubridate::ymd_hms("9999-12-31 23:59:59", tz = "MST"), end_DT)) %>%
-    dplyr::mutate(end_DT = as.POSIXct(end_DT, tz = "MST", origin = "1970-01-01")) %>%
+    dplyr::mutate(end_DT = ifelse(is.na(end_DT), lubridate::ymd_hms("9999-12-31 23:59:59", tz = "UTC"), end_DT)) %>%
+    dplyr::mutate(end_DT = as.POSIXct(end_DT, tz = "UTC", origin = "1970-01-01")) %>%
     tibble::rowid_to_column()
   
   # Special handling for ORP parameter, which is affected by pH sensor issues
@@ -69,8 +69,8 @@ add_malfunction_flag <- function(df, malfunction_records){
       dplyr::filter(is.na(parameter) | parameter == df_parameter | parameter == "pH" |
                       grepl("buried|burial|bury|sediment|roots", notes, ignore.case = TRUE) | 
                       grepl("not submerged", notes, ignore.case = TRUE)) %>%
-      dplyr::mutate(end_DT = ifelse(is.na(end_DT), lubridate::ymd_hms("9999-12-31 23:59:59", tz = "MST"), end_DT)) %>%
-      dplyr::mutate(end_DT = as.POSIXct(end_DT, tz = "MST", origin = "1970-01-01")) %>%
+      dplyr::mutate(end_DT = ifelse(is.na(end_DT), lubridate::ymd_hms("9999-12-31 23:59:59", tz = "UTC"), end_DT)) %>%
+      dplyr::mutate(end_DT = as.POSIXct(end_DT, tz = "UTC", origin = "1970-01-01")) %>%
       tibble::rowid_to_column()
   }
   
@@ -104,27 +104,27 @@ add_malfunction_flag <- function(df, malfunction_records){
     drift_interval_list <- map2(
       .x = drift$start_DT,
       .y = drift$end_DT,
-      .f = ~lubridate::interval(.x, .y, tz = "MST"))
+      .f = ~lubridate::interval(.x, .y, tz = "UTC"))
     
     burial_interval_list <- map2(
       .x = burial$start_DT,
       .y = burial$end_DT,
-      .f = ~lubridate::interval(.x, .y, tz = "MST"))
+      .f = ~lubridate::interval(.x, .y, tz = "UTC"))
     
     depth_interval_list <- map2(
       .x = depth_funk$start_DT,
       .y = depth_funk$end_DT,
-      .f = ~lubridate::interval(.x, .y, tz = "MST"))
+      .f = ~lubridate::interval(.x, .y, tz = "UTC"))
     
     unsubmerged_interval_list <- map2(
       .x = unsubmerged$start_DT,
       .y = unsubmerged$end_DT,
-      .f = ~lubridate::interval(.x, .y, tz = "MST"))
+      .f = ~lubridate::interval(.x, .y, tz = "UTC"))
     
     general_interval_list <- map2(
       .x = general_malfunction$start_DT,
       .y = general_malfunction$end_DT,
-      .f = ~lubridate::interval(.x, .y, tz = "MST"))
+      .f = ~lubridate::interval(.x, .y, tz = "UTC"))
     
     # Apply specific flags for each malfunction type
     try(df <- df %>%

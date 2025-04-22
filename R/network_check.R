@@ -101,7 +101,7 @@ network_check <- function(df, network = "all") {
       dplyr::select(DT_round, site_up = site, flag_up = flag) %>%
       data.table::data.table()},
     error = function(err) {
-      cat(paste0(site_name," has no upstream site with ", parameter_name, ".\n"))})
+      cat(paste0(site_name," has no upstream site with ", parameter_name, ".\n"))}) # differentiate between when it should have one, and when it shouldn't have one
   
   # Try to get downstream site data
   tryCatch({
@@ -136,21 +136,25 @@ network_check <- function(df, network = "all") {
     return(df)
   }
   
+  ignore_flags <- "drift|DO interference|repeat|sonde not employed|frozen|
+  unsubmerged|missing data|site visit|sv window|sensor malfunction|burial|
+  sensor biofouling|improper level cal|sonde moved"
+  
   # Process flags based on upstream/downstream patterns
-  df_test <- join %>%
+  df <- join %>%
     # Create binary indicator for upstream/downstream flags
     # 0 = no relevant flags upstream/downstream, 1 = at least one site has relevant flags
     dplyr::mutate(flag_binary = ifelse(
-      (is.na(flag_up) | grepl("drift|DO interference|repeat|sonde not employed|frozen|unsubmerged|missing data|site visit|sv window|sensor malfunction|burial|sensor biofouling|improper level cal|sonde moved", flag_up)) &
-        (is.na(flag_down) | grepl("drift|DO interference|repeat|sonde not employed|frozen|unsubmerged|missing data|site visit|sv window|sensor malfunction|burial|sensor biofouling|improper level cal|sonde moved", flag_down)), 0, 1)) %>%
+      (is.na(flag_up) | grepl(ignore_flags, flag_up)) &
+        (is.na(flag_down) | grepl(ignore_flags, flag_down)), 0, 1)) %>%
     # Check for flags in 2-hour window (17 observations at 15-min intervals)
     dplyr::mutate(overlapping_flag = zoo::rollapply(flag_binary, width = width_fun, FUN = check_2_hour_window_fail, fill = NA, align = "center")) %>%
     add_column_if_not_exists(column_name = "auto_flag") %>%
     # If flag exists but is also present up/downstream, it likely represents a real event
     # In that case, remove the flag (set auto_flag to NA)
-    dplyr::mutate(auto_flag = ifelse(!is.na(flag) & !grepl("drift|DO interference|repeat|sonde not employed|frozen|unsubmerged|missing data|site visit|sv window|sensor malfunction|burial|sensor biofouling|improper level cal|sonde moved", flag) & 
+    dplyr::mutate(auto_flag = ifelse(!is.na(flag) & !grepl(ignore_flags, flag) & 
                                        (overlapping_flag == TRUE & !is.na(overlapping_flag)), NA, flag)) %>%
     dplyr::select(-c(flag_up, flag_down, site_up, site_down, flag_binary, overlapping_flag))
   
-  return(df_test)
+  return(df)
 }

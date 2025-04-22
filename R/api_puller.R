@@ -43,117 +43,74 @@
 #' @seealso [hv_auth()]
 #' @seealso [munge_api_data()]
 
-api_puller <- function(site, network, start_dt, end_dt = Sys.time(), api_token, dump_dir, 
+api_puller <- function(site, 
+                       start_dt, end_dt = Sys.time(), 
+                       api_token,
+                       hv_sites_arg = hv_sites,
+                       dump_dir, 
                        synapse_env = FALSE, fs = NULL) {
   
-  # Retrieve appropriate sensor locations based on the requested network
-  if(network %in% c("all", "All", "virridy", "Virridy")){
-    locs <- hv_locations_all(hv_token)
-  } else if(network %in% c("csu", "fcw", "CSU", "FCW")){
-    locs <- hv_locations_all(hv_token) %>%
-      dplyr::filter(!grepl("virridy", name, ignore.case = TRUE))
-  }
+  # Synapse runs in parallel, so stagger API calls to prevent overloading server
+  Sys.sleep(runif(1, 2, 5))
   
-  # Suppress scientific notation to ensure consistent formatting
-  options(scipen = 999)
+  # For other sites, filter locations that contain the site name
+  site_loc <- hv_sites_arg %>%
+    dplyr::mutate(name = tolower(name)) %>%
+    dplyr::filter(grepl(site, name, ignore.case = TRUE))
   
-  # Loop through each site to retrieve and save data
-  for(i in 1:length(site)){
-    
-    # Special handling for "River Bluffs" site
-    if(tolower(site[i]) == "riverbluffs" | tolower(site[i]) == "river bluffs"){
-      site_loc <- locs %>%
-        dplyr::mutate(name = tolower(name)) %>%
-        dplyr::filter(grepl("River Bluffs|RiverBluffs", name, ignore.case = TRUE))
-    } else {
-      # For other sites, filter locations that contain the site name
-      site_loc <- locs %>%
-        dplyr::mutate(name = tolower(name)) %>%
-        dplyr::filter(grepl(site[i], name, ignore.case = TRUE))
-    }
-    
-    # Extract the HydroVu location IDs for API requests
-    site_loc_list <- site_loc$id
-    
-    # Convert timestamps to UTC format for API compatibility
-    utc_start_date <- format(as.POSIXct(start_dt, tz = "UTC") + lubridate::hours(0), format = "%Y-%m-%d %H:%M:%S")
-    utc_end_date <- format(as.POSIXct(end_dt, tz = "UTC") + lubridate::hours(0), format = "%Y-%m-%d %H:%M:%S")
-    timezone <- "UTC"
-    
-    # Request data for each location ID within the specified time period
-    alldata <- site_loc_list %>% purrr::map(~hv_data_id(.,
-                                                        start_time = utc_start_date,
-                                                        end_time = utc_end_date,
-                                                        token = api_token,
-                                                        tz = timezone))
-    
+  # Request data for each location ID within the specified time period
+  all_data_filtered <- purrr::map(site_loc$id, # Extract the HydroVu location IDs for API requests
+                                  ~hv_data_id(.,
+                                              start_time = start_dt,
+                                              end_time = end_dt,
+                                              token = api_token,
+                                              tz = "UTC")) %>% 
     # Filter out error responses (404s) and keep only valid data frames
-    filtered <- purrr::keep(alldata, is.data.frame)
-    
-    # If no data was found for this site during the time period, report and continue
-    if(length(filtered) == 0){
-      print(paste0("No data at ", site[i], " during this time frame"))
-    } else {
-      # Combine all dataframes, standardize column names, and join with location metadata
-      one_df <- dplyr::bind_rows(filtered) %>%
-        data.table::data.table() %>%
-        dplyr::rename(id = Location,
-                      parameter = Parameter,
-                      units = Units) %>%
-        dplyr::left_join(., site_loc, by = "id") %>%
-        dplyr::mutate(site = tolower(site[i])) %>%
-        dplyr::select(site, id, name, timestamp, parameter, value, units)
+    purrr::keep(., is.data.frame)
+  
+  # If no data was found for this site during the time period, report, end current iteration, and continue
+  if(length(all_data_filtered) == 0){
+    message(paste0("No data at ", site, " during this time frame"))
+    return() # This will end the current iteration and move to the next one
+  } 
+  
+  # Combine all dataframes, standardize column names, and join with location metadata
+  site_df <- dplyr::bind_rows(all_data_filtered) %>%
+    data.table::data.table() %>%
+    dplyr::rename(id = Location,
+                  parameter = Parameter,
+                  units = Units) %>%
+    dplyr::left_join(., site_loc, by = "id") %>%
+    dplyr::mutate(site = tolower(site)) %>%
+    dplyr::select(site, id, name, timestamp, parameter, value, units) %>% 
+    # For FCW/CSU networks, exclude Virridy sensors and FDOM parameter
+    dplyr::filter(!grepl("virridy", name, ignore.case = TRUE),
+                  parameter != "FDOM Fluorescence")
+  
+  # Format the timestamp string for filenames
+  timestamp_str <- format(end_dt, "%Y%m%d-T%H%M%SZ", tz = "UTC")
+  # Create clean path (remove any double slashes) for file upload
+  file_name <- paste0(site, timestamp_str, ".parquet")
+  file_path <- file.path(dump_dir, file_name)
+  
+  if (synapse_env){
+    # Upload to ADLS via ADLS-compatible write procedure
+    tryCatch({
+      # First write to a temporary file
+      temp_file <- tempfile(fileext = ".parquet")
+      arrow::write_parquet(site_df, temp_file)
       
-      # Format the timestamp string for filenames
-      timestamp_str <- stringr::str_replace(stringr::str_replace(substr(end_dt, 1, 16), "[:\\s]", "_"), ":", "")
-      
-      # Create clean path (remove any double slashes)
-      file_name <- paste0(site[i], "_", timestamp_str, ".csv")
-      file_path <- file.path(dump_dir, file_name)
-      
-      
-      # ADLS-compatible write procedure
-      if(network %in% c("csu", "CSU", "fcw", "FCW")){
-        # For FCW/CSU networks, exclude Virridy sensors and FDOM parameter
-        filtered_df <- one_df %>% 
-          dplyr::filter(!grepl("virridy", name, ignore.case = TRUE),
-                        parameter != "FDOM Fluorescence")
-        
-        if (synapse_env){
-          # Then upload to ADLS
-          tryCatch({
-            # First write to a temporary file
-            temp_file <- tempfile(fileext = ".csv")
-            print(paste("Writing temp file:", temp_file))
-            readr::write_csv(filtered_df, temp_file)
-            print(paste("Temp file exists:", file.exists(temp_file)))
-            print(paste("Uploading to:", file_path))
-            AzureStor::upload_adls_file(
-              filesystem = fs, 
-              src = temp_file,
-              dest = file_path)
-            print(paste("Upload complete for:", site[i]))
-          }, error = function(e) {
-            print(paste("Error in upload process:", e$message))
-          })
-        } else {
-          write_csv(filtered_df, file_path)
-          print(paste("Upload into", dump_dir, "complete for:", site[i]))
-        }
-        
-        
-      } else if(network %in% c("all","All","Virridy","virridy")){
-        # For sites with only one type of sonde, save all data together
-        # First write to a temporary file
-        temp_file <- tempfile(fileext = ".csv")
-        readr::write_csv(one_df, temp_file)
-        
-        # Then upload to ADLS
-        try({
-          upload_adls_file(fs, clean_path, temp_file)
-          print(paste0("Successfully uploaded data for ", site[i], " to ", clean_path))
-        })
-      }
-    }
+      # Upload file to ADLS 
+      AzureStor::upload_adls_file(
+        filesystem = fs, 
+        src = temp_file,
+        dest = file_path)
+      message(paste("Upload complete for: ", site))
+    }, error = function(e) {
+      message(paste("Error in upload process: ", e$message))
+    })
+  } else {
+    arrow::write_parquet(site_df, file_path)
+    message(paste("Upload into", dump_dir, "complete for:", site))
   }
 }

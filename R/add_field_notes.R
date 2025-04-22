@@ -71,7 +71,7 @@ add_field_notes <- function(df, notes) {
       arrange((DT_join)) %>%
       
       # Ensure timestamps remain in correct datetime format after joining
-      dplyr::mutate(DT_round = lubridate::as_datetime(DT_join, tz = "MST")) %>%
+      dplyr::mutate(DT_round = lubridate::as_datetime(DT_join, tz = "UTC")) %>%
       
       # Set default sonde_employed status (0 = deployed/in water)
       # and forward-fill deployment status and site visit information

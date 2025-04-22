@@ -43,4 +43,4 @@ combine_r_files <- function(source_dir = "R", output_file = "ignore_files/all_fu
 }
 
 # Usage:
-combine_r_files(source_dir = "R", output_file = "ignore_files/all_functions_3.R")
+combine_r_files(source_dir = "R", output_file = "ignore_files/all_functions_4.R")

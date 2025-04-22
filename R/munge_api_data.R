@@ -10,7 +10,7 @@
 #' step that bridges the gap between raw API data and the structured format
 #' required by downstream quality control functions.
 #'
-#' @param api_path Character string specifying the directory path containing the
+#' @param api_dir Character string specifying the directory path containing the
 #' raw CSV files downloaded from the HydroVu API.
 #'
 #' @param network Character string indicating which monitoring network to process.
@@ -26,7 +26,7 @@
 #' @return A dataframe containing processed water quality monitoring data with
 #' standardized columns:
 #' - site: Standardized site name (lowercase, no spaces)
-#' - DT: Original timestamp (MST timezone)
+#' - DT: Original timestamp (UTC timezone)
 #' - DT_round: Rounded timestamp for consistent time intervals
 #' - DT_join: Character representation of rounded timestamp for joining
 #' - parameter: Measurement type (e.g., "Temperature", "DO")
@@ -38,26 +38,24 @@
 #' @seealso [api_puller()]
 #' @seealso [tidy_api_data()]
 
-munge_api_data <- function(api_path, network, summarize_interval = "15 minutes", 
+munge_api_data <- function(api_dir, network, summarize_interval = "15 minutes", 
                            synapse_env = FALSE, fs = NULL) {
   
   if (synapse_env) {
     
     # List files in ADLS
-    file_list <- AzureStor::list_adls_files(fs, api_path, info = "name")
-    
-    # check if file list is a list that is not empty
+    file_list <- AzureStor::list_adls_files(fs, api_dir, info = "name")
     
     # Map files into a dataframe
-    api_data <- map_dfr(file_list, function(adls_path){
+    api_data <- purrr::map_dfr(file_list, function(adls_path){
       # set temp file
-      temp_file <- tempfile(fileext = '.csv')
+      temp_file <- tempfile(fileext = '.parquet')
       
       # download file from folder into temp file
       AzureStor::download_adls_file(fs, adls_path, temp_file)
       
       # read the temp file with read.csv
-      site_df <- data.table::fread(temp_file) %>% 
+      site_df <- arrow::read_parquet(temp_file, as_data_frame = TRUE) %>% 
         dplyr::select(-id) 
       
       return(site_df)
@@ -67,9 +65,9 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes",
     
   } else {
     
-    api_data <- map_dfr(list.files(api_path, full.names = TRUE), 
+    api_data <- map_dfr(list.files(api_dir, full.names = TRUE), 
                         function(file_path) {
-                          site_df <- data.table::fread(file_path) %>% 
+                          site_df <- arrow::read_parquet(file_path, as_data_frame = TRUE) %>% 
                             dplyr::select(-id)
                         }) %>% 
       dplyr::mutate(units = as.character(units)) %>%
@@ -80,6 +78,7 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes",
   # Apply network-specific processing for CSU/FCW networks
   # do we need to fix site names here?
   if(network %in% c("csu", "CSU", "FCW", "fcw")){
+    
     api_data <- api_data %>%
       # Filter out VuLink data (not used in CSU/FCW networks)
       dplyr::filter(!grepl("vulink", name, ignore.case = TRUE)) %>%
@@ -87,13 +86,9 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes",
       dplyr::filter(!grepl("virridy", name, ignore.case = TRUE)) %>%
       # Remove the equipment name column
       dplyr::select(-name) %>%
-      
-      # Convert timestamps from UTC (as provided by HydroVu API) to MST
-      dplyr::mutate(DT = lubridate::as_datetime(timestamp, tz = "UTC")) %>%
       dplyr::mutate(
-        # Apply timezone conversion to Mountain Standard Time
-        DT = lubridate::with_tz(DT, tzone = "MST"),
         # Round timestamps to specified interval for consistent time series
+        DT = timestamp, # Conversion from UTC to MST no longer required
         DT_round = lubridate::round_date(DT, summarize_interval),
         # Create string version of timestamp for joining operations
         DT_join = as.character(DT_round),
@@ -106,15 +101,14 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes",
         # Map alternative site names to standard names
         site = dplyr::case_when(
           site == "rist" ~ "tamasag",
-          site == "elc" ~ "boxelder",
           TRUE ~ site
         )
       ) %>%
       # Handle a specific case where equipment was moved between sites
       dplyr::mutate(
         site = ifelse(site == "tamasag" & 
-                        DT > lubridate::ymd("2022-09-20", tz = "MST") & 
-                        DT < lubridate::ymd("2023-01-01", tz = "MST"), 
+                        DT > with_tz(lubridate::ymd("2022-09-20", tz = "America/Denver"), "UTC") & 
+                        DT < with_tz(lubridate::ymd("2023-01-01", tz = "America/Denver"), "UTC"), 
                       "boxelder", site)
       ) %>%
       # Standardize "river bluffs" to "riverbluffs" (remove spaces)
@@ -136,9 +130,7 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes",
       dplyr::select(-name) %>%
       
       # Apply the same timestamp and site name standardization
-      dplyr::mutate(DT = lubridate::as_datetime(timestamp, tz = "UTC")) %>%
       dplyr::mutate(
-        DT = lubridate::with_tz(DT, tzone = "MST"),
         DT_round = lubridate::round_date(DT, summarize_interval),
         DT_join = as.character(DT_round),
         site = tolower(site)
@@ -146,13 +138,12 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes",
       
       # Apply the same site name standardization and equipment relocation handling
       dplyr::mutate(
-        site = ifelse(site == "rist", "tamasag",
-                      ifelse(site == "elc", "boxelder", site))
+        site = ifelse(site == "rist", "tamasag", site)
       ) %>%
       dplyr::mutate(
         site = ifelse(site == "tamasag" & 
-                        DT > lubridate::ymd("2022-09-20", tz = "MST") & 
-                        DT < lubridate::ymd("2023-01-01", tz = "MST"), 
+                        DT > with_tz(lubridate::ymd("2022-09-20", tz = "America/Denver"), "UTC") & 
+                        DT < with_tz(lubridate::ymd("2023-01-01", tz = "America/Denver"), "UTC"), 
                       "boxelder", site)
       ) %>%
       # Ensure no duplicates after all transformations
@@ -161,3 +152,4 @@ munge_api_data <- function(api_path, network, summarize_interval = "15 minutes",
   
   return(api_data)
 }
+

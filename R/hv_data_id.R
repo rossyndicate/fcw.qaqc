@@ -53,8 +53,8 @@ hv_data_id <- function(loc_id, start_time = startdate, end_time = enddate, tz = 
   
   # Convert input timestamps from specified timezone to Unix timestamps (seconds since epoch) in UTC
   # This is required for HydroVu API requests which use Unix timestamps
-  start <- as.numeric(lubridate::with_tz(lubridate::ymd_hms(start_time, tz = tz), tzone = "UTC"))
-  end <- as.numeric(lubridate::with_tz(lubridate::ymd_hms(end_time, tz = tz), tzone = "UTC"))
+  start <- round(as.numeric(lubridate::with_tz(lubridate::ymd_hms(start_time, tz = tz), tzone = "UTC")))
+  end <- round(as.numeric(lubridate::with_tz(lubridate::ymd_hms(end_time, tz = tz), tzone = "UTC")))
   
   # Construct the API URL with location ID and time parameters
   url = "https://www.hydrovu.com/public-api/v1/locations/"
@@ -116,3 +116,4 @@ hv_data_id <- function(loc_id, start_time = startdate, end_time = enddate, tz = 
     return(df)
   })
 }
+

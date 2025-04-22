@@ -24,7 +24,8 @@ package_loader <- function(x) {
 }
 
 invisible(
-  lapply(c("data.table", 
+  lapply(c("arrow",
+           "data.table", 
            "httr2", 
            "tidyverse", 
            "lubridate", 
@@ -33,12 +34,16 @@ invisible(
            "stats", 
            "RcppRoll", 
            "yaml", 
-           "janitor", 
-           "here"), 
+           "here"
+           # "fcw.qaqc"
+           ), 
          package_loader)
 )
 
 walk(list.files('R/', pattern = "*.R", full.names = TRUE, recursive = TRUE), source)
+
+# Suppress scientific notation to ensure consistent formatting
+options(scipen = 999)
 ```
 
 ### Creating our test subset of data:
@@ -46,16 +51,16 @@ walk(list.files('R/', pattern = "*.R", full.names = TRUE, recursive = TRUE), sou
 ```{r, eval = FALSE}
 # Load in old data that has gone thru the auto-QAQC pipeline:
 # making a dummy version:
-# historical_data <- readRDS("data/pwqn_data.RDS") %>% 
+# historical_data <- readRDS("test_data/pwqn_data.RDS") %>% 
 #   dplyr::filter(DT_round <= "2024-11-01 01:00:00 MST") 
 #   
-# saveRDS(historical_data, "data/pwqn_data.RDS")
+# saveRDS(historical_data, "test_data/pwqn_data.RDS")
 ```
 
 ### Ensuring api directory is clear:
 
 ```{r}
-if(length(list.files("data/api")) > 0) {stop("ERROR OCCURED - API DATA IN API FOLDER")}
+if(length(list.files("test_data/api")) > 0) {stop("ERROR OCCURED - API DATA IN API FOLDER")}
 ```
 
 
@@ -67,9 +72,6 @@ if(length(list.files("data/api")) > 0) {stop("ERROR OCCURED - API DATA IN API FO
 mWater_data <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
 
 all_field_notes <- grab_mWater_sensor_notes(mWater_api_data = mWater_data) 
-  # lil' renaming for consistency across data sets. JD - IS THIS STILL REQUIRED?
-  # JD A: no, we are using the new file names now.
-  # dplyr::mutate(site = ifelse(site == "river bluffs", "riverbluffs", site))
 
 # pull in user-defined instances of sensor or sonde malfunction, burial, drift, etc.
 sensor_malfunction_notes <- grab_mWater_malfunction_notes(mWater_api_data = mWater_data) 
@@ -78,10 +80,14 @@ sensor_malfunction_notes <- grab_mWater_malfunction_notes(mWater_api_data = mWat
 *Load in the historically flagged data*
 
 ```{r}
-historical_data <- readRDS("data/pwqn_data.RDS") %>%
-  mutate(auto_flag = as.character(auto_flag)) %>% 
-  split(f = list(.$site, .$parameter), sep = "-") %>%
-  purrr::keep(~!is.null(.) & nrow(.) > 0)
+if (file.exists(here("test_data", "pwqn_data.RDS"))){
+  historical_data <- readRDS("test_data/pwqn_data.RDS") %>%
+    mutate(auto_flag = as.character(auto_flag)) %>% 
+    split(f = list(.$site, .$parameter), sep = "-") %>%
+    purrr::keep(~!is.null(.) & nrow(.) > 0)
+} else {
+  historical_data <- list()
+}
 ```
 
 *Grab new sonde data. We use the historical data to find the last time data was downloaded and use that as the start time.*
@@ -94,27 +100,64 @@ hv_creds <- yaml::read_yaml("creds/HydroVuCreds.yml")
 hv_token <- hv_auth(client_id = as.character(hv_creds["client"]),
                     client_secret = as.character(hv_creds["secret"]))
 
+sites_str <- paste0(c("bellvue", "salyer", "udall", "riverbend", "cottonwood", "elc", "archery", "riverbluffs"), collapse = "|")
+hv_sites <- hv_locations_all(hv_token) %>%
+  # Filter out VuLink data (not used in CSU/FCW networks)
+  dplyr::filter(!grepl("vulink", name, ignore.case = TRUE),
+                # Filter out Virridy sondes (not part of CSU/FCW networks)
+                !grepl("virridy", name, ignore.case = TRUE),
+                # Filter for sites that are in our site list
+                grepl(sites_str, name, ignore.case = TRUE),
+                # Filter for sites that have "current" in the names
+                # Can we just use the "current" sites?
+                grepl("current", name, ignore.case = TRUE)) 
+
 incoming_data_csvs_upload <-  purrr::pwalk(api_start_dates,
                                            function(site, start_DT, end_DT) {
                                              api_puller(site = site, 
                                                         start_dt = start_DT, 
                                                         end_dt = end_DT, 
                                                         api_token = hv_token,
-                                                        dump_dir = here("data", "api"),
-                                                        network = "FCW",
+                                                        hv_sites_arg = hv_sites,
+                                                        dump_dir = here("test_data", "api"),
                                                         synapse_env = FALSE, 
                                                         fs = NULL)
                                            })
+
 ```
 
 *Load in all the raw files*
 
 ```{r}
-new_data <- munge_api_data(api_path = here("data", "api"),
+new_data <- munge_api_data(api_path = here("test_data", "api"),
                            # select which sondes to download data from
                            network = "FCW") %>% 
     split(f = list(.$site, .$parameter), sep = "-") %>%
    purrr::keep(~ nrow(.) > 0)
+```
+
+```{r}
+long_operational_site_parameter <- operational_site_parameters %>% # we take this in as input because we want users to be able to manually change this
+    # Convert from wide to long format to make filtering easier
+  pivot_longer(cols = -site, names_to = "parameter", values_to = "active") %>%
+  # Create a unique identifier for each site-parameter combination
+  mutate(site_param = paste0(site, "-", parameter)) 
+
+# Find the intersection between the site-parameters of interest and the 
+# site-parameters we obtained from the HV API request
+site_parameter_intersect <- intersect(long_operational_site_parameter$site_param, names(new_data))
+
+long_operational_site_parameter <- long_operational_site_parameter %>%
+  # Create a unique identifier for each site-parameter combination
+  mutate(active = if_else(site_param %in% site_parameter_intersect, TRUE, FALSE)) %>% 
+  select(site, parameter, active)
+
+join_failure_tracker_operational_site_parameter <-
+  left_join(hv_api_pull_failure_tracker)
+
+# if active is false for a site parameter in long_operation_site_parameter() we
+# will track that failure. once that failure is more than a week, we stop using it as
+# the start DT
 ```
 
 *Here, we split up all of our new data into site-parameter combinations (as a list) that we can more easily iterate over. Then, across those lists, we average any observations whose frequency is greater than 15 minutes so that our data set is consistently recorded at 15-minute intervals. (Having data recording at something other than 15 minutes is super rare in  this dataset.) We also preserve the total number of observations within the 15-minute increment used to calculate the mean, as well as the spread (max-min). After these calculations, we use {padr}'s `pad()` function to fill in data gaps at this 15-minute interval. Lastly, we join these data frames with the field notes.*
@@ -154,6 +197,7 @@ Combine our new data with the 24-hour period before it, then add field notes:
 combined_data <- combine_datasets(incoming_data_list = new_data_tidied_list,
                                   historical_data_list = historical_data) %>%
   # what happens if field notes fails?
+  # Separate all of this and establish tryCatches
   purrr::map(~add_field_notes(df = ., 
                               notes = all_field_notes)) 
 ```
@@ -189,9 +233,9 @@ single_sensor_flags <- purrr::map(all_data_summary_stats_list, function(data) {
     # flag field visits
     add_field_flag(df = .) %>%
     # flag instances outside the spec range
-    add_spec_flag(df = ., spec_table = yaml::read_yaml("data/qaqc_files/sensor_spec_thresholds.yml")) %>%
+    add_spec_flag(df = ., spec_table = yaml::read_yaml("test_data/qaqc_files/sensor_spec_thresholds.yml")) %>%
     # flag data outside of seasonal range
-    add_seasonal_flag(df = ., threshold_table = read_csv("data/qaqc_files/seasonal_thresholds.csv", show_col_types = FALSE)) %>%
+    add_seasonal_flag(df = ., threshold_table = read_csv("test_data/qaqc_files/seasonal_thresholds.csv", show_col_types = FALSE)) %>%
     # flag missing data
     add_na_flag(df = .) %>%
     # flag DO noise 
@@ -203,7 +247,10 @@ single_sensor_flags <- purrr::map(all_data_summary_stats_list, function(data) {
     # find instances of sensor drift (FDOM, Chl-a, Turbidity only)
     add_drift_flag(df = .) 
 })
+```
 
+```{r}
+# How does this change if we swap out a sensor later in the season, and then swap it back?
 intersensor_flags <- single_sensor_flags %>%
   dplyr::bind_rows() %>%
   split(f = .$site, sep = "-") %>%
@@ -254,14 +301,15 @@ final_flags <- intersensor_flags %>%
    
 final_historical_bind <- final_data_binder(final_flags, historical_data) %>%
   purrr::keep(~ !is.null(.)) %>%
-  dplyr::bind_rows() 
+  dplyr::bind_rows() %>% 
+  dplyr::mutate(historical = TRUE) # set any data that is in final_historical_bind as historical
 ```
 
 ## Step 3: Save new updated pwqn dataset, move the api data out of the api folder into archive.
 
 ```{r}
-saveRDS(final_historical_bind, "data/pwqn_data.RDS")
+saveRDS(final_historical_bind, "test_data/pwqn_data.RDS")
 
-move_api_data(api_dir = "data/api/", archive_dir = "data/api_archive/")
+move_api_data(api_dir = "test_data/api/", archive_dir = "test_data/api_archive/")
 ```
 

@@ -4,3 +4,4 @@
 ^\.lintr$
 ^creds$
 ^ignore_files$
+^test_data$

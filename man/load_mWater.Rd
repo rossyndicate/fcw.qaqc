@@ -22,7 +22,7 @@ A dataframe containing processed field notes with standardized columns:
 \itemize{
 \item site: Standardized site name (lowercase, no spaces)
 \item DT_round: Rounded timestamp for joining with sensor data
-\item start_DT/end_dt: Start and end times of field visits (MST timezone)
+\item start_DT/end_dt: Start and end times of field visits (UTC timezone)
 \item visit_type: Type of field visit (standardized)
 \item sensor_pulled/sensor_deployed: Serial numbers of equipment
 \item And various other field observation columns

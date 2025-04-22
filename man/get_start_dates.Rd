@@ -2,33 +2,36 @@
 % Please edit documentation in R/get_start_dates.R
 \name{get_start_dates}
 \alias{get_start_dates}
-\title{Get the start dates for the HydroVu API pull from the historically flagged data}
+\title{Get the start dates for the HydroVu API pull from historically flagged data}
 \usage{
 get_start_dates(incoming_historically_flagged_data_list)
 }
 \arguments{
 \item{incoming_historically_flagged_data_list}{A list of dataframes containing
-historical water quality data that has already been processed through the QAQC
+historical water quality data that has been processed through the QAQC
 workflow. Each list element should represent a site-parameter combination and
-be named with the "site-parameter" naming convention.}
+be named using the "site-parameter" convention.}
 }
 \value{
-A dataframe containing two columns:
+A dataframe with three columns:
 \itemize{
 \item site: The monitoring location identifier
-\item DT_round: The timestamp (in MST timezone) of the most recent Temperature
-reading for each site, which will be used as the start date for new API pulls
+\item start_DT: The timestamp (in UTC) of the most recent reading for each site
+\item end_DT: The current system time (in UTC)
 }
 }
 \description{
-This function finds the most recent timestamp (max datetime) in the Temperature
-parameter data frames for each monitoring site's historically flagged data.
-Temperature is used as the reference parameter because it is consistently
-tracked by all sondes and therefore provides the most reliable indication of
-when data was last collected from each site.
+Attempts to find the most recent timestamp in Temperature parameter data for each monitoring
+site's historically flagged data. Temperature is used as the reference parameter
+because it is consistently tracked by all sondes, providing the most reliable
+indication of when data was last collected from each site. This function will compare
+the temperature data's most recent timestamp to that of all the other parameters.
+If it finds that these are not equal, it will prefer to use the earliest timestamp,
+regardless of its source, with the assumption that the earlier start dates should be
+attributed to parameters that are not Temperature.
 
 The resulting timestamps serve as starting points for new API data requests,
-ensuring continuous data collection without gaps or unnecessary duplication.
+ensuring continuous data collection without gaps or duplication.
 }
 \examples{
 # Examples are temporarily disabled

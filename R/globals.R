@@ -17,5 +17,9 @@ utils::globalVariables(c(
   "start_time_mst", "t_mean01", "t_mean99", "t_slope_behind_01", "t_slope_behind_99",
   "tibble", "tightest_r", "timestamp", "type", "upload_adls_file", "visit_comments",
   "visit_type", "visit_type_other", "walk", "which_sensor_malfunction", "wiper_working",
-  "write_csv"
+  "write_csv", "DT_join", "DT_round", "Depth", "Temperature", "auto_flag", "back1",
+  "enddate", "flag", "front1", "gps", "month", "other_which_sensor_malfunction",
+  "parameter", "parameterId", "ph_junction_replaced", "photos_downloaded",
+  "photos_downloaded_other", "site", "sonde_moved", "startdate", "timezone", 
+  "unitId", "value", "year"
 ))

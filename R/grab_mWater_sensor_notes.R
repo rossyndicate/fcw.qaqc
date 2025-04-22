@@ -68,7 +68,7 @@ grab_mWater_sensor_notes <- function(mWater_api_data){
       site, crew, DT_round, sonde_employed, sensors_cleaned, wiper_working, 
       rdo_cap_condition, rdo_cap_replaced, ph_junction_replaced, cals_performed, 
       cal_report_collected, sonde_moved, sensor_malfunction, sensor_pulled, 
-      sensor_deployed, sensor_swapped_notes, visit_type, start_time_mst, DT_join, 
+      sensor_deployed, sensor_swapped_notes, visit_type, DT_join, 
       start_DT, end_dt, date, visit_comments, photos_downloaded, field_season, 
       last_site_visit
     )

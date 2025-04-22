@@ -15,7 +15,7 @@
 #' @return A dataframe containing processed field notes with standardized columns:
 #' - site: Standardized site name (lowercase, no spaces)
 #' - DT_round: Rounded timestamp for joining with sensor data
-#' - start_DT/end_dt: Start and end times of field visits (MST timezone)
+#' - start_DT/end_dt: Start and end times of field visits (UTC timezone)
 #' - visit_type: Type of field visit (standardized)
 #' - sensor_pulled/sensor_deployed: Serial numbers of equipment
 #' - And various other field observation columns
@@ -35,15 +35,13 @@ load_mWater <- function(creds = yaml::read_yaml("creds/mWaterCreds.yml"), summar
   # Download field notes from mWater API and perform data cleaning operations
   all_notes_cleaned <- readr::read_csv(url(api_url), show_col_types = FALSE) %>%
     dplyr::mutate(
-      # Convert timestamps from UTC to Mountain Standard Time (MST)
       # Handle multiple possible date-time formats using lubridate
-      start_DT = lubridate::with_tz(lubridate::parse_date_time(start_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "MST"),
-      end_dt = lubridate::with_tz(lubridate::parse_date_time(end_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "MST"),
-      malfunction_end_dt = lubridate::with_tz(lubridate::parse_date_time(malfunction_end_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "MST"),
+      start_DT = lubridate::with_tz(lubridate::parse_date_time(start_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
+      end_dt = lubridate::with_tz(lubridate::parse_date_time(end_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
+      malfunction_end_dt = lubridate::with_tz(lubridate::parse_date_time(malfunction_end_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
       
       # Extract date and time components for convenience
-      date = as.Date(start_DT, tz = "MST"),
-      start_time_mst = format(start_DT, "%H:%M"),
+      date = as.Date(start_DT, tz = "UTC"),
 
       # Ensure sensor serial numbers are character type
       sensor_pulled = as.character(sn_removed),

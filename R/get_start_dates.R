@@ -1,32 +1,35 @@
-#' @title Get the start dates for the HydroVu API pull from the historically flagged data
+#' @title Get the start dates for the HydroVu API pull from historically flagged data
 #' @export
 #'
 #' @description
-#' This function finds the most recent timestamp (max datetime) in the Temperature 
-#' parameter data frames for each monitoring site's historically flagged data. 
-#' Temperature is used as the reference parameter because it is consistently 
-#' tracked by all sondes and therefore provides the most reliable indication of 
-#' when data was last collected from each site.
+#' Attempts to find the most recent timestamp in Temperature parameter data for each monitoring 
+#' site's historically flagged data. Temperature is used as the reference parameter 
+#' because it is consistently tracked by all sondes, providing the most reliable 
+#' indication of when data was last collected from each site. This function will compare
+#' the temperature data's most recent timestamp to that of all the other parameters.
+#' If it finds that these are not equal, it will prefer to use the earliest timestamp,
+#' regardless of its source, with the assumption that the earlier start dates should be
+#' attributed to parameters that are not Temperature. 
 #' 
 #' The resulting timestamps serve as starting points for new API data requests,
-#' ensuring continuous data collection without gaps or unnecessary duplication.
+#' ensuring continuous data collection without gaps or duplication.
 #'
 #' @param incoming_historically_flagged_data_list A list of dataframes containing 
-#' historical water quality data that has already been processed through the QAQC 
-#' workflow. Each list element should represent a site-parameter combination and 
-#' be named with the "site-parameter" naming convention.
+#'   historical water quality data that has been processed through the QAQC 
+#'   workflow. Each list element should represent a site-parameter combination and 
+#'   be named using the "site-parameter" convention.
 #'
-#' @return A dataframe containing two columns:
-#' - site: The monitoring location identifier
-#' - DT_round: The timestamp (in UTC timezone) of the most recent Temperature 
-#' reading for each site, which will be used as the start date for new API pulls
+#' @return A dataframe with three columns:
+#'   - site: The monitoring location identifier
+#'   - start_DT: The timestamp (in UTC) of the most recent reading for each site
+#'   - end_DT: The current system time (in UTC)
 #'
 #' @examples
 #' # Examples are temporarily disabled
 #' @seealso [api_puller()]
 #' @seealso [munge_api_data()]
 
-get_start_dates <- function(incoming_historically_flagged_data_list) {
+get_start_dates <- function(incoming_historically_flagged_data_list, api_attempt_tracker) {
   
   # Create the start date directly in Denver time
   default_denver_date <- as.POSIXct(paste0(lubridate::year(Sys.time()), "-03-01"), tz = "America/Denver")
@@ -48,40 +51,61 @@ get_start_dates <- function(incoming_historically_flagged_data_list) {
     end_DT = as.POSIXct(Sys.time(), tz = "UTC") 
   )
   
-  if (length(incoming_historically_flagged_data_list) > 0) {
-    
-    # Extract only Temperature parameter dataframes from the historical data list
-    temperature_subset <- grep("Temperature", names(incoming_historically_flagged_data_list))
-    
-    # Extract each sites most recent timestamp based on their temperature data
-    temperature_subset_start_dates_df <- incoming_historically_flagged_data_list[temperature_subset] %>% 
-      dplyr::bind_rows(.) %>% 
-      dplyr::mutate(DT_round = lubridate::with_tz(DT_round, "UTC")) %>% 
-      dplyr::group_by(site) %>% 
-      dplyr::slice_max(DT_round) %>% 
-      dplyr::select(start_DT = DT_round, site) %>% 
-      dplyr::ungroup()
-    
-    # min start dt from temp
-    temp_startDT <- min(temperature_subset_start_dates_df$start_DT)
-    
-    # update default df
-    final_start_dates_df <- default_start_dates %>% 
-      left_join(historical_start_dates_df, by = "site") %>% 
-      mutate(start_DT = coalesce(start_DT.y, start_DT.x),
-             start_DT = min(start_DT),
-             end_DT = as.POSIXct(Sys.time(), tz = "UTC") ) %>% 
-      select(-c(start_DT.y, start_DT.x)) %>% 
-      relocate(site, start_DT, end_DT)
-    
-    return(final_start_dates_df)
-    
-  } else { 
-    
-    # If the historical data is empty, default to default_start_dates
-    final_start_dates_df <- default_start_dates
-    
-    return(final_start_dates_df)
+  # If no historical data is provided, return default dates
+  if (length(incoming_historically_flagged_data_list) == 0) {
+    return(default_start_dates)
   }
   
+  # Extract only Temperature parameter dataframes
+  temperature_subset <- grep("Temperature", names(incoming_historically_flagged_data_list))
+  
+  # Extract each site's most recent timestamp based on temperature data
+  temp_start_dates_df <- incoming_historically_flagged_data_list[temperature_subset] %>% 
+    dplyr::bind_rows() %>% 
+    dplyr::mutate(DT_round = lubridate::with_tz(DT_round, "UTC")) %>% 
+    dplyr::group_by(site) %>% 
+    dplyr::slice_max(DT_round) %>% 
+    dplyr::select(start_DT = DT_round, site) %>% 
+    dplyr::ungroup()
+  
+  # Extract each site's most recent timestamp across all parameters
+  all_params_dates_df <- incoming_historically_flagged_data_list %>% 
+    dplyr::bind_rows() %>% 
+    dplyr::mutate(DT_round = lubridate::with_tz(DT_round, "UTC")) %>% 
+    dplyr::group_by(site) %>% 
+    dplyr::slice_max(DT_round) %>% 
+    dplyr::select(start_DT = DT_round, site) %>% 
+    dplyr::ungroup()
+  
+  # Check if temperature dates equal all parameter dates
+  test_dates <- dplyr::full_join(temp_start_dates_df, all_params_dates_df, by = "site") %>% 
+    dplyr::mutate(dates_equal = start_DT.x == start_DT.y)
+  
+  all_true <- all(test_dates$dates_equal, na.rm = TRUE)
+  
+  earlier_temp <- min(temp_start_dates_df$start_DT) <= min(all_params_dates_df$start_DT)
+  
+  # Choose which dates to use based on equality test
+  selected_dates_df <- if (!all_true & earlier_temp) {
+    warning("Using start dates from parameter data.")
+    # Here we are assuming that there will never be any issues with retrieving the temperature data.
+    all_params_dates_df
+  } else {
+    cat("Using start dates from temperature data.")
+    temp_start_dates_df
+  }
+  
+  # Update default dataframe with historical data where available
+  final_start_dates_df <- default_start_dates %>% 
+    dplyr::left_join(selected_dates_df, by = "site") %>% 
+    dplyr::mutate(
+      start_DT = dplyr::coalesce(start_DT.y, start_DT.x),
+      # Ensure we're using the earliest date as the start date
+      start_DT = min(start_DT),
+      end_DT = as.POSIXct(Sys.time(), tz = "UTC")
+    ) %>% 
+    dplyr::select(-c(start_DT.y, start_DT.x)) %>% 
+    dplyr::relocate(site, start_DT, end_DT)
+  
+  return(final_start_dates_df)
 }

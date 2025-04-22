@@ -1,13 +1,83 @@
 Places to update file uploads and downloads to parquet files:
 
-1. Defining folder paths for `CFC_curated_file_path`.
-2. The `pwqn_data.RDS` file, that also needs to get renamed appropriately.
-4. When saving the mWater data, which needs to get renamed properly as well.
-5. The sensor specific seasonal thresholds need to be saved as a parquet file and renamed properly.
-6. `final_historical_bind` object needs to be saved as parquet and renamed properly.
-7. yaml credential files
 
-3. Files saved in `api_puller()` function, that also need to get renamed appropriately.
 
 naming convention pattern:
 <FileName><YYYYMMDD>-T<HHMMSS>Z.parquet
+
+# ---- DT conversion notes ----
+
+flagging functions:
+  
+DT DONE:
+./add_field_notes.R
+./add_malfunction_flag.R
+  - Converted all references of MST to UTC
+  
+# Files to check for MST:
+./munge_api_data.R
+  - Removed all dt conversions to MST
+  
+./get_start_dates.R
+  - Converted all MST to UTC
+
+check these functions in relation to api_puller:
+hv_auth
+hv_token
+hv_data_id
+  - added rounding on start and end dates to prevent errors
+  
+look for "start_time_mst" in:
+  - Converted all references to MST to UTC and 
+./grab_mWater_malfunction_notes.R
+./grab_mWater_sensor_notes.R
+./load_mWater.R
+  - date and time components objects removed because they aren't used in the function, and are not used in functions which use this either.
+  - start_time_mst??? check for this in other functions
+
+./fix_calibration.R
+  - no updates because it is not referenced anywhere 
+  
+# Check for historical column alterations in these files:
+./combine_datasets.R
+./final_data_binder.R
+
+TODO:
+- Fixing get_start_dates
+  - The issue: get_start_dates() looks for the most recent temperature data. When 
+  everything works as expected thats fine. However, in the case that a site is down 
+  get_start_dates keeps trying the latest DT that was called for it. In the case 
+  where the site is actually down and not logging any information, this is fine. 
+  Once the site comes back on the process will continue as expected. However, in 
+  the case where a site-parameter is logging data locally but unable to send it to
+  HV API this can be an issue once that data is finally logged again. This means that
+  the data will get grabbed, but the related information for the network check will
+  be unavailable, meaning that we will store data that is incorrect for all the 
+  site-parameters (since they are all dependent on each other). A solution for this
+  problem is not super straight forward. The first implementation that I did was to 
+  add a manual tweak to the beginning of the script, like how JB had done to make sure
+  that we can run the script manually. The second thing that I did was to have 
+  get_start_dates() check the temp start dates against all of the parameters' start dates
+  to make sure that we are getting the same thing for all of them. This is good, but 
+  introduced a new problem. If a site parameter is permanently inoperational we will
+  always pull from its DT in the current iteration of get_start_dates(). The final 
+  thing that I did to solve this problem was to incorporate a tracking system for
+  the API pulls to prevent pulling data thats more than a week old consistently.
+  - TANGIBLES:
+    - update hv_api_pull_failure_tracker via long_operational_site_parameter in 
+    such a way that it can be used by get_start_dates()
+  
+  Reviewing this revealed an unexpected cascading effect in network check. 
+  - network check cascading effect:
+    - Site A gets its flags cleared based on Site B
+    - But Site B doesn't get its flags cleared based on the now-fixed Site A
+    - This creates an inconsistency in how sites influence each other
+  This effect was not readily apparent when reading the code, but becomes more clear 
+  as one works through the pipeline closely.
+
+- Make the manual section for the synapse notebook
+- Make the user manual for the synapse notebook code
+- Make the test cases for the functions
+- Adding pipeline state tracking to detect and recover from partial failures.
+- Does HV know that we are going to pull this data every 3 hours? 
+- Does mWater know that we are going to pull this data every 3 hours?

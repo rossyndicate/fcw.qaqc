@@ -4,17 +4,17 @@
 \alias{final_data_binder}
 \title{Combine new and historical water quality data}
 \usage{
-final_data_binder(new_flagged_data, historical_flagged_data)
+final_data_binder(new_flagged_data_list, historical_flagged_data_list)
 }
 \arguments{
-\item{new_flagged_data}{A list of dataframes containing newly processed and flagged
+\item{new_flagged_data_list}{A list of dataframes containing newly processed and flagged
 water quality data. Each list element should be named with a site-parameter combination
 (e.g., "riverbluffs-Temperature") and include a \code{historical} column indicating which
 records overlap with the historical dataset.}
 
-\item{historical_flagged_data}{A list of dataframes containing previously processed
+\item{historical_flagged_data_list}{A list of dataframes containing previously processed
 water quality data. Each list element should be named with a site-parameter combination
-matching elements in \code{new_flagged_data}.}
+matching elements in \code{new_flagged_data_list}.}
 }
 \value{
 A list of dataframes containing the merged data, with dataframes named by

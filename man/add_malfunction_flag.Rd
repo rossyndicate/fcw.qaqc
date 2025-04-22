@@ -11,7 +11,7 @@ add_malfunction_flag(df, malfunction_records)
 \itemize{
 \item \code{site}: Standardized site name
 \item \code{parameter}: The measurement type
-\item \code{DT_round}: Timestamp for each measurement
+\item \code{DT_round}: Timestamp for each measurement, in UTC
 \item \code{flag}: Existing quality flags
 }}
 
@@ -20,8 +20,8 @@ with columns:
 \itemize{
 \item \code{site}: Site name matching the df site column
 \item \code{parameter}: Parameter name (NA indicates the entire sonde was malfunctioning)
-\item \code{start_DT}: Start timestamp of the malfunction period
-\item \code{end_DT}: End timestamp of the malfunction period (NA indicates ongoing)
+\item \code{start_DT}: Start timestamp of the malfunction period, in UTC
+\item \code{end_DT}: End timestamp of the malfunction period (NA indicates ongoing), in UTC
 \item \code{notes}: Text description of the malfunction
 }}
 }
