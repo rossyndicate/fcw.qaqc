@@ -1,0 +1,53 @@
+---
+title: "The PWQN AutoQAQC Pipeline in Synapse"
+output: html_document
+---
+
+# 1. Pipeline Overview
+The AutoQAQC pipeline performs these key operations:
+
+- Data Acquisition: Retrieves raw sensor data from HydroVu API and field notes from mWater
+- Preprocessing Data for AutoQAQC Pipeline: Cleans, standardizes, and joins datasets
+- AutoQAQC Flagging: Applies multiple layers of automated quality checks and flagging
+- Data Integration: Combines new data with historical records
+- Data Management: Creates visualization-ready datasets and archives raw/processed data
+
+# 2. Environment Setup
+## 2.1 Load Required Libraries
+## 2.2 Define File Paths and Storage Configuration
+## 2.3 Setup API Credentials
+
+# 3. Data Acquisition
+## 3.1 Load Historical AutoQAQC'd Data
+## 3.2 Determine Time Ranges for HydroVu API Data Request
+## 3.3 Request and Upload HydroVu API Data
+### 3.3.1 Check and Prepare Incoming Data Directory
+### 3.3.2 Request and Upload Water Quality Data from HydroVu API
+### 3.3.3 Verify Successful Data Retrieval from HydroVu
+## 3.4 Request and Load mWater Data
+### 3.4.1 Extract Sensor Observation Notes from mWater Data
+### 3.4.2 Extract Sensor Malfunction Notes from mWater Data
+
+# 4. Preprocessing Data for AutoQAQC Pipeline
+## 4.1 Load Raw HydroVu Data into Notebook Environment
+## 4.2 Tidy Raw HydroVu Data
+## 4.3 Combine Tidied HydroVu Data with Historical Data Subset and Field Notes
+## 4.4 Generate Summary Statistics for the Preprocessed Data
+
+# 5. AutoQAQC Flagging
+## 5.1 Read in Thresholds for Flagging
+### 5.1.1 Sensor Specification Thresholds
+### 5.1.2 Sensor Specific Seasonal Thresholds
+## 5.2 Individual-Parameter Quality Checks
+## 5.3 Site-Level (Intra-sonde) Quality Checks
+## 5.4 Network-Wide (Inter-sonde) Quality Checks
+
+# 6. Data Integration and Management
+## 6.1 Combine with Historical Dataset
+## 6.2 Save Complete Dataset
+## 6.3 Create Visualization Dataset
+## 6.4 Manage File Retention
+## 6.5 Archive Raw Data Files
+
+# 7. Understanding Quality Flags
+...

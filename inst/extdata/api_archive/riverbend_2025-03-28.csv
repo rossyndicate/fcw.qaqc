@@ -1,0 +1,631 @@
+site,id,name,timestamp,parameter,value,units
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,% Saturation O₂,155.81373596191406,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,% Saturation O₂,157.08010864257812,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,% Saturation O₂,157.6442108154297,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,% Saturation O₂,130.80984497070312,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,% Saturation O₂,126.0429916381836,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,% Saturation O₂,115.32430267333984,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,% Saturation O₂,110.01021575927734,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,% Saturation O₂,107.40879821777344,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,% Saturation O₂,106.1476058959961,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,% Saturation O₂,105.26686096191406,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,% Saturation O₂,105.29450988769531,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,% Saturation O₂,105.45553588867188,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,% Saturation O₂,105.58036041259766,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,% Saturation O₂,105.42324829101562,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,% Saturation O₂,104.85115814208984,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,% Saturation O₂,103.9782485961914,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,% Saturation O₂,102.95077514648438,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,% Saturation O₂,102.27360534667969,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,% Saturation O₂,101.16667175292969,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,% Saturation O₂,99.78755950927734,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,% Saturation O₂,98.54363250732422,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,% Saturation O₂,97.256927490234375,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,% Saturation O₂,96.1591567993164,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,% Saturation O₂,95.04273223876953,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,% Saturation O₂,94.11564636230469,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,% Saturation O₂,93.3549575805664,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,% Saturation O₂,92.76008605957031,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,% Saturation O₂,92.19413757324219,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,% Saturation O₂,91.67064666748047,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,% Saturation O₂,91.1389389038086,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,% Saturation O₂,90.57936096191406,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,% Saturation O₂,90.22296142578125,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,% Saturation O₂,89.650299072265625,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,% Saturation O₂,89.08194732666016,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,% Saturation O₂,88.60777282714844,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,% Saturation O₂,88.22187805175781,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,% Saturation O₂,87.8478012084961,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,% Saturation O₂,87.38964080810547,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,% Saturation O₂,86.92253875732422,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,% Saturation O₂,86.69403076171875,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,% Saturation O₂,86.19474029541016,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,% Saturation O₂,85.7909927368164,% sat
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,Actual Conductivity,969.70306396484375,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,Actual Conductivity,971.11163330078125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,Actual Conductivity,964.52679443359375,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,Actual Conductivity,682.58953857421875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,Actual Conductivity,369.1388854980469,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,Actual Conductivity,295.69207763671875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,Actual Conductivity,277.60650634765625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,Actual Conductivity,268.68310546875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,Actual Conductivity,265.293701171875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,Actual Conductivity,263.31988525390625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,Actual Conductivity,262.30126953125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,Actual Conductivity,261.936279296875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,Actual Conductivity,262.8915100097656,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,Actual Conductivity,264.2387390136719,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,Actual Conductivity,267.1997985839844,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,Actual Conductivity,271.77276611328125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,Actual Conductivity,277.4681396484375,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,Actual Conductivity,283.6495666503906,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,Actual Conductivity,290.0168762207031,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,Actual Conductivity,297.7338562011719,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,Actual Conductivity,305.77191162109375,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,Actual Conductivity,317.1721496582031,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,Actual Conductivity,327.814697265625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,Actual Conductivity,338.7622985839844,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,Actual Conductivity,349.95806884765625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,Actual Conductivity,358.5053405761719,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,Actual Conductivity,365.432861328125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,Actual Conductivity,368.5990295410156,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,Actual Conductivity,368.15045166015625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,Actual Conductivity,366.3102111816406,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,Actual Conductivity,365.3680725097656,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,Actual Conductivity,365.8840026855469,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,Actual Conductivity,368.2259216308594,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,Actual Conductivity,371.5695495605469,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,Actual Conductivity,375.5215148925781,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,Actual Conductivity,378.8438415527344,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,Actual Conductivity,382.6511535644531,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,Actual Conductivity,387.5035095214844,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,Actual Conductivity,392.50885009765625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,Actual Conductivity,397.4972839355469,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,Actual Conductivity,403.4369201660156,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,Actual Conductivity,408.7436218261719,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,Baro,12.257739754176528,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,Baro,12.252661253494143,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,Baro,12.247972226487143,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,Baro,12.24455902082285,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,Baro,12.241278000163534,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,Baro,12.23681911669199,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,Baro,12.234894172556976,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,Baro,12.230279499615277,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,Baro,12.22788600684654,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,Baro,12.226250217409918,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,Baro,12.221964826757409,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,Baro,12.21853627819075,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,Baro,12.2174363101136,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,Baro,12.21706808045687,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,Baro,12.216533439320658,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,Baro,12.217223869927025,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,Baro,12.217932003882273,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,Baro,12.216384731190056,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,Baro,12.214864603632792,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,Baro,12.215762753532697,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,Baro,12.215340233606065,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,Baro,12.215170281456807,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,Baro,12.21523283328952,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,Baro,12.217018511080003,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,Baro,12.216638479190687,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,Baro,12.219830983105595,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,Baro,12.215156118777701,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,Baro,12.215726166611676,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,Baro,12.215612865178837,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,Baro,12.215485401066891,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,Baro,12.214529420227308,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,Baro,12.214232003966103,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,Baro,12.212815736055608,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,Baro,12.21116578393988,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,Baro,12.209466262447286,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,Baro,12.207667602200956,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,Baro,12.205566804800387,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,Baro,12.207111717046086,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,Baro,12.205681286456485,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,Baro,12.201916374261085,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,Baro,12.201512737906594,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,Baro,12.20217484315475,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,Battery Level,0,%
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,Chl-a Fluorescence,0.030199209228157997,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,Chl-a Fluorescence,0.02526799775660038,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,Chl-a Fluorescence,0.03174060955643654,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,Chl-a Fluorescence,9.968059539794922,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,Chl-a Fluorescence,14.865262031555176,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,Chl-a Fluorescence,9.574292182922363,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,Chl-a Fluorescence,5.8725199699401855,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,Chl-a Fluorescence,6.471480846405029,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,Chl-a Fluorescence,5.031267166137695,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,Chl-a Fluorescence,5.02517032623291,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,Chl-a Fluorescence,4.2132463455200195,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,Chl-a Fluorescence,4.044857978820801,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,Chl-a Fluorescence,2.320359230041504,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,Chl-a Fluorescence,2.1851377487182617,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,Chl-a Fluorescence,2.252211809158325,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,Chl-a Fluorescence,1.5774829387664795,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,Chl-a Fluorescence,1.6330808401107788,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,Chl-a Fluorescence,0.9805989861488342,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,Chl-a Fluorescence,0.9840742945671082,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,Chl-a Fluorescence,0.918935239315033,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,Chl-a Fluorescence,1.1944645643234253,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,Chl-a Fluorescence,0.6369536519050598,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,Chl-a Fluorescence,0.7306095361709595,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,Chl-a Fluorescence,0.8130062222480774,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,Chl-a Fluorescence,0.8206842541694641,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,Chl-a Fluorescence,0.5010514855384827,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,Chl-a Fluorescence,1.0048255920410156,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,Chl-a Fluorescence,0.6087427139282227,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,Chl-a Fluorescence,0.7613813877105713,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,Chl-a Fluorescence,0.5039536356925964,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,Chl-a Fluorescence,0.7524559497833252,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,Chl-a Fluorescence,0.7926767468452454,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,Chl-a Fluorescence,0.45931726694107056,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,Chl-a Fluorescence,1.5524016618728638,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,Chl-a Fluorescence,0.5130979418754578,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,Chl-a Fluorescence,0.7645360231399536,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,Chl-a Fluorescence,0.5269515514373779,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,Chl-a Fluorescence,0.5246216654777527,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,Chl-a Fluorescence,0.6162468791007996,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,Chl-a Fluorescence,0.6625597476959229,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,Chl-a Fluorescence,0.6166805028915405,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,Chl-a Fluorescence,0.3692355751991272,RFU
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,DO,13.348917961120605,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,DO,13.460830688476562,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,DO,13.486149787902832,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,DO,11.274186134338379,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,DO,10.80294418334961,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,DO,9.920479774475098,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,DO,9.491331100463867,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,DO,9.269478797912598,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,DO,9.160728454589844,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,DO,9.092216491699219,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,DO,9.098344802856445,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,DO,9.126529693603516,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,DO,9.15285587310791,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,DO,9.158830642700195,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,DO,9.131487846374512,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,DO,9.073451042175293,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,DO,8.999747276306152,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,DO,8.950737953186035,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,DO,8.86244010925293,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,DO,8.752772331237793,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,DO,8.652680397033691,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,DO,8.549572944641113,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,DO,8.462431907653809,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,DO,8.375397682189941,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,DO,8.300637245178223,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,DO,8.240601539611816,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,DO,8.190760612487793,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,DO,8.145172119140625,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,DO,8.102331161499023,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,DO,8.060041427612305,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,DO,8.014749526977539,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,DO,7.98838472366333,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,DO,7.944027423858643,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,DO,7.902612686157227,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,DO,7.871484756469727,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,DO,7.847769260406494,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,DO,7.824814319610596,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,DO,7.795468807220459,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,DO,7.762889385223389,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,DO,7.751227378845215,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,DO,7.718582630157471,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,DO,7.6951165199279785,mg/L
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,Depth,0.5523556380271912,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,Depth,0.5577339071273804,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,Depth,0.5672427380561829,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,Depth,0.8342602695465088,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,Depth,0.8514839275360108,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,Depth,0.8517803483963013,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,Depth,0.840948524093628,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,Depth,0.8347399641036988,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,Depth,0.8146953300476074,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,Depth,0.7996756799697876,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,Depth,0.7833538564682008,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,Depth,0.7691391717910767,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,Depth,0.7537976663589477,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,Depth,0.7385717061996461,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,Depth,0.7254832609176636,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,Depth,0.7179765970230103,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,Depth,0.6993241744995118,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,Depth,0.6887242401123047,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,Depth,0.6798351024627686,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,Depth,0.6708956045150757,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,Depth,0.6624639970779419,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,Depth,0.6547609062194825,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,Depth,0.6465426578521729,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,Depth,0.6424431261062622,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,Depth,0.6409743204116821,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,Depth,0.6412435626983642,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,Depth,0.6428283496856689,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,Depth,0.6458147953033447,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,Depth,0.6436644178390504,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,Depth,0.6425686271667481,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,Depth,0.6403614944458008,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,Depth,0.6381318340301514,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,Depth,0.633393169784546,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,Depth,0.6319498712539673,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,Depth,0.6274624271392822,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,Depth,0.6237593101501465,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,Depth,0.6208586877822876,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,Depth,0.6184222812652588,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,Depth,0.6168446159362794,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,Depth,0.6148605073928833,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,Depth,0.613508337020874,m
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,Depth,0.609722957611084,m
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,External Voltage,15.605999946594238,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,External Voltage,15.588000297546387,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,External Voltage,15.588000297546387,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,External Voltage,15.588000297546387,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,External Voltage,15.588000297546387,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,External Voltage,15.560999870300293,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,External Voltage,15.560999870300293,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,External Voltage,15.560999870300293,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,External Voltage,15.560999870300293,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,External Voltage,15.579000473022461,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,External Voltage,15.560999870300293,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,External Voltage,15.560999870300293,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,External Voltage,15.552000045776367,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,External Voltage,15.569999694824219,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,ORP,0.18754345703125,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,ORP,0.18096786499023437,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,ORP,0.16515118408203125,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,ORP,0.058940467834472654,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,ORP,0.07953506469726562,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,ORP,0.06731849670410156,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,ORP,0.05614620208740234,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,ORP,0.07173877716064453,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,ORP,0.07660728454589844,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,ORP,0.08158069610595703,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,ORP,0.08948188781738281,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,ORP,0.08946281433105469,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,ORP,0.08772712707519531,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,ORP,0.08159976959228515,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,ORP,0.08260112762451172,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,ORP,0.10355812072753906,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,ORP,0.08717876434326172,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,ORP,0.0866876220703125,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,ORP,0.08764606475830078,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,ORP,0.08455615997314453,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,ORP,0.07965904235839844,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,ORP,0.07924419403076172,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,ORP,0.07637840270996094,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,ORP,0.07669788360595703,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,ORP,0.07291656494140625,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,ORP,0.06225448608398438,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,ORP,0.06817680358886719,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,ORP,0.06983619689941406,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,ORP,0.06831985473632812,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,ORP,0.06914955139160156,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,ORP,0.06778102874755859,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,ORP,0.07006507873535156,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,ORP,0.07326465606689453,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,ORP,0.06974082946777344,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,ORP,0.07365566253662109,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,ORP,0.07311683654785156,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,ORP,0.07348876953125,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,ORP,0.06638866424560547,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,ORP,0.08097034454345703,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,ORP,0.07132869720458984,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,ORP,0.07512432098388672,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,ORP,0.07772308349609375,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,Pressure,0.6189336776733398,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,Pressure,0.6279621124267578,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,Pressure,0.6382513046264648,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,Pressure,1.0192270278930664,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,Pressure,1.044046401977539,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,Pressure,1.045705795288086,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,Pressure,1.0302791595458984,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,Pressure,1.0186309814453125,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,Pressure,0.9928417205810547,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,Pressure,0.9709129333496094,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,Pressure,0.9477138519287109,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,Pressure,0.9298133850097656,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,Pressure,0.9059553146362305,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,Pressure,0.8843221664428711,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,Pressure,0.8646135330200195,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,Pressure,0.8503894805908203,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,Pressure,0.829498291015625,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,Pressure,0.81230926513671875,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,Pressure,0.79991912841796875,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,Pressure,0.7871589660644531,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,Pressure,0.7757415771484375,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,Pressure,0.765233039855957,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,Pressure,0.7533931732177734,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,Pressure,0.7478456497192383,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,Pressure,0.7454395294189453,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,Pressure,0.7464962005615234,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,Pressure,0.7498807907104492,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,Pressure,0.7512960433959961,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,Pressure,0.7484006881713867,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,Pressure,0.7495565414428711,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,Pressure,0.745600700378418,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,Pressure,0.74080657958984375,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,Pressure,0.73613739013671875,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,Pressure,0.7324619293212891,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,Pressure,0.7265052795410156,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,Pressure,0.7217502593994141,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,Pressure,0.7197198867797852,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,Pressure,0.7152299880981445,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,Pressure,0.7119388580322266,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,Pressure,0.7091245651245117,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,Pressure,0.7056941986083984,psi
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,Pressure,0.7021083831787109,psi
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,Specific Conductivity,1231.6143798828125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,Specific Conductivity,1234.4183349609375,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,Specific Conductivity,1224.4566650390625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,Specific Conductivity,856.0928955078125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,Specific Conductivity,464.5901794433594,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,Specific Conductivity,377.07794189453125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,Specific Conductivity,355.93408203125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,Specific Conductivity,344.00311279296875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,Specific Conductivity,339.56304931640625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,Specific Conductivity,337.6124267578125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,Specific Conductivity,336.54266357421875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,Specific Conductivity,336.7617492675781,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,Specific Conductivity,338.7086181640625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,Specific Conductivity,341.2430114746094,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,Specific Conductivity,345.99566650390625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,Specific Conductivity,352.6782531738281,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,Specific Conductivity,360.7529296875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,Specific Conductivity,369.3204040527344,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,Specific Conductivity,378.0801086425781,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,Specific Conductivity,388.6474609375,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,Specific Conductivity,399.6407470703125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,Specific Conductivity,415.09637451171875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,Specific Conductivity,429.5784606933594,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,Specific Conductivity,444.49652099609375,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,Specific Conductivity,459.65972900390625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,Specific Conductivity,471.231689453125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,Specific Conductivity,480.73260498046875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,Specific Conductivity,485.1820983886719,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,Specific Conductivity,484.7961730957031,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,Specific Conductivity,482.6596374511719,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,Specific Conductivity,481.7817077636719,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,Specific Conductivity,482.8185729980469,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,Specific Conductivity,486.3988952636719,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,Specific Conductivity,491.516357421875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,Specific Conductivity,497.6168518066406,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,Specific Conductivity,502.8564453125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,Specific Conductivity,508.7349853515625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,Specific Conductivity,515.969970703125,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,Specific Conductivity,523.406005859375,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,Specific Conductivity,530.88922119140625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,Specific Conductivity,539.80084228515625,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,Specific Conductivity,547.89080810546875,µS/cm
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,Temperature,13.87170124053955,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,Temperature,13.832235336303711,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,Temperature,13.870923042297363,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,Temperature,13.574088096618652,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,Temperature,13.86895751953125,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,Temperature,13.699841499328613,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,Temperature,13.563974380493164,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,Temperature,13.536569595336914,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,Temperature,13.52705192565918,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,Temperature,13.478913307189941,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,Temperature,13.450247764587402,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,Temperature,13.366959571838379,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,Temperature,13.280538558959961,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,Temperature,13.185436248779297,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,Temperature,13.076617240905762,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,Temperature,12.989367485046387,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,Temperature,12.91288948059082,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,Temperature,12.855030059814453,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,Temperature,12.805123329162598,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,Temperature,12.75271987915039,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,Temperature,12.7024564743042,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,Temperature,12.648838996887207,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,Temperature,12.597268104553223,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,Temperature,12.545924186706543,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,Temperature,12.5057954788208,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,Temperature,12.478139877319336,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,Temperature,12.442839622497559,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,Temperature,12.419516563415527,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,Temperature,12.40273666381836,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,Temperature,12.379114151000977,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,Temperature,12.349135398864746,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,Temperature,12.319812774658203,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,Temperature,12.279850959777832,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,Temperature,12.223337173461914,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,Temperature,12.153918266296387,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,Temperature,12.088150978088379,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,Temperature,12.024190902709961,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,Temperature,11.964372634887695,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,Temperature,11.906423568725586,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,Temperature,11.844956398010254,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,Temperature,11.774665832519531,C
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,Temperature,11.70429801940918,C
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,Turbidity,3.0543174743652344,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,Turbidity,3.7860193252563477,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,Turbidity,5.155223846435547,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,Turbidity,127.30852508544922,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,Turbidity,66.57671356201172,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,Turbidity,46.418212890625,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,Turbidity,51.23196792602539,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,Turbidity,41.10751724243164,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,Turbidity,31.004051208496094,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,Turbidity,32.190731048583984,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,Turbidity,27.298385620117188,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,Turbidity,32.72640609741211,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,Turbidity,18.91361427307129,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,Turbidity,38.300846099853516,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,Turbidity,10.153687477111816,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,Turbidity,12.347537994384766,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,Turbidity,9.230900764465332,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,Turbidity,9.316048622131348,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,Turbidity,10.036158561706543,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,Turbidity,8.066995620727539,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,Turbidity,7.276693820953369,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,Turbidity,7.975574493408203,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,Turbidity,6.789757251739502,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,Turbidity,6.7354607582092285,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,Turbidity,6.5015387535095215,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,Turbidity,6.5365166664123535,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,Turbidity,6.412885665893555,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,Turbidity,5.827867031097412,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,Turbidity,6.469015598297119,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,Turbidity,31.98003387451172,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,Turbidity,264.15118408203125,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,Turbidity,147.8207550048828,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,Turbidity,193.1186065673828,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,Turbidity,5.573334217071533,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,Turbidity,6.3863348960876465,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,Turbidity,5.858163356781006,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,Turbidity,5.225703239440918,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,Turbidity,5.697259426116943,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,Turbidity,5.254065036773682,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,Turbidity,4.9895405769348145,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,Turbidity,4.82966423034668,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,Turbidity,6.390048503875732,NTU
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,pH,8.220515251159668,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,pH,8.227442741394043,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,pH,8.257347106933594,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,pH,8.10496711730957,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,pH,8.270516395568848,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,pH,8.227898597717285,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,pH,8.118354797363281,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,pH,8.0472564697265625,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,pH,8.015087127685547,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,pH,7.998127460479736,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,pH,7.995449066162109,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,pH,8.004457473754883,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,pH,8.027610778808594,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,pH,8.06490421295166,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,pH,8.107695579528809,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,pH,8.140979766845703,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,pH,8.163315773010254,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,pH,8.184709548950195,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,pH,8.194269180297852,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,pH,8.19510269165039,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,pH,8.193989753723145,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,pH,8.186504364013672,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,pH,8.182331085205078,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,pH,8.17580795288086,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,pH,8.1636199951171875,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,pH,8.150066375732422,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,pH,8.134427070617676,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,pH,8.12049674987793,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,pH,8.109267234802246,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,pH,8.100339889526367,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,pH,8.094568252563477,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,pH,8.088018417358398,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,pH,8.085013389587402,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,pH,8.081713676452637,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,pH,8.075825691223145,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,pH,8.0681734085083,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,pH,8.059904098510742,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,pH,8.047220230102539,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,pH,8.034259796142578,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,pH,8.021756172180176,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,pH,8.01058578491211,pH
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,pH,7.995721340179443,pH
+riverbend,6179650904588288,riverbend - current,2025-03-27T20:50:00Z,pH MV,-0.0649118423461914,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:00:00Z,pH MV,-0.06528377532958984,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:15:00Z,pH MV,-0.06693363189697266,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:30:00Z,pH MV,-0.058536529541015625,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T21:45:00Z,pH MV,-0.067653656005859375,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:00:00Z,pH MV,-0.06528377532958984,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:15:00Z,pH MV,-0.059266090393066406,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:30:00Z,pH MV,-0.055375099182128906,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T22:45:00Z,pH MV,-0.053615570068359375,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:00:00Z,pH MV,-0.05268096923828125,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:15:00Z,pH MV,-0.05252838134765625,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:30:00Z,pH MV,-0.053005218505859375,V
+riverbend,6179650904588288,riverbend - current,2025-03-27T23:45:00Z,pH MV,-0.05425453186035156,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:00:00Z,pH MV,-0.05627155303955078,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:15:00Z,pH MV,-0.05858421325683594,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:30:00Z,pH MV,-0.06038188934326172,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T00:45:00Z,pH MV,-0.061583518981933594,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:00:00Z,pH MV,-0.06273746490478516,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:15:00Z,pH MV,-0.0632476806640625,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:30:00Z,pH MV,-0.06328105926513672,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T01:45:00Z,pH MV,-0.06320953369140625,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:00:00Z,pH MV,-0.0627899169921875,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:15:00Z,pH MV,-0.06255149841308594,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:30:00Z,pH MV,-0.06218433380126953,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T02:45:00Z,pH MV,-0.061511993408203125,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:00:00Z,pH MV,-0.06076812744140625,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:15:00Z,pH MV,-0.059909820556640625,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:30:00Z,pH MV,-0.059146881103515625,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T03:45:00Z,pH MV,-0.058531761169433594,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:00:00Z,pH MV,-0.058040618896484375,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:15:00Z,pH MV,-0.05772113800048828,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:30:00Z,pH MV,-0.057358741760253906,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T04:45:00Z,pH MV,-0.05718708038330078,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:00:00Z,pH MV,-0.05699634552001953,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:15:00Z,pH MV,-0.056662559509277344,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:30:00Z,pH MV,-0.05623340606689453,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T05:45:00Z,pH MV,-0.0557708740234375,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:00:00Z,pH MV,-0.055069923400878906,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:15:00Z,pH MV,-0.05435466766357422,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:30:00Z,pH MV,-0.05366325378417969,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T06:45:00Z,pH MV,-0.053043365478515625,V
+riverbend,6179650904588288,riverbend - current,2025-03-28T07:00:00Z,pH MV,-0.05222320556640625,V

@@ -49,9 +49,9 @@ tidy_api_data <- function(api_data, summarize_interval = "15 minutes") {
   site_arg <- unique(api_data$site)
   parameter_arg <- unique(api_data$parameter)
   
-  # Process the data within a tryCatch to handle potential errors gracefully
-  summary <- tryCatch({
-    api_data %>%
+  # Process the data within a tryCatch to handle potential errors 
+  tryCatch({
+    summary <- api_data %>%
       # Remove any duplicate records that might have been introduced
       dplyr::distinct() %>%
       
@@ -90,14 +90,14 @@ tidy_api_data <- function(api_data, summarize_interval = "15 minutes") {
       
       # Filter out any rows where site is NA (can happen with padding)
       dplyr::filter(!is.na(site))
+    
+    # Return the summary 
+    return(summary)
   },
-  error = function(err) {
+  error = function(e) {
     # Provide informative error message if processing fails
-    cat("An error occurred with site ", site_arg, " parameter ", parameter_arg, ".\n")
-    cat("Error message:", conditionMessage(err), "\n")
-    flush.console() # Immediately print the error messages
-    NULL # Return NULL in case of an error
+    message("An error occurred with site ", site_arg, " parameter ", parameter_arg)
+    message("Error message:", e$message, "\n")
+    return(NULL) # Return NULL in case of an error
   })
-  
-  return(summary)
 }

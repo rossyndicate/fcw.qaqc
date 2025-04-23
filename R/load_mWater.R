@@ -29,16 +29,14 @@ load_mWater <- function(creds = yaml::read_yaml("creds/mWaterCreds.yml"), summar
 
   # Retrieve the API URL from the credentials file
   api_url <- as.character(creds)
-  # TODO: how do we want to handle access when this package is public? (in relation to 
-  # creds file)
 
   # Download field notes from mWater API and perform data cleaning operations
   all_notes_cleaned <- readr::read_csv(url(api_url), show_col_types = FALSE) %>%
     dplyr::mutate(
       # Handle multiple possible date-time formats using lubridate
-      start_DT = lubridate::with_tz(lubridate::parse_date_time(start_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
-      end_dt = lubridate::with_tz(lubridate::parse_date_time(end_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
-      malfunction_end_dt = lubridate::with_tz(lubridate::parse_date_time(malfunction_end_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
+      start_DT = lubridate::with_tz(lubridate::parse_date_time(start_dt, orders = c("%Y-%m-%d", "%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
+      end_dt = lubridate::with_tz(lubridate::parse_date_time(end_dt, orders = c("%Y-%m-%d", "%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
+      malfunction_end_dt = lubridate::with_tz(lubridate::parse_date_time(malfunction_end_dt, orders = c("%Y-%m-%d", "%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
       
       # Extract date and time components for convenience
       date = as.Date(start_DT, tz = "UTC"),

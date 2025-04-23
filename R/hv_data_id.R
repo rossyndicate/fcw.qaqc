@@ -64,9 +64,9 @@ hv_data_id <- function(loc_id, start_time = startdate, end_time = enddate, tz = 
   req <- httr2::request(url)
   
   # Log which site we're attempting to query (helpful for debugging)
-  print(paste0('Trying site ', loc_id))
+  message("...trying location ID: ", loc_id, ".")
   
-  try({
+  tryCatch({
     # Perform the initial API request with OAuth authentication
     resp <- req %>% 
       httr2::req_oauth_client_credentials(token) %>% 
@@ -114,6 +114,10 @@ hv_data_id <- function(loc_id, start_time = startdate, end_time = enddate, tz = 
       dplyr::arrange(Parameter, timestamp)
     
     return(df)
+  }, error = function(e){
+    message("......WARNING: request for location ID: ", loc_id, " FAILED with error:")
+    message("......", e$message)
+    return(NULL)
   })
 }
 

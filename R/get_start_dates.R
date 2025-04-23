@@ -29,7 +29,7 @@
 #' @seealso [api_puller()]
 #' @seealso [munge_api_data()]
 
-get_start_dates <- function(incoming_historically_flagged_data_list, api_attempt_tracker) {
+get_start_dates <- function(incoming_historically_flagged_data_list) {
   
   # Create the start date directly in Denver time
   default_denver_date <- as.POSIXct(paste0(lubridate::year(Sys.time()), "-03-01"), tz = "America/Denver")
@@ -64,44 +64,44 @@ get_start_dates <- function(incoming_historically_flagged_data_list, api_attempt
     dplyr::bind_rows() %>% 
     dplyr::mutate(DT_round = lubridate::with_tz(DT_round, "UTC")) %>% 
     dplyr::group_by(site) %>% 
-    dplyr::slice_max(DT_round) %>% 
-    dplyr::select(start_DT = DT_round, site) %>% 
-    dplyr::ungroup()
+    dplyr::summarize(start_DT = max(DT_round, na.rm = TRUE)) %>% 
+    dplyr::select(start_DT, site)
   
   # Extract each site's most recent timestamp across all parameters
-  all_params_dates_df <- incoming_historically_flagged_data_list %>% 
+  all_params_start_dates_df <- incoming_historically_flagged_data_list %>% 
     dplyr::bind_rows() %>% 
     dplyr::mutate(DT_round = lubridate::with_tz(DT_round, "UTC")) %>% 
     dplyr::group_by(site) %>% 
-    dplyr::slice_max(DT_round) %>% 
-    dplyr::select(start_DT = DT_round, site) %>% 
-    dplyr::ungroup()
+    dplyr::summarize(start_DT = max(DT_round, na.rm = TRUE)) %>% 
+    dplyr::select(start_DT, site)
   
   # Check if temperature dates equal all parameter dates
-  test_dates <- dplyr::full_join(temp_start_dates_df, all_params_dates_df, by = "site") %>% 
+  test_dates <- dplyr::full_join(temp_start_dates_df, all_params_start_dates_df, by = "site") %>% 
     dplyr::mutate(dates_equal = start_DT.x == start_DT.y)
   
   all_true <- all(test_dates$dates_equal, na.rm = TRUE)
   
-  earlier_temp <- min(temp_start_dates_df$start_DT) <= min(all_params_dates_df$start_DT)
+  earlier_temp <- min(temp_start_dates_df$start_DT) <= min(all_params_start_dates_df$start_DT)
   
   # Choose which dates to use based on equality test
   selected_dates_df <- if (!all_true & earlier_temp) {
-    warning("Using start dates from parameter data.")
+    warning("`get_start_dates()` is using start dates from parameter data.")
     # Here we are assuming that there will never be any issues with retrieving the temperature data.
-    all_params_dates_df
+    all_params_start_dates_df
   } else {
-    cat("Using start dates from temperature data.")
+    message("`get_start_dates()` is using start dates from temperature data.")
     temp_start_dates_df
   }
+  
+  # Establish global minimum for the data
+  global_min_start_DT <- min(selected_dates_df$start_DT)
   
   # Update default dataframe with historical data where available
   final_start_dates_df <- default_start_dates %>% 
     dplyr::left_join(selected_dates_df, by = "site") %>% 
     dplyr::mutate(
-      start_DT = dplyr::coalesce(start_DT.y, start_DT.x),
       # Ensure we're using the earliest date as the start date
-      start_DT = min(start_DT),
+      start_DT = global_min_start_DT,
       end_DT = as.POSIXct(Sys.time(), tz = "UTC")
     ) %>% 
     dplyr::select(-c(start_DT.y, start_DT.x)) %>% 

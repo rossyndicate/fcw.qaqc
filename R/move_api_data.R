@@ -37,7 +37,7 @@ move_api_data <- function(api_dir, archive_dir,
       # Copy new files to the archive
       local_file_list <- map(files_to_copy, function(file_name) {
         # create a temp file 
-        temp_file <- tempfile(fileext = ".csv")
+        temp_file <- tempfile(fileext = ".parquet")
         
         # create a file path to the file name
         local_path <- file.path(api_dir, file_name)

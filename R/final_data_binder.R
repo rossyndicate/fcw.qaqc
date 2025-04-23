@@ -78,7 +78,7 @@ final_data_binder <- function(new_flagged_data_list, historical_flagged_data_lis
     
     # Combine older historical data with all new data and sort chronologically
     old_and_new <- dplyr::bind_rows(old, new_flagged_data_list[[index]]) %>%
-      dplyr::arrange(DT_round) 
+      dplyr::arrange(DT_round) # we can also arrange by sites
     
     return(old_and_new)
     
@@ -113,6 +113,6 @@ final_data_binder <- function(new_flagged_data_list, historical_flagged_data_lis
     print(paste0("Added new site-parameter combinations: ", 
                  paste(new_only_indexes, collapse = ", ")))
   }
-
+  
   return(updated_historical_flag_list)
 }

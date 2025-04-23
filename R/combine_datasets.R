@@ -84,9 +84,8 @@ combine_datasets <- function(incoming_data_list, historical_data_list) {
       dplyr::filter(DT_round >= max(DT_round) - lubridate::hours(24)) %>%
       # Mark as historical and preserve quality flags
       dplyr::mutate(historical = TRUE,
-                    flag = as.character(flag),
                     # Copy auto_flag to flag column for continuity
-                    flag = auto_flag) %>%
+                    flag = as.character(auto_flag)) %>%
       # Remove the sonde_moved column so it can be recalculated
       # based on combined historical and new data
       dplyr::select(-sonde_moved)

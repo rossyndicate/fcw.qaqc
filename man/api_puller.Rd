@@ -6,10 +6,10 @@
 \usage{
 api_puller(
   site,
-  network,
   start_dt,
   end_dt = Sys.time(),
   api_token,
+  hv_sites_arg = hv_sites,
   dump_dir,
   synapse_env = FALSE,
   fs = NULL
@@ -19,10 +19,6 @@ api_puller(
 \item{site}{Character string or vector specifying the site name(s) to download
 data for. Site names are matched case-insensitively against the HydroVu
 location names.}
-
-\item{network}{Character string specifying which network of sensors to query.
-Options include "FCW", "CSU", "virridy", or "all". Different networks may have
-different data processing requirements.}
 
 \item{start_dt}{POSIXct timestamp indicating the starting point for data
 retrieval. Usually derived from the most recent timestamp in existing
@@ -46,12 +42,8 @@ dump_dir, with filenames formatted as "sitename_timestamp.csv".
 \description{
 Downloads raw water quality monitoring data from the HydroVu platform for
 specified sites and time periods. This function handles the connection to
-HydroVu, processes the API responses, and saves the raw data as CSV files
+HydroVu, processes the API responses, and saves the raw data as parquet files
 in a specified directory.
-
-The function can retrieve data from different networks (FCW, CSU, or Virridy),
-with appropriate filtering applied depending on the network. It also handles
-special cases such as sites with multiple sondes from different networks.
 }
 \examples{
 # Examples are temporarily disabled

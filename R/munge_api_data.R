@@ -2,20 +2,13 @@
 #' @export
 #'
 #' @description
-#' Transforms raw CSV files downloaded from the HydroVu API into a standardized
-#' format suitable for further quality control processing. This function handles
-#' data from multiple monitoring networks, applies site name standardization,
-#' performs timezone conversion, and manages special cases where monitoring
-#' equipment was relocated between sites. It serves as a crucial preprocessing
-#' step that bridges the gap between raw API data and the structured format
-#' required by downstream quality control functions.
+#' Process raw HydroVu API data files into a standardized format for analysis.
+#' This function reads parquet files from either Azure Data Lake Storage or
+#' local storage and transforms them into a consistent format for downstream
+#' processing.
 #'
 #' @param api_dir Character string specifying the directory path containing the
-#' raw CSV files downloaded from the HydroVu API.
-#'
-#' @param network Character string indicating which monitoring network to process.
-#' Options include "CSU", "FCW" (Fort Collins Watershed), or "all". Different
-#' networks may have different processing requirements.
+#' raw parquet files downloaded from the HydroVu API.
 #'
 #' @param summarize_interval Character string specifying the time interval to
 #' round timestamps to. Default is "15 minutes". Accepts any interval format
@@ -38,118 +31,67 @@
 #' @seealso [api_puller()]
 #' @seealso [tidy_api_data()]
 
-munge_api_data <- function(api_dir, network, summarize_interval = "15 minutes", 
+munge_api_data <- function(api_dir, summarize_interval = "15 minutes", 
                            synapse_env = FALSE, fs = NULL) {
   
+  # Handle cloud-based storage scenario when running in Synapse environment
   if (synapse_env) {
     
-    # List files in ADLS
+    # Get list of all files in the Azure Data Lake Storage (ADLS) directory 
     file_list <- AzureStor::list_adls_files(fs, api_dir, info = "name")
     
-    # Map files into a dataframe
+    # Read in each file in the ADLS raw/.../incoming folder and combine results
+    # into a dataframe.
     api_data <- purrr::map_dfr(file_list, function(adls_path){
-      # set temp file
+      
+      # Create temporary file in the local file system (fs)
       temp_file <- tempfile(fileext = '.parquet')
       
-      # download file from folder into temp file
+      # Download the file from ADLS into the temporary file
       AzureStor::download_adls_file(fs, adls_path, temp_file)
       
-      # read the temp file with read.csv
-      site_df <- arrow::read_parquet(temp_file, as_data_frame = TRUE) %>% 
-        dplyr::select(-id) 
+      # Read the temporary parquet file as a dataframe
+      site_df <- arrow::read_parquet(temp_file, as_data_frame = TRUE) 
       
       return(site_df)
-    }) %>% 
-      dplyr::mutate(units = as.character(units)) %>%
-      dplyr::distinct()
+    }) 
     
   } else {
+    # Handle local storage scenario when working outside of Synapse
     
+    # Process each local parquet file and combine results into a single dataframe.
     api_data <- map_dfr(list.files(api_dir, full.names = TRUE), 
                         function(file_path) {
-                          site_df <- arrow::read_parquet(file_path, as_data_frame = TRUE) %>% 
-                            dplyr::select(-id)
-                        }) %>% 
-      dplyr::mutate(units = as.character(units)) %>%
-      dplyr::distinct()
+                          site_df <- arrow::read_parquet(file_path, as_data_frame = TRUE) 
+                          return(site_df)
+                        })
     
   }
   
-  # Apply network-specific processing for CSU/FCW networks
-  # do we need to fix site names here?
-  if(network %in% c("csu", "CSU", "FCW", "fcw")){
-    
-    api_data <- api_data %>%
-      # Filter out VuLink data (not used in CSU/FCW networks)
-      dplyr::filter(!grepl("vulink", name, ignore.case = TRUE)) %>%
-      # Filter out Virridy sondes (not part of CSU/FCW networks)
-      dplyr::filter(!grepl("virridy", name, ignore.case = TRUE)) %>%
-      # Remove the equipment name column
-      dplyr::select(-name) %>%
-      dplyr::mutate(
-        # Round timestamps to specified interval for consistent time series
-        DT = timestamp, # Conversion from UTC to MST no longer required
-        DT_round = lubridate::round_date(DT, summarize_interval),
-        # Create string version of timestamp for joining operations
-        DT_join = as.character(DT_round),
-        # Ensure site names are lowercase for consistency
-        site = tolower(site)
-      ) %>%
-      
-      # Apply site name standardization and handle historical equipment relocations
-      dplyr::mutate(
-        # Map alternative site names to standard names
-        site = dplyr::case_when(
-          site == "rist" ~ "tamasag",
-          TRUE ~ site
-        )
-      ) %>%
-      # Handle a specific case where equipment was moved between sites
-      dplyr::mutate(
-        site = ifelse(site == "tamasag" & 
-                        DT > with_tz(lubridate::ymd("2022-09-20", tz = "America/Denver"), "UTC") & 
-                        DT < with_tz(lubridate::ymd("2023-01-01", tz = "America/Denver"), "UTC"), 
-                      "boxelder", site)
-      ) %>%
-      # Standardize "river bluffs" to "riverbluffs" (remove spaces)
-      dplyr::mutate(
-        site = ifelse(grepl("river bluffs", site, ignore.case = TRUE), 
-                      "riverbluffs", site)
-      ) %>%
-      # Ensure no duplicates after all transformations
-      dplyr::distinct(.keep_all = TRUE)
-  }
+  # Standardize and clean the combined data
+  final_api_data <- api_data %>%
+    # Remove ID column
+    dplyr::select(-id) %>%
+    # Ensure units are stored as character strings for consistency
+    dplyr::mutate(units = as.character(units)) %>%
+    # Filter out VuLink data (not used in CSU/FCW networks)
+    dplyr::filter(!grepl("vulink", name, ignore.case = TRUE)) %>%
+    # Filter out Virridy data (not used in CSU/FCW networks)
+    dplyr::filter(!grepl("virridy", name, ignore.case = TRUE)) %>%
+    # Remove the equipment name column
+    dplyr::select(-name) %>%
+    dplyr::mutate(
+      # Round timestamps to specified interval for consistent time series
+      DT = timestamp, 
+      DT_round = lubridate::round_date(DT, summarize_interval),
+      # Create string version of timestamp for joining operations
+      DT_join = as.character(DT_round),
+      # Ensure site names are lowercase for consistency
+      site = tolower(site)
+    ) %>%
+    # Ensure no duplicates after all transformations
+    dplyr::distinct(.keep_all = TRUE)
   
-  # Apply more inclusive processing for "all" networks option
-  if(network %in% c("all", "All")){
-    api_data <- api_data %>%
-      # Filter out VuLink data (still excluded from "all" networks)
-      dplyr::filter(!grepl("vulink", name, ignore.case = TRUE)) %>%
-      
-      # Remove the equipment name column
-      dplyr::select(-name) %>%
-      
-      # Apply the same timestamp and site name standardization
-      dplyr::mutate(
-        DT_round = lubridate::round_date(DT, summarize_interval),
-        DT_join = as.character(DT_round),
-        site = tolower(site)
-      ) %>%
-      
-      # Apply the same site name standardization and equipment relocation handling
-      dplyr::mutate(
-        site = ifelse(site == "rist", "tamasag", site)
-      ) %>%
-      dplyr::mutate(
-        site = ifelse(site == "tamasag" & 
-                        DT > with_tz(lubridate::ymd("2022-09-20", tz = "America/Denver"), "UTC") & 
-                        DT < with_tz(lubridate::ymd("2023-01-01", tz = "America/Denver"), "UTC"), 
-                      "boxelder", site)
-      ) %>%
-      # Ensure no duplicates after all transformations
-      dplyr::distinct(.keep_all = TRUE)
-  }
-  
-  return(api_data)
+  return(final_api_data)
 }
 

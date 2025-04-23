@@ -4,20 +4,12 @@
 #' @description
 #' Downloads raw water quality monitoring data from the HydroVu platform for 
 #' specified sites and time periods. This function handles the connection to 
-#' HydroVu, processes the API responses, and saves the raw data as CSV files 
+#' HydroVu, processes the API responses, and saves the raw data as parquet files 
 #' in a specified directory.
-#' 
-#' The function can retrieve data from different networks (FCW, CSU, or Virridy), 
-#' with appropriate filtering applied depending on the network. It also handles 
-#' special cases such as sites with multiple sondes from different networks.
 #'
 #' @param site Character string or vector specifying the site name(s) to download 
 #' data for. Site names are matched case-insensitively against the HydroVu 
 #' location names.
-#'
-#' @param network Character string specifying which network of sensors to query. 
-#' Options include "FCW", "CSU", "virridy", or "all". Different networks may have 
-#' different data processing requirements.
 #'
 #' @param start_dt POSIXct timestamp indicating the starting point for data 
 #' retrieval. Usually derived from the most recent timestamp in existing 
@@ -60,11 +52,14 @@ api_puller <- function(site,
   
   # Request data for each location ID within the specified time period
   all_data_filtered <- purrr::map(site_loc$id, # Extract the HydroVu location IDs for API requests
-                                  ~hv_data_id(.,
-                                              start_time = start_dt,
-                                              end_time = end_dt,
-                                              token = api_token,
-                                              tz = "UTC")) %>% 
+                                  function(id){
+                                    hv_data_id(loc_id = id,
+                                               start_time = start_dt,
+                                               end_time = end_dt,
+                                               token = api_token,
+                                               tz = "UTC")}) %>% 
+    
+    
     # Filter out error responses (404s) and keep only valid data frames
     purrr::keep(., is.data.frame)
   
@@ -83,9 +78,8 @@ api_puller <- function(site,
     dplyr::left_join(., site_loc, by = "id") %>%
     dplyr::mutate(site = tolower(site)) %>%
     dplyr::select(site, id, name, timestamp, parameter, value, units) %>% 
-    # For FCW/CSU networks, exclude Virridy sensors and FDOM parameter
-    dplyr::filter(!grepl("virridy", name, ignore.case = TRUE),
-                  parameter != "FDOM Fluorescence")
+    # For FCW/CSU networks exclude FDOM parameter
+    dplyr::filter(parameter != "FDOM Fluorescence")
   
   # Format the timestamp string for filenames
   timestamp_str <- format(end_dt, "%Y%m%d-T%H%M%SZ", tz = "UTC")
@@ -105,12 +99,12 @@ api_puller <- function(site,
         filesystem = fs, 
         src = temp_file,
         dest = file_path)
-      message(paste("Upload complete for: ", site))
+      message("...Upload complete for: ", site, "\n")
     }, error = function(e) {
-      message(paste("Error in upload process: ", e$message))
+      message("...Error in upload process: ", e$message, "\n")
     })
   } else {
     arrow::write_parquet(site_df, file_path)
-    message(paste("Upload into", dump_dir, "complete for:", site))
+    message(paste("...Upload into", dump_dir, "complete for:", site, "\n"))
   }
 }

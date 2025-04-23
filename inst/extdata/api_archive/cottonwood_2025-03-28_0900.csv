@@ -1,0 +1,196 @@
+site,id,name,timestamp,parameter,value,units
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,% Saturation O₂,83.02312469482422,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,% Saturation O₂,83.47467803955078,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,% Saturation O₂,83.84590911865234,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,% Saturation O₂,84.316741943359375,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,% Saturation O₂,85.473480224609375,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,% Saturation O₂,87.19164276123047,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,% Saturation O₂,88.64473724365234,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,% Saturation O₂,90.9627914428711,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,% Saturation O₂,93.1314468383789,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,% Saturation O₂,95.76044464111328,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,% Saturation O₂,98.954681396484375,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,% Saturation O₂,101.98217010498047,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,% Saturation O₂,104.92313385009766,% sat
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,Actual Conductivity,495.7571716308594,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,Actual Conductivity,496.4317626953125,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,Actual Conductivity,496.20086669921875,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,Actual Conductivity,495.7084045410156,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,Actual Conductivity,492.3059387207031,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,Actual Conductivity,488.9222412109375,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,Actual Conductivity,484.3995361328125,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,Actual Conductivity,479.5215148925781,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,Actual Conductivity,474.3060302734375,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,Actual Conductivity,469.2056884765625,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,Actual Conductivity,464.1317138671875,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,Actual Conductivity,459.47698974609375,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,Actual Conductivity,456.8001708984375,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,Baro,12.184884572414116,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,Baro,12.184943583577054,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,Baro,12.184859787725683,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,Baro,12.184656789325178,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,Baro,12.191806581826665,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,Baro,12.190683009284337,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,Baro,12.192518256451688,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,Baro,12.1913592772116,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,Baro,12.190902530810463,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,Baro,12.19072667754491,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,Baro,12.191840808301167,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,Baro,12.193294843355943,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,Baro,12.193305465365272,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,Battery Level,0,%
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,Chl-a Fluorescence,1.597882628440857,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,Chl-a Fluorescence,1.5213687419891357,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,Chl-a Fluorescence,1.519982933998108,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,Chl-a Fluorescence,1.8321064710617065,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,Chl-a Fluorescence,1.449156641960144,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,Chl-a Fluorescence,2.1048598289489746,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,Chl-a Fluorescence,1.3819600343704224,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,Chl-a Fluorescence,1.0287697315216064,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,Chl-a Fluorescence,0.8607439398765564,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,Chl-a Fluorescence,0.8601834177970886,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,Chl-a Fluorescence,1.0461173057556152,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,Chl-a Fluorescence,1.0629509687423706,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,Chl-a Fluorescence,0.1100609079003334,RFU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,DO,7.701635837554932,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,DO,7.751654148101807,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,DO,7.793402671813965,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,DO,7.839931488037109,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,DO,7.95328950881958,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,DO,8.112261772155762,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,DO,8.24507999420166,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,DO,8.453909873962402,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,DO,8.64559268951416,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,DO,8.875151634216309,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,DO,9.150185585021973,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,DO,9.405501365661621,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,DO,9.641410827636719,mg/L
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,Depth,0.3204568204879761,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,Depth,0.3251250311851502,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,Depth,0.3264309471130371,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,Depth,0.32784503231048584,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,Depth,0.3257047923088074,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,Depth,0.32711066579818726,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,Depth,0.32608856248855594,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,Depth,0.3260067724227905,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,Depth,0.32467182483673096,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,Depth,0.32187897205352783,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,Depth,0.3237909193038941,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,Depth,0.3207641418457031,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,Depth,0.32192515382766723,m
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,External Voltage,15.506999969482422,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,External Voltage,15.515999794006348,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,External Voltage,15.515999794006348,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,External Voltage,15.506999969482422,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,External Voltage,15.515999794006348,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,External Voltage,15.515999794006348,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,External Voltage,15.515999794006348,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,External Voltage,15.506999969482422,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,External Voltage,15.524999618530273,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,External Voltage,15.515999794006348,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,External Voltage,15.506999969482422,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,External Voltage,15.524999618530273,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,External Voltage,15.515999794006348,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,ORP,0.16858210754394531,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,ORP,0.17233482360839844,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,ORP,0.17106166076660156,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,ORP,0.16523948669433594,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,ORP,0.16811958312988282,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,ORP,0.17767539978027344,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,ORP,0.18273941040039063,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,ORP,0.18657795715332032,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,ORP,0.1880942840576172,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,ORP,0.19270054626464844,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,ORP,0.1935016326904297,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,ORP,0.1926719207763672,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,ORP,0.19253840637207031,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,Pressure,0.16234970092773438,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,Pressure,0.1688251495361328,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,Pressure,0.17086219787597656,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,Pressure,0.17287349700927734,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,Pressure,0.1697092056274414,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,Pressure,0.17171382904052734,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,Pressure,0.170257568359375,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,Pressure,0.17006969451904297,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,Pressure,0.16841697692871094,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,Pressure,0.16437244415283203,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,Pressure,0.16709518432617188,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,Pressure,0.1625804901123047,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,Pressure,0.16437149047851562,psi
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,Specific Conductivity,691.449462890625,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,Specific Conductivity,693.2093505859375,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,Specific Conductivity,693.6243896484375,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,Specific Conductivity,693.22235107421875,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,Specific Conductivity,688.5577392578125,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,Specific Conductivity,683.7989501953125,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,Specific Conductivity,677.12091064453125,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,Specific Conductivity,669.7535400390625,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,Specific Conductivity,661.62652587890625,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,Specific Conductivity,653.30230712890625,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,Specific Conductivity,644.4842529296875,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,Specific Conductivity,636.0433349609375,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,Specific Conductivity,629.7322998046875,µS/cm
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,Temperature,10.180747985839844,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,Temperature,10.133014678955078,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,Temperature,10.09805679321289,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,Temperature,10.079394340515137,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,Temperature,10.078412055969238,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,Temperature,10.078265190124512,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,Temperature,10.098184585571289,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,Temperature,10.131793975830078,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,Temperature,10.180118560791016,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,Temperature,10.250262260437012,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,Temperature,10.351922988891602,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,Temperature,10.468985557556152,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,Temperature,10.628150939941406,C
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,Turbidity,7.479538440704346,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,Turbidity,7.348189830780029,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,Turbidity,5.110084056854248,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,Turbidity,6.205746173858643,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,Turbidity,5.107419967651367,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,Turbidity,4.792253017425537,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,Turbidity,5.246592044830322,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,Turbidity,10.391524314880371,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,Turbidity,4.862743377685547,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,Turbidity,5.280190944671631,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,Turbidity,4.3419013023376465,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,Turbidity,5.93774938583374,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,Turbidity,4.984346389770508,NTU
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,pH,7.9734673500061035,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,pH,7.970164775848389,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,pH,7.966821193695068,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,pH,7.965952396392822,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,pH,7.985660552978516,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,pH,7.999892234802246,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,pH,8.020879745483398,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,pH,8.050573348999023,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,pH,8.085343360900879,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,pH,8.122126579284668,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,pH,8.159950256347656,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,pH,8.209122657775879,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,pH,8.24841594696045,pH
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:00:00Z,pH MV,-0.05012989044189453,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:15:00Z,pH MV,-0.04993438720703125,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:30:00Z,pH MV,-0.04973888397216797,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T13:45:00Z,pH MV,-0.049686431884765625,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:00:00Z,pH MV,-0.05080223083496094,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:15:00Z,pH MV,-0.05160808563232422,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:30:00Z,pH MV,-0.05280017852783203,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T14:45:00Z,pH MV,-0.054488182067871094,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:00:00Z,pH MV,-0.05646705627441406,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:15:00Z,pH MV,-0.05856513977050781,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:30:00Z,pH MV,-0.06072998046875,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T15:45:00Z,pH MV,-0.06354331970214844,V
+cottonwood,5890940334047232,cottonwood - current,2025-03-28T16:00:00Z,pH MV,-0.06580829620361328,V
