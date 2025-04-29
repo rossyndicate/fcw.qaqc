@@ -37,8 +37,7 @@
 
 combine_datasets <- function(incoming_data_list, historical_data_list) {
   
-  # Handle cases where one or both data sources are unavailable:
-  # ========================
+  # Handle cases where one or both data sources are unavailable: ===============
   
   ## Handle case 0: Both inputs are empty or null.
   if ((is.null(historical_data_list) || length(historical_data_list) == 0) &
@@ -68,8 +67,7 @@ combine_datasets <- function(incoming_data_list, historical_data_list) {
     return(new_data)
   }
   
-  # Handle the standard case: Both historical and incoming data exist
-  # ========================
+  # Handle the standard case: Both historical and incoming data exist ==========
   
   # Find site-parameter combinations that exist in both datasets
   matching_indexes <- dplyr::intersect(names(incoming_data_list), names(historical_data_list))

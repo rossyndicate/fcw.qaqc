@@ -5,3 +5,5 @@
 ^creds$
 ^ignore_files$
 ^test_data$
+^doc$
+^Meta$

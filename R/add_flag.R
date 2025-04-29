@@ -47,13 +47,13 @@ add_flag <- function(df, condition_arg, description_arg) {
   # Update the flag column based on the provided condition
   # This uses tidyverse programming techniques to evaluate the condition
   # within the context of the dataframe
-  df <- df %>% mutate(flag = case_when(
+  df <- df %>% dplyr::mutate(flag = dplyr::case_when(
     # For rows where the condition is TRUE:
-    {{condition_arg}} ~ if_else(
+    {{condition_arg}} ~ dplyr::if_else(
       # If there's no existing flag, use just the new description
       is.na(flag), paste(description_arg),
       # If there are existing flags, check if this flag already exists
-      ifelse(
+      dplyr::if_else(
         # Only add the flag if it doesn't already exist (prevent duplicates)
         !grepl(description_arg, flag), 
         # Append the new flag with a semicolon+newline separator for readability

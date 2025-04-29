@@ -28,16 +28,10 @@
 #' # Examples are temporarily disabled
 
 network_check <- function(df, intrasensor_flags_arg = intrasensor_flags) {
+  
   # Extract site and parameter name from dataframe
   site_name <- unique(na.omit(df$site))
   parameter_name <- unique(na.omit(df$parameter))
-  
-  # Skip processing for chlorophyll in CSU/FCW network
-  if(parameter_name == "Chl-a Fluorescence"){
-    no_change <- df %>%
-      dplyr::mutate(auto_flag = flag)
-    return(no_change)
-  }
   
   # Define site order based on spatial arrangement along river
   sites_order <- c("bellvue",
@@ -61,7 +55,7 @@ network_check <- function(df, intrasensor_flags_arg = intrasensor_flags) {
   
   # Try to get upstream site data
   tryCatch({
-    # Skip trying to find upstream sites for Bellvue (first site).
+    # Skip trying to find upstream sites for first site (Bellvue).
     if (site_index != 1){
       previous_site <- paste0(sites_order[site_index-1],"-",parameter_name)
       upstr_site_df <- intrasensor_flags_arg[[previous_site]] %>%
@@ -75,7 +69,7 @@ network_check <- function(df, intrasensor_flags_arg = intrasensor_flags) {
   
   # Try to get downstream site data
   tryCatch({
-    # Skip trying to find downstream sites for Riverbluffs (last site).
+    # Skip trying to find downstream sites for last site (Riverbluffs).
     if (site_index != length(sites_order)){
       next_site <- paste0(sites_order[site_index+1],"-",parameter_name)
       dnstr_site_df <- intrasensor_flags_arg[[next_site]] %>%
@@ -128,8 +122,9 @@ network_check <- function(df, intrasensor_flags_arg = intrasensor_flags) {
     ## 0 = no relevant flags upstream/downstream
     ## 1 = at least one site has relevant flags
     dplyr::mutate(flag_binary = dplyr::if_else(
-      (is.na(flag_up) | grepl(ignore_flags, flag_up)) &
-        (is.na(flag_down) | grepl(ignore_flags, flag_down)), 0, 1)) %>%
+      (is.na(flag_up) | grepl(ignore_flags, flag_up)) & 
+      (is.na(flag_down) | grepl(ignore_flags, flag_down)), 0, 1
+      )) %>%
     # Check for flags in 4-hour window (+/-2 hours around each point, 17 observations at 15-min intervals)
     dplyr::mutate(overlapping_flag = zoo::rollapply(flag_binary, width = width_fun, FUN = check_2_hour_window_fail, fill = NA, align = "center")) %>%
     add_column_if_not_exists(column_name = "auto_flag") %>%

@@ -73,8 +73,8 @@ add_drift_flag <- function(df){
         # Check if any 1-day period has consistently high R-squared values
         failed = data.table::frollapply(tightest_r, n = 96, FUN = check_too_steady, align = "right", fill = NA)) %>%
       # Add drift flag for periods with consistent linear trends
-      # Only add if drift flag doesn't already exist
-      add_flag(failed == 1, "drift")
+      add_flag(failed == 1, "drift") %>% 
+      select(-c(r2_s_right, r2_s_center, r2_l_right, r2_l_center, tightest_r, failed))
     
     return(df)
   } else {
