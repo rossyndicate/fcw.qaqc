@@ -4,13 +4,27 @@
 \alias{get_start_dates}
 \title{Get the start dates for the HydroVu API pull from historically flagged data}
 \usage{
-get_start_dates(incoming_historically_flagged_data_list)
+get_start_dates(
+  incoming_historically_flagged_data_list,
+  hv_api_tracking_file_path,
+  synapse_env = FALSE,
+  fs = NULL
+)
 }
 \arguments{
 \item{incoming_historically_flagged_data_list}{A list of dataframes containing
 historical water quality data that has been processed through the QAQC
 workflow. Each list element should represent a site-parameter combination and
 be named using the "site-parameter" convention.}
+
+\item{hv_api_tracking_file_path}{File path to the parquet file that tracks API query
+status for site-parameter combinations, including eligibility and success metrics.}
+
+\item{synapse_env}{Logical, indicating whether function is running in Azure Synapse
+environment (TRUE) or local environment (FALSE). Default is FALSE.}
+
+\item{fs}{Optional filesystem object for Azure Data Lake Storage operations when
+running in Synapse environment.}
 }
 \value{
 A dataframe with three columns:
@@ -21,23 +35,27 @@ A dataframe with three columns:
 }
 }
 \description{
-Attempts to find the most recent timestamp in Temperature parameter data for each monitoring
-site's historically flagged data. Temperature is used as the reference parameter
+Determines optimal starting timestamps for retrieving new water quality data from the HydroVu API
+based on historical records. Temperature is used as the reference parameter
 because it is consistently tracked by all sondes, providing the most reliable
-indication of when data was last collected from each site. This function will compare
-the temperature data's most recent timestamp to that of all the other parameters.
-If it finds that these are not equal, it will prefer to use the earliest timestamp,
-regardless of its source, with the assumption that the earlier start dates should be
-attributed to parameters that are not Temperature.
+indication of when data was last collected from each site.
+
+The function incorporates a tracking system to monitor which site-parameter combinations
+are eligible for processing, helping manage problematic data sources without disrupting
+the entire pipeline. It also includes a weekly reset capability during Sunday midnight
+executions, when temporarily disabled parameters can be attempted again.
 
 The resulting timestamps serve as starting points for new API data requests,
 ensuring continuous data collection without gaps or duplication.
 }
 \examples{
 # Examples are temporarily disabled
+
 }
 \seealso{
 \code{\link[=api_puller]{api_puller()}}
 
 \code{\link[=munge_api_data]{munge_api_data()}}
+
+\code{\link[=update_hv_api_tracker]{update_hv_api_tracker()}}
 }

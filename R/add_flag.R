@@ -57,7 +57,7 @@ add_flag <- function(df, condition_arg, description_arg) {
         # Only add the flag if it doesn't already exist (prevent duplicates)
         !grepl(description_arg, flag), 
         # Append the new flag with a semicolon+newline separator for readability
-        paste(flag, description_arg, sep = ";\n"), 
+        paste(flag, description_arg, sep = ";"), 
         # If flag already exists, keep the original flag unchanged
         flag
       )
