@@ -1,0 +1,528 @@
+---
+title: "The_PWQN_AutoQAQC_Pipeline_in_Synapse"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The_PWQN_AutoQAQC_Pipeline_in_Synapse}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+
+```
+
+# 1. Pipeline Overview
+The AutoQAQC pipeline performs these key operations:
+
+- Data Acquisition: Retrieves raw sensor data from HydroVu API and field notes from mWater
+- Preprocessing Data for AutoQAQC Pipeline: Cleans, standardizes, and joins datasets
+- AutoQAQC Flagging: Applies multiple layers of automated quality checks and flagging
+- Data Integration: Combines new data with historical records
+- Data Management: Creates visualization-ready datasets and archives raw/processed data
+
+# 2. Environment Setup
+
+The Poudre Water Quality Network AutoQAQC pipeline operates within a structured 
+environment that manages water quality data from collection to analysis. This 
+section explains the key components that make up this environment.
+
+The pipeline is built using the R programming language. It can run both on a local 
+computer or in the cloud using Azure Synapse Analytics. This manual will focus on 
+its use in the Azure Synapse Analytics notebook, which makes up the PWQN AutoQAQC
+pipeline.
+
+The environment is organized into a directory structure which uses the `Raw` and `Curated`
+folders in the `fcdlfsdev` folder in the Azure Data Lake Storage Gen2 (ADLS) file 
+system that is set in place by FC IT. Generally, the data stored in these folders
+are:
+
+- `Raw`: Contains incoming sensor data directly from monitoring stations
+- `Curated`: Stores processed, quality-checked data ready for analysis
+- `Archive` sub-directories: Found in both `Raw` and `Curated` directories and 
+maintain historical versions of both raw and processed data
+
+This pipeline primarily interacts with Parquet and YAML file types which are stored in the
+mentioned directories. Parquet (.parquet) files are used for efficient data storage
+for data tables. YAML (.yml) files are used as configuration files for settings and
+thresholds in analysis.
+
+## 2.1 Load Required Libraries
+
+The AutoQAQC pipeline relies on several specialized R packages organized by function:
+
+- Data Manipulation and Processing:
+  - `{tidyverse}`: Collection of packages for data manipulation and visualization
+  - `{data.table}`: Enhanced data frame for fast data manipulation
+  - `{janitor}`: Tools for data cleaning and tabulation
+  - `{padr}`: Tools for padding time series with missing dates/times
+  - `{zoo}`:Infrastructure for time series data
+
+- File Handling and Storage:
+  - `{AzureStor}`: Interface to Azure storage services
+  - `{arrow}`: Tools for working with Apache Arrow data
+
+- String and Time Manipulation:
+  - `{stringr}`: Tools for string manipulation
+  - `{lubridate}`: Tools for working with dates and times
+
+- Configuration and API Connectivity:
+  - `{yaml}`: Tools for working with YAML configuration files
+  - `{httr2}`: HTTP requests and API interaction
+
+- Statistical Analysis:
+  - `{RcppRoll}`: Fast rolling functions (window calculations) implemented in C++
+
+- Custom Functions:
+  - `{fcw.qaqc}`: Custom package for Fort Collins water quality control
+
+Together, these packages provide the necessary tools to handle each step of the pipeline:
+retrieving data from sensors, cleaning and standardizing it, performing statistical
+analyses for quality control, identifying anomalies, and storing the processed results. The
+custom fcw.qaqc package contains specialized functions developed specifically for the
+unique requirements of the Poudre Water Quality Network.
+
+## 2.2 Define File Paths and Storage Configuration
+
+The AutoQAQC pipeline organizes data storage into a structured file system that keeps both
+raw and processed data organized. Defining these paths in one place makes the system easier
+to maintain and helps ensure data flows correctly through each processing step.
+
+The system uses two primary directory structures:
+
+- Raw Data Directory (`/Raw/HydroVu/`)
+  - `Incoming`: Temporary location where new sensor data is initially stored
+  - `Archive`: Long-term storage for raw sensor data after processing
+  - `mWaterFieldNotes`: Contains field observations from technicians
+  - `Creds`: Contains HydroVu API credentials
+
+- Curated Data Directory (`/Curated/HydroVu/`)
+  - Stores quality-controlled, processed data ready for analysis
+  - Contains configuration files needed for quality checks
+  - `complete_archive`: Maintains historical versions of full datasets
+  - `visualization_archive`: Stores ready-to-use data optimized for visualization
+
+- Archive directories serve several important purposes:
+  - Maintain data history for auditing and verification
+  - Allow recovery if newer processing has issues
+  - Provide historical context for quality control decisions
+  - Support version control (typically keeping the 3 most recent versions)
+
+The pipeline automatically manages these directories by identifying the most recent files,
+moving processed raw data to archives, and maintaining the correct number of historical
+versions. This structured approach ensures data integrity throughout the quality control
+process.
+
+## 2.3 Setup API Credentials
+
+The AutoQAQC pipeline connects to two external data sources that require authentication:
+
+- **HydroVu API** - Provides the sensor measurement data
+  - Credentials are stored in a YAML configuration file in the Azure storage system
+  - The file contains a client ID and secret key (similar to a username and password)
+  - The system downloads this file temporarily during processing
+  - These credentials are used to create an authentication token (`hv_token`) that 
+  grants access to water quality sensor data
+
+- **mWater API** - Provides field technician notes
+  - Uses a simpler authentication approach via a URL that contains embedded access keys
+  - This URL is stored directly in the pipeline code rather than in a separate file
+
+The authentication process follows these steps:
+
+1. Download the HydroVu credentials file
+2. Extract the client ID and secret key
+3. Use these values to create an authentication token
+4. Store this token for use throughout the pipeline
+
+This approach balances security and convenience for the current operational needs. 
+The credentials file can be updated independently from the pipeline code when needed, 
+and access to the Azure storage system is itself protected.
+
+While more sophisticated security approaches could be implemented in the future 
+(such as Azure Key Vault integration), the current configuration provides appropriate 
+protection while maintaining simplicity for operational use.
+
+# 3. Data Acquisition 
+
+The data acquisition phase forms the foundation of the AutoQAQC pipeline by gathering all
+necessary information to assess water quality. This process combines multiple data sources
+to create a complete picture of water conditions and sensor performance.
+
+The pipeline begins by loading previously processed historical data to provide context for
+new measurements. This historical record helps identify trends and anomalies in the
+incoming
+data. Next, the system calculates the appropriate time ranges for requesting new data,
+typically starting from where the last data collection ended to ensure continuous coverage
+without gaps.
+
+Once time ranges are established, the pipeline connects to the HydroVu API to download raw
+sensor measurements from monitoring stations along the Poudre River. These measurements
+include parameters like temperature, dissolved oxygen, pH, and turbidity. Before requesting
+new data, the system checks and prepares the incoming data directory to ensure proper
+organization.
+
+After retrieving the sensor data, the pipeline verifies that the acquisition was successful
+by checking that files were properly created and contain valid data. Any issues during this
+step would trigger notifications rather than proceeding with incomplete information.
+
+In parallel with sensor measurements, the pipeline also retrieves field technician notes
+from the mWater system. These notes contain valuable context about sensor maintenance
+activities, calibration events, and observed environmental conditions. The system extracts
+two specific types of information from these notes: general observation notes about sensor
+status and specific records of sensor malfunctions that require special handling during
+quality control.
+
+Together, these data sources provide both the raw measurements and the contextual
+information needed for effective quality control in subsequent pipeline stages.
+
+## 3.1 Load Historical AutoQAQC'd Data
+
+This step retrieves previously processed and quality-controlled data to maintain continuity
+in the water quality record. Having historical context is essential for detecting trends,
+identifying anomalies, and making informed decisions about new measurements.
+
+The pipeline first checks if a historical data file exists in the expected location. If
+found, the system:
+
+  1. Downloads the file from cloud storage to a temporary local location
+  2. Reads the file into memory as a structured dataset
+  3. Organizes the data by monitoring site and parameter (creating separate datasets for
+  "bellvue-Temperature," "riverbend-pH," etc.)
+  4. Removes any empty datasets to streamline processing
+
+If no historical data is found (such as during first-time setup), the system creates an
+empty starting point. This approach ensures the pipeline can run successfully whether it's
+the first execution or part of ongoing monitoring.
+
+The historical data provides essential context for quality control decisions and helps
+maintain a continuous record of water quality conditions along the Poudre River over time.
+
+## 3.2 Determine Time Ranges for HydroVu API Data Request
+
+Before retrieving new water quality data, the pipeline needs to determine the appropriate
+time period to request. This step ensures continuous data coverage without unnecessary
+duplication.
+
+The system creates an api_start_dates table that specifies:
+- Which monitoring sites to collect data from
+- What time period to request for each site
+
+To establish these time ranges, the pipeline examines the most recent data already in the
+system. It specifically looks at Temperature readings (since temperature is consistently
+measured at all sites) to identify the latest timestamp for each monitoring location.
+
+If historical data exists, the system sets start times to begin immediately after the most
+recent measurements. This creates a seamless continuation of the water quality record.
+
+If no historical data is available (such as during initial setup), the system applies
+default start dates based on the current monitoring season.
+
+This approach ensures efficient data collection by:
+
+- Preventing gaps in the monitoring record
+- Avoiding duplicate data that would require reconciliation
+- Customizing time ranges for each monitoring site based on its specific history
+
+The resulting time ranges are used in the subsequent steps to retrieve precisely 
+the data needed to maintain the continuous water quality record.
+
+## 3.3 Request and Upload HydroVu API Data
+
+After determining the appropriate time ranges, the pipeline retrieves raw sensor
+measurements from the HydroVu API. This is the primary data collection step that gathers
+the core water quality parameters needed for analysis.
+
+The system begins by preparing a clean working directory, moving any existing files to an
+archive location to prevent confusion between old and new data. This preparation ensures
+each processing run starts with a clear workspace.
+
+Once prepared, the pipeline systematically retrieves data for each monitoring site along
+the Poudre River. It filters out irrelevant data sources and makes targeted API requests
+for each location, saving the results as individual files. The process includes
+comprehensive logging of each request to maintain a record of data collection activities.
+
+After retrieval attempts are complete, the system verifies that files were successfully
+created. This critical verification step prevents the pipeline from proceeding with missing
+or incomplete data, which could lead to inaccurate water quality assessments. If no data is
+retrieved, the pipeline stops execution and alerts operators to investigate potential
+connection or data availability issues.
+
+### 3.3.1 Check and Prepare Incoming Data Directory
+
+Before retrieving new data, the pipeline ensures the incoming directory is properly
+prepared. This step prevents confusion between old and new data files during processing.
+
+The system first checks if any files already exist in the incoming data directory. If the
+directory is empty, processing continues normally.
+
+If files are found (perhaps from a previous incomplete run), the pipeline:
+
+1. Moves these existing files to an archive location for safekeeping
+2. Verifies the directory was successfully cleared
+3. Only proceeds when the directory is confirmed empty
+
+This preparation step prevents data mixups and ensures each processing run starts with a
+clean working environment.
+
+### 3.3.2 Request and Upload Water Quality Data from HydroVu API
+
+Once the environment is prepared, the pipeline retrieves new water quality measurements
+from each monitoring site. The system:
+
+1. Identifies all monitoring locations along the Poudre River
+2. Filters out irrelevant data sources not part of the network
+3. For each site, requests data for the specific time period determined earlier
+4. Saves each site's data as separate files in the incoming directory
+
+The data retrieval uses the previously created authentication token to access the secured
+API. The system logs each request with details about which site is being processed and the
+time range requested, creating a record of the data collection process.
+
+### 3.3.3 Verify Successful Data Retrieval from HydroVu
+
+After attempting to retrieve data, the pipeline verifies that files were actually created.
+This verification step ensures that the process doesn't continue with missing or incomplete
+data.
+
+The system checks if any files exist in the incoming directory. If files are found, it
+confirms successful data retrieval and continues processing.
+
+If no files were created, the pipeline immediately stops with an error message. This halt
+prevents downstream processing errors and alerts operators to investigate potential issues
+with:
+
+- Data availability at the source
+- API connection problems
+- Authentication failures
+- Changes in data structure
+
+This verification ensures the integrity of the water quality monitoring process by only
+proceeding when valid data is available.
+
+## 3.4 Request and Load mWater Data
+
+While sensor measurements provide the core water quality data, field technician notes are
+equally important for understanding the context around these measurements. The pipeline
+retrieves these field notes from mWater, a mobile data collection platform.
+
+The system first attempts to retrieve fresh field notes directly from the mWater API. If
+this connection is successful, the newly retrieved data is also saved as a cached file with
+a timestamp for future reference.
+
+If the API connection fails for any reason, the pipeline automatically falls back to using
+the most recently cached field notes. This redundancy ensures that field context is always
+available for data processing, even when network connectivity issues occur.
+
+This approach balances having the most up-to-date field information with resilience against
+potential connection problems.
+
+### 3.4.1 Extract Sensor Observation Notes from mWater Data
+
+Once the field notes are available, the pipeline extracts general observations about sensor
+operations. These notes include:
+
+- Routine maintenance activities
+- Sensor cleaning records
+- Calibration events
+- Equipment changes
+- General site conditions
+
+This information helps explain patterns in the data that might otherwise appear anomalous.
+For example, a sudden change in readings might be explained by a calibration event rather
+than an actual environmental change.
+
+### 3.4.2 Extract Sensor Malfunction Notes from mWater Data
+
+The pipeline also specifically extracts records of sensor malfunctions from the field
+notes. These malfunction records document periods when:
+
+- Sensors were physically damaged
+- Electronic components failed
+- Sensors were buried in sediment
+- Biofouling affected readings
+- Other technical issues occurred
+
+The system separates these malfunction notes from general observations because they require
+special handling during quality control. Data collected during known malfunction periods
+may need to be excluded entirely or heavily flagged in the final dataset.
+
+# 4. Preprocessing Data for AutoQAQC Pipeline
+
+The preprocessing phase transforms raw sensor data into a standardized format 
+ready for quality control analysis. This step organizes measurements by monitoring
+location and parameter type, standardizes timestamps, calculates summary 
+statistics and integrates field observations to provide context for subsequent 
+quality checks.
+
+## 4.1 Load Raw HydroVu Data into Notebook Environment
+
+The system imports sensor data files form the incoming directory and organizes
+them into a structured dataset accessible for processing.
+
+## 4.2 Tidy Raw HydroVu Data
+
+Raw sensor data is organized into standardized 15-minute intervals with consistent
+formatting across all monitoring sites and parameters.
+
+## 4.3 Combine Tidied HydroVu Data with Historical Data Subset and Field Notes
+
+The newly processed data is merged with relevant historical data and enriched 
+with field technician observations to provide context for quality analysis.
+
+## 4.4 Generate Summary Statistics for the Preprocessed Data
+
+For each site-parameter combination, the system calculates contextual statistics
+like rolling averages, medians, and rate-of-change metrics used in subsequent
+quality checks.
+
+# 5. AutoQAQC Flagging
+
+The flagging process is the core of the quality control system, applying multiple 
+layers of checks to identify potential data quality issues. The pipeline uses a
+hierarchical approach that progresses from individual parameter assessments to 
+site-level relationships and finally to network-wide patterns, creating increasingly
+sophisticated quality evaluations.
+
+## 5.1 Read in Thresholds for Flagging
+
+Before quality checks can be performed, the system loads reference thresholds that
+define acceptable measurements ranges based on both sensor specifications and 
+expected environmental conditions.
+
+### 5.1.1 Sensor Specification Thresholds
+
+Manufacturer-defined operating ranges for each sensor type establish the fundamental
+physical limitations of measurement equipment.
+
+### 5.1.2 Sensor Specific Seasonal Thresholds
+
+Historical analysis provides expected value ranges for each parameter by season 
+and location, accounting for natural environmental variations.
+
+## 5.2 Individual-Parameter Quality Checks
+
+The first layer of quality control examines each parameter independently:
+
+- Field visit flags: Marks data collected during or shortly after technician site 
+visits when sensors may have been disturbed.
+- Specification range flags: Identifies values outside manufacturer-specified 
+operating ranges for each sensor.
+- Seasonal range flags: Highlights measurements outside statistically normal 
+ranges for the specific season and location.
+- Missing data flags: Marks gaps in the continuous monitoring record.
+- DO noise flags: Identifies unusual fluctuations in dissolved oxygen that may 
+indicate sensor interference.
+- Repeated value flags: Flags suspicious instances where the exact same value 
+appears in consecutive readings.
+- Depth shift flags: Marks periods when the sensor depth position changed.
+- Sensor drift flags: Identifies progressive shifts in optical sensor readings 
+that may indicate biofouling.
+
+## 5.3 Site-Level (Intra-sonde) Quality Checks
+
+The second layer examines relationships between different parameters at the same 
+time:
+
+- Frozen water flags: Marks all parameters when water temperature is at or below freezing.
+- Intersensor check flags: Removes redundant slope violation flags when temperature
+or depth changes explain the rapid changes.
+- Sonde burial flags: Identifies periods when persistent DO interference suggests the
+entire monitoring unit was buried in sediment.
+- Unsubmerged sonde flags: Marks periods when depth readings indicate the sensors were not
+fully underwater.
+- Known sensor malfunction flags: Applies information from field technician reports about
+known hardware issues.
+
+## 5.4 Network-Wide (Inter-sonde) Quality Checks
+
+The third layer analyzes patterns across the entire monitoring network:
+
+- Network-wide event flags: Removes flags from changes that appear at multiple sites
+simultaneously, indicating real environmental events rather than sensor issues.
+- Suspect data flags: Marks data points surrounded by flagged observations that might be
+part of the same quality issue.
+- Isolated flag removal: Eliminates standalone "suspect data" flags that aren't part of
+larger patterns of concern.
+
+This layer also selects the final columns that will be stored for analysis:
+
+- `DT_round`: Rounded timestamp defining each time interval of 15-minutes
+- `DT_join`: A string version of `DT_round` for joining purposes
+- `site`: Monitoring location identifier (e.g., "bellvue", "salyer")
+- `parameter`: Measurement type (e.g., "Temperature", "DO")
+- `mean`: Average value for the 15-minute interval
+- `units`: Measurement units (e.g., "°C", "mg/L")
+- `n_obs`: Number of observations in each 15-minute interval
+- `spread`: Range of values within the 15-minute interval (max - min)
+- `auto_flag`: Contains cleaned flags where network-wide events have been accounted for
+- `mal_flag`: Contains sonde malfunction flags for affected measurements
+- `sonde_moved`: Contains "sonde moved" flags for affected measurements
+- `historical`: Indicates whether the observation is from historically quality 
+controlled data.
+
+# 6. Data Integration and Management
+
+After quality control processing is complete, the pipeline integrates new data into the
+historical record and creates specialized datasets for different uses. This phase also
+manages the data lifecycle, maintaining appropriate archives while preventing unnecessary
+file accumulation.
+
+## 6.1 Combine with Historical Dataset
+
+The pipeline merges newly processed and flagged data with the existing historical record to
+create a comprehensive, continuous dataset. The final_data_binder function handles this
+integration, maintaining continuity while incorporating the latest quality assessments.
+This function is careful to preserve data context and ensures that overlapping data periods
+are handled appropriately, with newer quality assessments taking precedence over older
+ones. All records are marked as "historical" once integrated, establishing a clean baseline
+for the next processing cycle.
+
+## 6.2 Save Complete Dataset
+
+The complete quality-controlled dataset is saved in two locations to ensure data security
+and accessibility. First, the system saves the dataset to a temporary local file, then
+uploads it to the main curated data folder with a timestamped filename (e.g.,
+"AutoQAQCPWQN20250423-T154432Z.parquet"). A duplicate copy is also saved to a dedicated
+archive folder, providing redundancy if the main file is accidentally modified or deleted.
+This approach ensures the complete water quality record is preserved while maintaining
+clear version identification through consistent timestamp-based naming conventions.
+
+## 6.3 Create Visualization Dataset
+
+For analysis and visualization purposes, the pipeline creates a streamlined dataset
+containing only the most recent 45 days of data. This visualization dataset is filtered
+from the complete historical record and saved with a distinct filename pattern (e.g.,
+"AutoQAQCPWQNvisualizer20250423-T154432Z.parquet"). By maintaining a separate, time-limited
+dataset, the system improves performance for dashboard applications and
+current condition monitoring without requiring users to process the entire historical
+record. Like the complete dataset, this visualization file is saved both in the main
+curated folder and in a dedicated archive location.
+
+## 6.4 Manage File Retention
+
+To prevent unconstrained growth of storage requirements, the pipeline implements an
+automated file retention policy. In the main curated folder, only the most recent version
+of each dataset type (complete and visualization) is retained, with older versions
+automatically deleted. In the archive folders, the system preserves the three most recent
+versions of each dataset type, providing a balance between historical preservation and
+storage efficiency. This retention policy is managed by sorting files by their embedded
+timestamps and selectively removing older files that exceed the retention count, ensuring
+consistent and predictable storage utilization over time.
+
+## 6.5 Archive Raw Data Files
+
+Once processing is complete, the raw data files in the incoming directory are moved to a
+dedicated archive location. This step ensures that the original, unmodified sensor data is
+preserved for future reference or reprocessing if needed, while keeping the incoming
+directory clear for the next data collection cycle. The system verifies that files are
+successfully transferred to the archive before removing them from the incoming directory,
+preventing accidental data loss. This archiving step completes the data lifecycle
+management process, maintaining a clean separation between active processing and historical
+storage.
