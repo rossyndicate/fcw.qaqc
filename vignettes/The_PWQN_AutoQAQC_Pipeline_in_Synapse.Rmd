@@ -272,7 +272,7 @@ Manufacturer-defined operating ranges for each sensor type establish the fundame
 
 ### 5.1.2 Sensor Specific Seasonal Thresholds
 
-Expected value ranges for each parameter by season and location, accounting for natural environmental variations. 
+We created expected value ranges for each parameter by season and location. This was done through historical analysis paired with expert knowledge of the Poudre River.
 
 Each sensor's seasonal thresholds were established via historical data analysis of previous years' sensor data. If data quantity or quality created an issue in creating these thresholds, they were established manually through expert knowledge of the system. As more data is verified and the quantity/quality issues continue to improve, those manually established thresholds will be updated with the thresholds established through the more rigorous historical data analysis of the data.
 
