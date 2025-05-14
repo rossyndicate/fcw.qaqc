@@ -166,6 +166,4 @@ move_api_data <- function(src_dir, dest_dir,
     }
     message("All files removed from ", src_dir, " directory.")
   }
-  
-  
 }

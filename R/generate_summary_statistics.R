@@ -116,7 +116,7 @@ generate_summary_statistics <- function(site_param_df) {
         month %in% c(5, 6) ~ "snowmelt",                   # Spring snowmelt period
         month %in% c(7, 8, 9) ~ "monsoon",                 # Summer monsoon period
         month %in% c(10, 11) ~ "fall_baseflow",            # Fall base flow period
-        TRUE ~ NA)
+        TRUE ~ NA_character_)
     )
   
   return(summary_stats_df)

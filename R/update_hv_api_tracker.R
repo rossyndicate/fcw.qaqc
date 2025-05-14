@@ -52,8 +52,8 @@
 #' @seealso [move_api_data()]
 
 update_hv_api_tracker <- function(post_munged_data_list, 
-                                  hv_api_tracking_file_path,
-                                  hv_api_tracking_archive_dir_path,
+                                  hv_api_tracking_file_path, # Raw/HydroVu/HV_Tracking/HVAPITracker20250501-T193734Z.parquet 
+                                  hv_api_tracking_archive_dir_path, # /Raw/HydroVu/HV_tracking/hv_tracking_archive
                                   auto_disable_threshold = 56, # consecutive failures in a week to shut down a site-parameter    
                                   try_again_threshold = 7, # days since last failure
                                   sys_time_arg = Sys.time(),
@@ -61,13 +61,13 @@ update_hv_api_tracker <- function(post_munged_data_list,
                                   fs = NULL) { 
   
   # Establish file and file path strings =======================================
-
+  
   # Directory that stores the HV API Tracking file
   hv_api_tracking_dir_path <- dirname(hv_api_tracking_file_path)
   
   # File name for the new, updated HV API Tracker file
   timestamp <- format(sys_time_arg, "%Y%m%d-T%H%M%SZ", tz = "UTC")
-  updated_hv_api_tracking_file_name <- paste0("hv_api_tracker", timestamp, ".parquet")
+  updated_hv_api_tracking_file_name <- paste0("HVAPITracker", timestamp, ".parquet")
   
   # Updated file path for the updated HV API Tracker file
   updated_hv_api_tracking_dir_path <- file.path(hv_api_tracking_dir_path, updated_hv_api_tracking_file_name)

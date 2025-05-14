@@ -25,7 +25,9 @@
 
 add_suspect_flag <- function(df) {
   # Define flags that should be excluded from the suspect data analysis
-  auto_flag_string <- "sonde not employed|missing data|site visit|sv window|reported sonde burial|reported sensor biofouling|reported depth calibration malfunction|reported sensor malfunction"
+  auto_flag_string <- "reported sonde not employed|sonde not employed|missing data
+  |site visit|sv window|site visit window|reported sonde burial|reported sensor biofouling
+  |reported depth calibration malfunction|reported sensor malfunction"
   
   # Function to check if ≥50% of points in a window have flags
   check_2_hour_window_fail <- function(x) {

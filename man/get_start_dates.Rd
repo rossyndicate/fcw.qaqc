@@ -7,6 +7,7 @@
 get_start_dates(
   incoming_historically_flagged_data_list,
   hv_api_tracking_file_path,
+  sys_time_arg = Sys.time(),
   synapse_env = FALSE,
   fs = NULL
 )

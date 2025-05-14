@@ -53,7 +53,7 @@ add_field_notes <- function(df, notes) {
     dplyr::filter(grepl(paste(unlist(stringr::str_split(site_arg, " ")), 
                               collapse = "|"), site, ignore.case = TRUE))
   
-  # Process the data within a tryCatch to handle potential errors gracefully
+  # Process the data within a tryCatch to handle potential errors
   tryCatch({
     summary <- df %>%
       # Remove any duplicate records that might have been introduced

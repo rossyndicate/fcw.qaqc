@@ -9,11 +9,22 @@ seasonal_thresholds <- read_csv(
   mutate(site = gsub(" ", "", site))
 
 site_names_lookup <- tibble(
-  site = c("pbd", "tamasag", "legacy", "lincoln", "timberline", "prospect", 
+  site = c("tamasag", "legacy", "lincoln", "timberline", "prospect", 
            "boxelder", "archery", "riverbluffs"), 
-  natural_name = c("pbd", "bellvue", "salyer", "udall", "Riverbend", 
+  natural_name = c("bellvue", "salyer", "udall", "Riverbend", 
                    "Cottonwood", "ELC", "Archery", "Riverbluffs")) %>% 
   mutate(natural_name = stringr::str_to_lower(natural_name))
+
+site_names_lookup  <- tribble(
+  ~site,         ~natural_name,
+  "tamasag",     "bellvue",
+  "legacy",      "salyer",
+  "lincoln",     "udall",
+  "timberline",  "riverbend",
+  "prospect",    "cottonwood",
+  "boxelder",    "elc",
+  "archery",     "archery",
+  "riverbluffs", "riverbluffs")
 
 altered_seasonal_thresholds <- seasonal_thresholds %>% 
   left_join(site_names_lookup, by = "site") %>% 

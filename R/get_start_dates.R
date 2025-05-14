@@ -43,12 +43,13 @@
 
 get_start_dates <- function(incoming_historically_flagged_data_list,
                             hv_api_tracking_file_path,
+                            sys_time_arg = Sys.time(),
                             synapse_env = FALSE,
                             fs = NULL) {
   
   # Generate default start date and return if historical data list is empty ====
   # Create the start date directly in Denver time
-  default_denver_date <- as.POSIXct(paste0(lubridate::year(Sys.time()), "-03-01"), tz = "America/Denver")
+  default_denver_date <- as.POSIXct(paste0(lubridate::year(sys_time_arg), "-03-01"), tz = "America/Denver")
   
   # Convert the start date to UTC for API use
   default_converted_start_DT <- lubridate::with_tz(default_denver_date, "UTC")
@@ -64,7 +65,7 @@ get_start_dates <- function(incoming_historically_flagged_data_list,
              "archery",
              "riverbluffs"),
     start_DT = default_converted_start_DT, 
-    end_DT = as.POSIXct(Sys.time(), tz = "UTC") 
+    end_DT = as.POSIXct(sys_time_arg, tz = "UTC") 
   )
   
   # If an empty historical data list is provided, return default dates
@@ -88,7 +89,7 @@ get_start_dates <- function(incoming_historically_flagged_data_list,
   # Pre-process HV API Tracking DF (hv_api_tracking_df) ====
   
   # Check if the current execution corresponds to the Sunday midnight pull in America/Denver timezone
-  denver_time <- as.POSIXct(Sys.time(), tz = "America/Denver")
+  denver_time <- as.POSIXct(sys_time_arg, tz = "America/Denver")
   sunday_check <- wday(denver_time) == 1 
   midnight_check <- lubridate::hour(lubridate::floor_date(denver_time, unit = "hour")) == 0
   sunday_midnight_check <- if (sunday_check && midnight_check) TRUE else FALSE
@@ -159,7 +160,7 @@ get_start_dates <- function(incoming_historically_flagged_data_list,
     dplyr::mutate(
       # Ensure we're using the earliest date as the start date
       start_DT = global_min_start_DT,
-      end_DT = as.POSIXct(Sys.time(), tz = "UTC")
+      end_DT = as.POSIXct(sys_time_arg, tz = "UTC")
     ) %>% 
     dplyr::select(-c(start_DT.y, start_DT.x)) %>% 
     dplyr::relocate(site, start_DT, end_DT)
