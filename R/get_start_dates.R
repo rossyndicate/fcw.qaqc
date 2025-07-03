@@ -116,7 +116,7 @@ get_start_dates <- function(incoming_historically_flagged_data_list,
     dplyr::bind_rows() %>% 
     dplyr::mutate(DT_round = lubridate::with_tz(DT_round, "UTC")) %>% 
     dplyr::group_by(site) %>% 
-    dplyr::summarize(start_DT = max(DT_round, na.rm = TRUE)) %>% 
+    dplyr::summarize(start_DT = max(DT_round, na.rm = TRUE), .groups = "keep") %>% 
     dplyr::select(start_DT, site)
   
   # Extract each site's most recent timestamp across all parameters, considering those 
@@ -125,12 +125,12 @@ get_start_dates <- function(incoming_historically_flagged_data_list,
     dplyr::bind_rows() %>% 
     dplyr::mutate(DT_round = lubridate::with_tz(DT_round, "UTC")) %>% 
     dplyr::group_by(site, parameter) %>% 
-    dplyr::summarize(start_DT = max(DT_round, na.rm = TRUE)) %>% 
+    dplyr::summarize(start_DT = max(DT_round, na.rm = TRUE), .groups = "keep") %>% 
     dplyr::left_join(hv_api_tracking_df, by = c("site", "parameter")) %>%
     dplyr::filter(eligible_for_processing) %>% 
     dplyr::ungroup() %>% 
     dplyr::group_by(site) %>% 
-    dplyr::summarize(start_DT = max(start_DT, na.rm = TRUE)) %>% 
+    dplyr::summarize(start_DT = max(start_DT, na.rm = TRUE), .groups = "keep") %>% 
     dplyr::select(start_DT, site)
   
   # Check if temperature dates equal all parameter dates
