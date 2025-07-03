@@ -27,7 +27,10 @@ tracking information for all site-parameter combinations.}
 should be archived.}
 
 \item{auto_disable_threshold}{Numeric value specifying the number of consecutive failures
-required before a site-parameter combination is automatically disabled. Default is 56.}
+required before a site-parameter combination is automatically disabled. Default is 56.
+A failure would be a failed \code{api_puller()} call for that site, which would be a 3-hour
+chunk of data. 56 consecutive failures would align with a week of failed HydroVu
+API requests.}
 
 \item{try_again_threshold}{Numeric value specifying the number of days after which a
 disabled site-parameter combination should be attempted again. Default is 7.}
@@ -49,7 +52,7 @@ location of the new tracking file.
 \description{
 Maintains a tracking system that monitors the success or failure of data retrieval attempts
 for each site-parameter combination from the HydroVu API. This function analyzes the results
-of the most recent data retrieval operation and updates tracking metrics accordingly.
+of the most recent data retrieval operation (\code{api_puller()}) and updates tracking metrics accordingly.
 
 The function implements a tracking mechanism that:
 \itemize{
