@@ -4,26 +4,29 @@
 \alias{munge_api_data}
 \title{Process raw API data for water quality monitoring workflow}
 \usage{
-munge_api_data(api_path, network, summarize_interval = "15 minutes")
+munge_api_data(
+  api_dir,
+  summarize_interval = "15 minutes",
+  synapse_env = FALSE,
+  fs = NULL
+)
 }
 \arguments{
-\item{api_path}{Character string specifying the directory path containing the
-raw CSV files downloaded from the HydroVu API.}
-
-\item{network}{Character string indicating which monitoring network to process.
-Options include "CSU", "FCW" (Fort Collins Watershed), or "all". Different
-networks may have different processing requirements.}
+\item{api_dir}{Character string specifying the directory path containing the
+raw parquet files downloaded from the HydroVu API.}
 
 \item{summarize_interval}{Character string specifying the time interval to
 round timestamps to. Default is "15 minutes". Accepts any interval format
 compatible with lubridate::round_date().}
+
+\item{fs}{Logical, whether to use the file system functions}
 }
 \value{
 A dataframe containing processed water quality monitoring data with
 standardized columns:
 \itemize{
 \item site: Standardized site name (lowercase, no spaces)
-\item DT: Original timestamp (MST timezone)
+\item DT: Original timestamp (UTC timezone)
 \item DT_round: Rounded timestamp for consistent time intervals
 \item DT_join: Character representation of rounded timestamp for joining
 \item parameter: Measurement type (e.g., "Temperature", "DO")
@@ -32,20 +35,13 @@ standardized columns:
 }
 }
 \description{
-Transforms raw CSV files downloaded from the HydroVu API into a standardized
-format suitable for further quality control processing. This function handles
-data from multiple monitoring networks, applies site name standardization,
-performs timezone conversion, and manages special cases where monitoring
-equipment was relocated between sites. It serves as a crucial preprocessing
-step that bridges the gap between raw API data and the structured format
-required by downstream quality control functions.
+Process raw HydroVu API data files into a standardized format for analysis.
+This function reads parquet files from either Azure Data Lake Storage or
+local storage and transforms them into a consistent format for downstream
+processing.
 }
 \examples{
-# Process data for FCW network with 15-minute intervals
-fcw_data <- munge_api_data(api_path = "data/api",
-                         network = "FCW",
-                         summarize_interval = "15 minutes")
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=api_puller]{api_puller()}}

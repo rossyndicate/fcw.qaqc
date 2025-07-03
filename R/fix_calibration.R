@@ -1,4 +1,5 @@
 #' @title Correct data with underlying bad calibrations using In-Situ calibration reports
+#' @export
 #'
 #' @description This function uses calibration reports collected by field crews to "correct"
 #' instances of poor calibration. These are infrequent, and this function is not yet complete.

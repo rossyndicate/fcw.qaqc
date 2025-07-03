@@ -1,4 +1,5 @@
 #' @title Integrate field notes with water quality monitoring data
+#' @export
 #'
 #' @description
 #' This function merges sensor readings with important field
@@ -33,16 +34,7 @@
 #' site visits.
 #'
 #' @examples
-#' # Load field notes
-#' mWater_data <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
-#' field_notes <- grab_mWater_sensor_notes(mWater_api_data = mWater_data)
-#'
-#' # Add field notes to temperature data for riverbluffs site
-#' riverbluffs_temp_with_notes <- add_field_notes(
-#'   df = tidy_api_data(new_data[["riverbluffs-Temperature"]]),
-#'   notes = field_notes
-#' )
-#'
+#' # Examples are temporarily disabled
 #' @seealso [grab_mWater_sensor_notes()]
 #' @seealso [tidy_api_data()]
 #' @seealso [combine_datasets()]
@@ -59,27 +51,27 @@ add_field_notes <- function(df, notes) {
   # This uses a flexible matching approach that handles variations in site naming
   site_field_notes <- notes %>%
     dplyr::filter(grepl(paste(unlist(stringr::str_split(site_arg, " ")), 
-                             collapse = "|"), site, ignore.case = TRUE))
+                              collapse = "|"), site, ignore.case = TRUE))
   
-  # Process the data within a tryCatch to handle potential errors gracefully
-  summary <- tryCatch({
-    df %>%
+  # Process the data within a tryCatch to handle potential errors
+  tryCatch({
+    summary <- df %>%
       # Remove any duplicate records that might have been introduced
       dplyr::distinct() %>%
       
       # Join the time series data with relevant field note information
       # This adds human observations to the sensor readings
       dplyr::full_join(., dplyr::select(site_field_notes, 
-                                      sonde_employed, sonde_moved,
-                                      last_site_visit, DT_join, visit_comments,
-                                      sensor_malfunction, cals_performed),
+                                        sonde_employed, sonde_moved,
+                                        last_site_visit, DT_join, visit_comments,
+                                        sensor_malfunction, cals_performed),
                        by = c('DT_join')) %>%
       
       # Ensure proper temporal ordering of the combined data
       arrange((DT_join)) %>%
       
       # Ensure timestamps remain in correct datetime format after joining
-      dplyr::mutate(DT_round = lubridate::as_datetime(DT_join, tz = "MST")) %>%
+      dplyr::mutate(DT_round = lubridate::as_datetime(DT_join, tz = "UTC")) %>%
       
       # Set default sonde_employed status (0 = deployed/in water)
       # and forward-fill deployment status and site visit information
@@ -94,14 +86,14 @@ add_field_notes <- function(df, notes) {
       # Final cleanup of any duplicates and rows with missing site information
       dplyr::distinct(.keep_all = TRUE) %>%
       dplyr::filter(!is.na(site))
+    
+    # Return the joined data
+    return(summary)
   },
-  error = function(err) {
+  error = function(e) {
     # Provide informative error message if processing fails
-    cat("An error occurred with site ", site_arg, " parameter ", parameter_arg, ".\n")
-    cat("Error message:", conditionMessage(err), "\n")
-    flush.console() # Immediately print the error messages
-    NULL # Return NULL in case of an error
+    message("An error occurred with site ", site_arg, " parameter ", parameter_arg)
+    message("Error message:", e$message)
+    return(NULL) # Return NULL in case of an error
   })
-  
-  return(summary)
 }

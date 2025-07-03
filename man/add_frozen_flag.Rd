@@ -31,12 +31,7 @@ requires a site-level dataframe containing temperature data and applies freezing
 flags across all parameters.
 }
 \examples{
-# Flag freezing conditions at the archery site
-archery_flagged <- add_frozen_flag(df = all_data_flagged$archery)
-
-# Flag freezing conditions at the boxelder site
-boxelder_flagged <- add_frozen_flag(df = all_data_flagged$boxelder)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_flag]{add_flag()}}

@@ -1,4 +1,5 @@
 #' @title Load and tidy mWater field notes
+#' @export
 #'
 #' @description A function that downloads and cleasn field notes from mWater. This
 #' funciton handles time zone conversion, standardizes text fields, and prepares
@@ -14,41 +15,31 @@
 #' @return A dataframe containing processed field notes with standardized columns:
 #' - site: Standardized site name (lowercase, no spaces)
 #' - DT_round: Rounded timestamp for joining with sensor data
-#' - start_DT/end_dt: Start and end times of field visits (MST timezone)
+#' - start_DT/end_dt: Start and end times of field visits (UTC timezone)
 #' - visit_type: Type of field visit (standardized)
 #' - sensor_pulled/sensor_deployed: Serial numbers of equipment
 #' - And various other field observation columns
 #' 
 #' @examples
-#' # Load field notes with default 15-minute interval
-#' field_notes <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
-#'
-#' # Load field notes with hourly interval
-#' hourly_notes <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"),
-#'                           summarize_interval = "1 hour")
-#' 
+#' # Examples are temporarily disabled
 #' @seealso [grab_mWater_sensor_notes()]
 #' @seealso [grab_mWater_malfunction_notes()]
 
 load_mWater <- function(creds = yaml::read_yaml("creds/mWaterCreds.yml"), summarize_interval = "15 minutes"){
 
   # Retrieve the API URL from the credentials file
-  api_url <- as.character(creds["url"])
-  # TODO: how do we want to handle access when this package is public? (in relation to 
-  # creds file)
+  api_url <- as.character(creds)
 
   # Download field notes from mWater API and perform data cleaning operations
   all_notes_cleaned <- readr::read_csv(url(api_url), show_col_types = FALSE) %>%
     dplyr::mutate(
-      # Convert timestamps from UTC to Mountain Standard Time (MST)
       # Handle multiple possible date-time formats using lubridate
-      start_DT = lubridate::with_tz(lubridate::parse_date_time(start_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "MST"),
-      end_dt = lubridate::with_tz(lubridate::parse_date_time(end_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "MST"),
-      malfunction_end_dt = lubridate::with_tz(lubridate::parse_date_time(malfunction_end_dt, orders = c("%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "MST"),
+      start_DT = lubridate::with_tz(lubridate::parse_date_time(start_dt, orders = c("%Y-%m-%d", "%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
+      end_dt = lubridate::with_tz(lubridate::parse_date_time(end_dt, orders = c("%Y-%m-%d", "%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
+      malfunction_end_dt = lubridate::with_tz(lubridate::parse_date_time(malfunction_end_dt, orders = c("%Y-%m-%d", "%Y%m%d %H:%M:%S", "%m%d%y %H:%M", "%m%d%Y %H:%M", "%b%d%y %H:%M" )), tz = "UTC"),
       
       # Extract date and time components for convenience
-      date = as.Date(start_DT, tz = "MST"),
-      start_time_mst = format(start_DT, "%H:%M"),
+      date = as.Date(start_DT, tz = "UTC"),
 
       # Ensure sensor serial numbers are character type
       sensor_pulled = as.character(sn_removed),

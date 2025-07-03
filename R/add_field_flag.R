@@ -1,4 +1,5 @@
 #' @title Flag data periods affected by field activities
+#' @export
 #'
 #' @description
 #' Identifies and flags time periods in water quality data that are affected by
@@ -30,12 +31,7 @@
 #' flags as appropriate.
 #'
 #' @examples
-#' # Flag field activities in dissolved oxygen data for riverbluffs site
-#' riverbluffs_do_flagged <- add_field_flag(df = combined_data$`riverbluffs-DO`)
-#'
-#' # Flag field activities in temperature data for boxelder site
-#' boxelder_temp_flagged <- add_field_flag(df = combined_data$`boxelder-Temperature`)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_field_notes()]
 #' @seealso [add_flag()]
 

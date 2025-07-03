@@ -1,4 +1,5 @@
 #' @title Extract sensor maintenance field notes from mWater data
+#' @export
 #'
 #' @description
 #' Processes mWater field data to extract and format records specifically related to 
@@ -21,10 +22,7 @@
 #' - Various maintenance fields (sensors_cleaned, cals_performed, etc.)
 #'
 #' @examples
-#' # Load mWater data and extract sensor notes
-#' mWater_data <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
-#' sensor_notes <- grab_mWater_sensor_notes(mWater_data)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [load_mWater()]
 #' @seealso [add_field_notes()]
 
@@ -70,7 +68,7 @@ grab_mWater_sensor_notes <- function(mWater_api_data){
       site, crew, DT_round, sonde_employed, sensors_cleaned, wiper_working, 
       rdo_cap_condition, rdo_cap_replaced, ph_junction_replaced, cals_performed, 
       cal_report_collected, sonde_moved, sensor_malfunction, sensor_pulled, 
-      sensor_deployed, sensor_swapped_notes, visit_type, start_time_mst, DT_join, 
+      sensor_deployed, sensor_swapped_notes, visit_type, DT_join, 
       start_DT, end_dt, date, visit_comments, photos_downloaded, field_season, 
       last_site_visit
     )

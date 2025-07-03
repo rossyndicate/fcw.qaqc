@@ -13,3 +13,6 @@ creds/
 **.DS_Store
 # remove linting files
 .lintr/
+inst/doc
+/doc/
+/Meta/

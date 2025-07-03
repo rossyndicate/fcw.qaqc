@@ -1,0 +1,36 @@
+- Fixing get_start_dates
+  - The issue: get_start_dates() looks for the most recent temperature data. When 
+  everything works as expected thats fine. When a site is down 
+  get_start_dates keeps trying the latest DT that was called for it. In the case 
+  where the site is actually down and not logging any information, this is fine. 
+  Once the site comes back on the process will continue as expected. However, in 
+  the case where a site-parameter is logging data locally but unable to send it to
+  HV API this can be an issue once that data is finally logged again. This means that
+  the data will get grabbed, but the related information for the network check will
+  be unavailable, meaning that we will store data that is incorrect for all the 
+  site-parameters (since they are all dependent on each other). A solution for this
+  problem is not super straight forward. The first thing that I did was to 
+  add a manual tweak to the beginning of the script, like how JB had done to make sure
+  that we can run the script manually. This allows users to input whether a site parameter
+  is active or not, and therefore if it should be considered in get_start_dates. 
+  The second thing that I did was to have 
+  get_start_dates() check the temp start dates against all of the parameters' start dates
+  to make sure that we are getting the same thing for all of them. If a site is considered
+  operational, it will be considered as a start date option, if it is not operational,
+  then it will not be considered as an option. This is good, but 
+  introduced a new problem. If a site parameter is permanently inoperational, or 
+  inoperational for a very long time we will
+  always pull from its DT in the current iteration of get_start_dates() (which
+  uses the earliest start DT from all of the site parameter combinations). The final 
+  thing that I did to solve this problem was to incorporate a tracking system for
+  the API pulls to prevent pulling data thats more than a week old consistently.
+  - TANGIBLES:
+    - update hv_api_pull_failure_tracker via long_operational_site_parameter in 
+    such a way that it can be used by get_start_dates()
+
+- Make the manual use section for the synapse notebook
+- Make the user manual for the synapse notebook code
+
+- Does HV know that we are going to pull this data every 3 hours? 
+- Does mWater know that we are going to pull this data every 3 hours?
+

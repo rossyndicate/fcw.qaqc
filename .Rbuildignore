@@ -1,3 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^LICENSE\.md$
+^vignettes-dev$
+^\.lintr$
+^creds$
+^ignore_files$
+^test_data$
+^doc$
+^Meta$

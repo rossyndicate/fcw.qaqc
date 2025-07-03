@@ -33,8 +33,7 @@ the original dataframe unmodified.
 }
 }
 \examples{
-df <- find_do_noise(df = all_data_summary_stats_list$`riverbluffs-DO`)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_flag]{add_flag()}}

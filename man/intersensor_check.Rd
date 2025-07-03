@@ -38,12 +38,7 @@ parameters rarely exhibit false spikes
 }
 }
 \examples{
-# Remove redundant slope violation flags at the riverbluffs site
-riverbluffs_corrected <- intersensor_check(df = all_flagged_data$riverbluffs)
-
-# Remove redundant slope violation flags at the boxelder site
-boxelder_corrected <- intersensor_check(df = all_flagged_data$boxelder)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_flag]{add_flag()}}

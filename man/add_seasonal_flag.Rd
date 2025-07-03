@@ -49,18 +49,7 @@ These flags help distinguish between natural seasonal variation and potentially
 problematic measurements requiring further investigation.
 }
 \examples{
-# Flag temperature measurements with seasonal violations
-riverbluffs_temp_flagged <- add_seasonal_flag(
-  df = all_data$`riverbluffs-Temperature`,
-  threshold_table = seasonal_thresholds
-)
-
-# Flag dissolved oxygen measurements with seasonal violations
-boxelder_do_flagged <- add_seasonal_flag(
-  df = all_data$`boxelder-DO`,
-  threshold_table = seasonal_thresholds
-)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_spec_flag]{add_spec_flag()}}

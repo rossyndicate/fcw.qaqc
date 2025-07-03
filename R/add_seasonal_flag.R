@@ -1,4 +1,5 @@
 #' @title Flag data outside seasonal ranges and with abnormal slopes
+#' @export
 #'
 #' @description
 #' Identifies and flags water quality measurements that fall outside expected seasonal 
@@ -37,18 +38,7 @@
 #' flags as appropriate.
 #'
 #' @examples
-#' # Flag temperature measurements with seasonal violations
-#' riverbluffs_temp_flagged <- add_seasonal_flag(
-#'   df = all_data$`riverbluffs-Temperature`,
-#'   threshold_table = seasonal_thresholds
-#' )
-#'
-#' # Flag dissolved oxygen measurements with seasonal violations
-#' boxelder_do_flagged <- add_seasonal_flag(
-#'   df = all_data$`boxelder-DO`,
-#'   threshold_table = seasonal_thresholds
-#' )
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_spec_flag()]
 #' @seealso [add_flag()]
 

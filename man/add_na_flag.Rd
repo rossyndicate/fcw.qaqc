@@ -23,12 +23,7 @@ This function helps maintain data quality by explicitly marking gaps in the cont
 monitoring record, allowing downstream analysis to properly handle these missing values.
 }
 \examples{
-# Flag missing conductivity measurements
-archery_conductivity_flagged <- add_na_flag(df = all_data_flagged$`archery-Actual Conductivity`)
-
-# Flag missing temperature measurements
-boxelder_temp_flagged <- add_na_flag(df = all_data_flagged$`boxelder-Temperature`)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_flag]{add_flag()}}

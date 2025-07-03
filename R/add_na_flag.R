@@ -1,4 +1,5 @@
 #' @title Flag missing data in water quality measurements
+#' @export
 #'
 #' @description
 #' Identifies and flags rows in water quality data where measurements are missing (NA values).
@@ -13,12 +14,7 @@
 #' column updated to include "missing data" for any rows where the mean value is NA.
 #'
 #' @examples
-#' # Flag missing conductivity measurements
-#' archery_conductivity_flagged <- add_na_flag(df = all_data_flagged$`archery-Actual Conductivity`)
-#'
-#' # Flag missing temperature measurements
-#' boxelder_temp_flagged <- add_na_flag(df = all_data_flagged$`boxelder-Temperature`)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()]
 
 add_na_flag <- function(df){

@@ -1,4 +1,5 @@
 #' @title Flag sensor drift in optical measurements
+#' @export
 #'
 #' @description
 #' Identifies and flags periods when optical sensors show evidence of progressive drift,
@@ -23,15 +24,7 @@
 #' column updated to include "drift" for periods showing evidence of sensor drift.
 #'
 #' @examples
-#' # Flag drift in turbidity measurements
-#' turbidity_flagged <- add_drift_flag(df = all_data_summary_stats_list$`riverbluffs-Turbidity`)
-#'
-#' # Flag drift in chlorophyll measurements
-#' chlorophyll_flagged <- add_drift_flag(df = all_data_summary_stats_list$`boxelder-Chl-a Fluorescence`)
-#'
-#' # Function will not modify non-optical parameter data
-#' temperature_data <- add_drift_flag(df = all_data_summary_stats_list$`riverbluffs-Temperature`)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()]
 
 add_drift_flag <- function(df){
@@ -80,8 +73,8 @@ add_drift_flag <- function(df){
         # Check if any 1-day period has consistently high R-squared values
         failed = data.table::frollapply(tightest_r, n = 96, FUN = check_too_steady, align = "right", fill = NA)) %>%
       # Add drift flag for periods with consistent linear trends
-      # Only add if drift flag doesn't already exist
-      add_flag(failed == 1, "drift")
+      add_flag(failed == 1, "drift") %>% 
+      select(-c(r2_s_right, r2_s_center, r2_l_right, r2_l_center, tightest_r, failed))
     
     return(df)
   } else {

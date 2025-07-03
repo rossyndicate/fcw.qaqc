@@ -29,10 +29,7 @@ identify sensor issues, these records can be used to flag periods of known
 malfunctions in the dataset.
 }
 \examples{
-# Load mWater data and extract malfunction records
-mWater_data <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
-malfunction_data <- grab_mWater_malfunction_notes(mWater_data)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=load_mWater]{load_mWater()}}

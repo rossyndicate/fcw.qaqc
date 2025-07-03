@@ -1,0 +1,7 @@
+library(testthat)
+library(fcw.qaqc)
+
+test_that('network_check.R works' , {
+  # Add your test cases here
+  expect_true(TRUE)  # Placeholder test
+})

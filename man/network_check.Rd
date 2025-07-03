@@ -4,7 +4,7 @@
 \alias{network_check}
 \title{Reduce overflagging by comparing across monitoring network}
 \usage{
-network_check(df, network = "all")
+network_check(df, intrasensor_flags_arg = intrasensor_flags)
 }
 \arguments{
 \item{df}{A site-parameter dataframe that has undergone initial flagging. Must include:
@@ -15,8 +15,9 @@ network_check(df, network = "all")
 \item \code{flag}: Existing quality flags
 }}
 
-\item{network}{Character string specifying the monitoring network to use for site
-relationships. Options are "all" (default), "CSU", or "FCW" (case-insensitive).}
+\item{intrasensor_flags_arg}{A list of data frames that have gone through the
+intra-sensor flagging functions which are indexed by their corresponding
+site-parameter combination.}
 }
 \value{
 A dataframe with the same structure as the input, plus an \code{auto_flag} column
@@ -33,9 +34,5 @@ For chlorophyll measurements in the FCW/CSU network, no changes are made as thes
 measurements are site-specific.
 }
 \examples{
-# Check for network-wide events in conductivity data
-archery_conductivity_checked <- network_check(
-  df = intersensor_flags$`archery-Actual Conductivity`, 
-  network = "FCW"
-)
+# Examples are temporarily disabled
 }

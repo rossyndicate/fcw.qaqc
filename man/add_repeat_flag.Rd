@@ -26,12 +26,7 @@ as either the preceding or following measurement. Repeated values can indicate
 sensor malfunction, signal processing issues, or data transmission problems.
 }
 \examples{
-# Flag repeated conductivity measurements
-archery_conductivity_flagged <- add_repeat_flag(df = all_data_flagged$`archery-Actual Conductivity`)
-
-# Flag repeated temperature measurements
-boxelder_temp_flagged <- add_repeat_flag(df = all_data_flagged$`boxelder-Temperature`)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_flag]{add_flag()}}

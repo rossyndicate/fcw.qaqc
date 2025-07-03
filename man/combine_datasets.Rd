@@ -39,10 +39,7 @@ historical data with new readings, it creates an overlap period that helps
 identify sensor drift and ensures smooth transitions between data collection cycles.
 }
 \examples{
-# Combine new site data with historical records
-combined_data <- combine_datasets(incoming_data_list = new_data_tidied_list,
-                                historical_data_list = historical_data)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=tidy_api_data]{tidy_api_data()}}

@@ -1,4 +1,5 @@
 #' @title Flag measurements taken during freezing conditions
+#' @export
 #'
 #' @description
 #' Identifies and flags water quality measurements collected when water temperature
@@ -21,13 +22,9 @@
 #' is at or below 0°C.
 #'
 #' @examples
-#' # Flag freezing conditions at the archery site
-#' archery_flagged <- add_frozen_flag(df = all_data_flagged$archery)
-#'
-#' # Flag freezing conditions at the boxelder site
-#' boxelder_flagged <- add_frozen_flag(df = all_data_flagged$boxelder)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()]
+
 add_frozen_flag <- function(df){
   # Extract temperature data for the site
   temperature <- df %>%

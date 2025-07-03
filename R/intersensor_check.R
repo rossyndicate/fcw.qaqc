@@ -1,4 +1,5 @@
 #' @title Remove redundant slope violation flags across parameters
+#' @export
 #'
 #' @description
 #' Reduces overflagging by identifying and removing "slope violation" flags that likely 
@@ -26,12 +27,7 @@
 #' and depth parameters.
 #'
 #' @examples
-#' # Remove redundant slope violation flags at the riverbluffs site
-#' riverbluffs_corrected <- intersensor_check(df = all_flagged_data$riverbluffs)
-#'
-#' # Remove redundant slope violation flags at the boxelder site
-#' boxelder_corrected <- intersensor_check(df = all_flagged_data$boxelder)
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_flag()]
 
 intersensor_check <- function(df){
@@ -42,7 +38,7 @@ intersensor_check <- function(df){
     dplyr::select(DT_round, DT_join, parameter, mean, flag) %>%
     dplyr::filter(parameter == "Temperature") %>%
     dplyr::select(DT_join, Temperature = parameter, Temperature_flag = flag) %>%
-    dplyr:: mutate(Temperature_front1 = dplyr::lead(Temperature_flag, n = 1),
+    dplyr::mutate(Temperature_front1 = dplyr::lead(Temperature_flag, n = 1),
                    Temperature_back1 = dplyr::lag(Temperature_flag, n = 1))
   
   # Extract depth data and flags for the site
@@ -58,8 +54,8 @@ intersensor_check <- function(df){
   # Process non-temperature, non-depth parameters to remove redundant flags
   intersensors_checked <- df %>%
     dplyr::filter(!parameter %in% c("Depth", "Temperature")) %>%
-    dplyr::left_join(., temperature, by = "DT_join") %>%
-    dplyr::left_join(., depth, by = "DT_join") %>%
+    dplyr::left_join(., temperature, by = "DT_join", relationship = "many-to-many") %>%
+    dplyr::left_join(., depth, by = "DT_join", relationship = "many-to-many") %>%
     # Identify slope violations that coincide with similar flags in depth or temperature
     # (including timestamps immediately before or after)
     dplyr::mutate(intersensored = dplyr::case_when(grepl("slope violation", flag) &

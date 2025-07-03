@@ -11,7 +11,7 @@ add_malfunction_flag(df, malfunction_records)
 \itemize{
 \item \code{site}: Standardized site name
 \item \code{parameter}: The measurement type
-\item \code{DT_round}: Timestamp for each measurement
+\item \code{DT_round}: Timestamp for each measurement, in UTC
 \item \code{flag}: Existing quality flags
 }}
 
@@ -20,8 +20,8 @@ with columns:
 \itemize{
 \item \code{site}: Site name matching the df site column
 \item \code{parameter}: Parameter name (NA indicates the entire sonde was malfunctioning)
-\item \code{start_DT}: Start timestamp of the malfunction period
-\item \code{end_DT}: End timestamp of the malfunction period (NA indicates ongoing)
+\item \code{start_DT}: Start timestamp of the malfunction period, in UTC
+\item \code{end_DT}: End timestamp of the malfunction period (NA indicates ongoing), in UTC
 \item \code{notes}: Text description of the malfunction
 }}
 }
@@ -38,12 +38,7 @@ The function uses a separate \code{mal_flag} column rather than the standard \co
 allowing malfunction information to be treated differently in downstream processing.
 }
 \examples{
-# Flag known malfunctions in dissolved oxygen data
-riverbluffs_do_flagged <- add_malfunction_flag(
-  df = intersensor_flags$`riverbluffs-DO`,
-  malfunction_records = sensor_malfunction_notes
-)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=grab_mWater_malfunction_notes]{grab_mWater_malfunction_notes()}}

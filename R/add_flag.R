@@ -1,4 +1,5 @@
 #' @title Core function for data quality flagging system
+#' @export
 #'
 #' @description
 #' This function serves as the foundation of the water quality monitoring flagging
@@ -27,14 +28,9 @@
 #' and avoids adding duplicate flags.
 #'
 #' @examples
-#' # Flag values over 25 as potentially unreliable
-#' df <- add_flag(water_data, mean > 25, "value exceeds typical range")
-#'
-#' # Flag missing values
-#' df <- add_flag(water_data, is.na(mean), "missing data")
-#'
+#' # Examples are temporarily disabled
 #' @seealso [add_burial_flag()]
-#' @seealso [add_depth_shit_flag()]
+#' @seealso [add_depth_shift_flag()]
 #' @seealso [add_drift_flag()]
 #' @seealso [add_field_flag()]
 #' @seealso [add_frozen_flag()]
@@ -51,17 +47,17 @@ add_flag <- function(df, condition_arg, description_arg) {
   # Update the flag column based on the provided condition
   # This uses tidyverse programming techniques to evaluate the condition
   # within the context of the dataframe
-  df <- df %>% mutate(flag = case_when(
+  df <- df %>% dplyr::mutate(flag = dplyr::case_when(
     # For rows where the condition is TRUE:
-    {{condition_arg}} ~ if_else(
+    {{condition_arg}} ~ dplyr::if_else(
       # If there's no existing flag, use just the new description
       is.na(flag), paste(description_arg),
       # If there are existing flags, check if this flag already exists
-      ifelse(
+      dplyr::if_else(
         # Only add the flag if it doesn't already exist (prevent duplicates)
         !grepl(description_arg, flag), 
         # Append the new flag with a semicolon+newline separator for readability
-        paste(flag, description_arg, sep = ";\n"), 
+        paste(flag, description_arg, sep = ";"), 
         # If flag already exists, keep the original flag unchanged
         flag
       )

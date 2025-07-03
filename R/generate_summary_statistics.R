@@ -1,4 +1,5 @@
 #' @title Calculate contextual statistics for water quality time series
+#' @export
 #'
 #' @description
 #' Enhances water quality time series data with a comprehensive set of statistical
@@ -33,16 +34,7 @@
 #'   monsoon, fall_baseflow)
 #'
 #' @examples
-#' # Calculate summary statistics for conductivity data at Archery site
-#' archery_cond_stats <- generate_summary_statistics(
-#'   site_param_df = combined_data$`archery-Specific Conductivity`
-#' )
-#'
-#' # Calculate summary statistics for temperature data at Boxelder site
-#' boxelder_temp_stats <- generate_summary_statistics(
-#'   site_param_df = combined_data$`boxelder-Temperature`
-#' )
-#'
+#' # Examples are temporarily disabled
 #' @seealso [combine_datasets()]
 #' @seealso [add_field_notes()]
 
@@ -124,7 +116,7 @@ generate_summary_statistics <- function(site_param_df) {
         month %in% c(5, 6) ~ "snowmelt",                   # Spring snowmelt period
         month %in% c(7, 8, 9) ~ "monsoon",                 # Summer monsoon period
         month %in% c(10, 11) ~ "fall_baseflow",            # Fall base flow period
-        TRUE ~ NA)
+        TRUE ~ NA_character_)
     )
   
   return(summary_stats_df)

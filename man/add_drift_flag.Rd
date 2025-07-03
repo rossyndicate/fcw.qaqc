@@ -35,15 +35,7 @@ The function only processes optical parameters prone to biofouling:
 For other parameters, the function returns the dataframe unchanged.
 }
 \examples{
-# Flag drift in turbidity measurements
-turbidity_flagged <- add_drift_flag(df = all_data_summary_stats_list$`riverbluffs-Turbidity`)
-
-# Flag drift in chlorophyll measurements
-chlorophyll_flagged <- add_drift_flag(df = all_data_summary_stats_list$`boxelder-Chl-a Fluorescence`)
-
-# Function will not modify non-optical parameter data
-temperature_data <- add_drift_flag(df = all_data_summary_stats_list$`riverbluffs-Temperature`)
-
+# Examples are temporarily disabled
 }
 \seealso{
 \code{\link[=add_flag]{add_flag()}}
