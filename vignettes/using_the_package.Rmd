@@ -1,0 +1,323 @@
+---
+title: "Using 'fcw_qaqc'"
+author: "Katie Willi"
+date: "2025-02-12"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using the Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, warning=FALSE, results='hide', echo=FALSE}
+package_loader <- function(x) {
+  if (x %in% installed.packages()) {
+    suppressMessages({
+      library(x, character.only = TRUE)
+    })
+  } else {
+    suppressMessages({
+      install.packages(x)
+      library(x, character.only = TRUE)
+    })
+  }
+}
+
+invisible(
+  lapply(c("arrow",
+           "data.table", 
+           "httr2", 
+           "tidyverse", 
+           "lubridate", 
+           "zoo", 
+           "padr", 
+           "stats", 
+           "RcppRoll", 
+           "yaml", 
+           "here",
+           "fcw.qaqc"
+           ), 
+         package_loader)
+)
+
+# walk(list.files('R/', pattern = "*.R", full.names = TRUE, recursive = TRUE), source)
+
+# Suppress scientific notation to ensure consistent formatting
+options(scipen = 999)
+```
+
+### Creating our test subset of data:
+
+```{r, eval = FALSE}
+# Load in old data that has gone thru the auto-QAQC pipeline:
+# making a dummy version:
+# historical_data <- readRDS("test_data/pwqn_data.RDS") %>% 
+#   dplyr::filter(DT_round <= "2024-11-01 01:00:00 MST") 
+#   
+# saveRDS(historical_data, "test_data/pwqn_data.RDS")
+```
+
+### Ensuring api directory is clear:
+
+```{r}
+if(length(list.files("test_data/api")) > 0) {stop("ERROR OCCURED - API DATA IN API FOLDER")}
+```
+
+
+##  Step 1: Import and collate data 
+
+*Load in mWater field notes*
+
+```{r}
+mWater_data <- load_mWater(creds = yaml::read_yaml("creds/mWaterCreds.yml"))
+
+all_field_notes <- grab_mWater_sensor_notes(mWater_api_data = mWater_data) 
+
+# pull in user-defined instances of sensor or sonde malfunction, burial, drift, etc.
+sensor_malfunction_notes <- grab_mWater_malfunction_notes(mWater_api_data = mWater_data) 
+```
+
+*Load in the historically flagged data*
+
+```{r}
+if (file.exists(here("test_data", "pwqn_data.RDS"))){
+  historical_data <- readRDS("test_data/pwqn_data.RDS") %>%
+    mutate(auto_flag = as.character(auto_flag)) %>% 
+    split(f = list(.$site, .$parameter), sep = "-") %>%
+    purrr::keep(~!is.null(.) & nrow(.) > 0)
+} else {
+  historical_data <- list()
+}
+```
+
+*Grab new sonde data. We use the historical data to find the last time data was downloaded and use that as the start time.*
+
+```{r api}
+
+api_start_dates <- get_start_dates(incoming_historically_flagged_data_list = historical_data)
+
+hv_creds <- yaml::read_yaml("creds/HydroVuCreds.yml")
+
+hv_token <- hv_auth(client_id = as.character(hv_creds["client"]),
+                    client_secret = as.character(hv_creds["secret"]))
+
+sites_str <- paste0(c("bellvue", "salyer", "udall", "riverbend", "cottonwood", "elc", "archery", "riverbluffs"), collapse = "|")
+
+hv_sites <- hv_locations_all(hv_token) %>%
+  # Filter out VuLink data (not used in CSU/FCW networks)
+  dplyr::filter(!grepl("vulink", name, ignore.case = TRUE),
+                # Filter out Virridy sondes (not part of CSU/FCW networks)
+                !grepl("virridy", name, ignore.case = TRUE),
+                # Filter for sites that are in our site list
+                grepl(sites_str, name, ignore.case = TRUE))
+
+incoming_data_csvs_upload <-  purrr::pwalk(api_start_dates,
+                                           function(site, start_DT, end_DT) {
+                                             message("Requesting HydroVu data for site: ", site)
+                                             api_puller(site = site, 
+                                                        start_dt = start_DT, 
+                                                        end_dt = end_DT, 
+                                                        api_token = hv_token,
+                                                        hv_sites_arg = hv_sites,
+                                                        dump_dir = here("test_data", "api"),
+                                                        synapse_env = FALSE, 
+                                                        fs = NULL)
+                                           })
+
+```
+
+*Load in all the raw files*
+
+```{r}
+new_data <- munge_api_data(api_dir = here("test_data", "api")) %>% 
+    split(f = list(.$site, .$parameter), sep = "-") %>%
+   purrr::keep(~ nrow(.) > 0)
+```
+
+```{r}
+# long_operational_site_parameter <- operational_site_parameters %>% # we take this in as input because we want users to be able to manually change this
+#     # Convert from wide to long format to make filtering easier
+#   pivot_longer(cols = -site, names_to = "parameter", values_to = "active") %>%
+#   # Create a unique identifier for each site-parameter combination
+#   mutate(site_param = paste0(site, "-", parameter)) 
+# 
+# # Find the intersection between the site-parameters of interest and the 
+# # site-parameters we obtained from the HV API request
+# site_parameter_intersect <- intersect(long_operational_site_parameter$site_param, names(new_data))
+# 
+# long_operational_site_parameter <- long_operational_site_parameter %>%
+#   # Create a unique identifier for each site-parameter combination
+#   mutate(active = if_else(site_param %in% site_parameter_intersect, TRUE, FALSE)) %>% 
+#   select(site, parameter, active)
+# 
+# # if active is false for a site parameter in long_operation_site_parameter() we
+# # will track that failure. once that failure is more than a week, we stop using it as
+# # the start DT
+# join_failure_tracker_operational_site_parameter <-
+#   left_join(hv_api_pull_failure_tracker, 
+#             long_operational_site_parameter, 
+#             by = c("site", "parameter")) %>% 
+#   mutate(failure_count = if_else(active, 0, failure_count + 1),
+#          last_success = if_else(active, Sys.time(), last_success), 
+#          auto_disabled = if_else(failure_count >= 56, TRUE, FALSE)) %>% 
+#   # Clean up after the join
+#   select(-active)
+# 
+# # Save the updated tracker
+# # Update the configuration file based on this
+```
+
+*Here, we split up all of our new data into site-parameter combinations (as a list) that we can more easily iterate over. Then, across those lists, we average any observations whose frequency is greater than 15 minutes so that our data set is consistently recorded at 15-minute intervals. (Having data recording at something other than 15 minutes is super rare in  this dataset.) We also preserve the total number of observations within the 15-minute increment used to calculate the mean, as well as the spread (max-min). After these calculations, we use {padr}'s `pad()` function to fill in data gaps at this 15-minute interval. Lastly, we join these data frames with the field notes.*
+
+```{r}
+# format and summarize data
+# Determine each site and parameter in all_data 
+sites <- unique(dplyr::bind_rows(new_data) %>% dplyr::pull(site))
+params <- c(
+  "Chl-a Fluorescence",
+  "Depth",
+  "DO",
+  "ORP",
+  "pH",
+  "Specific Conductivity",
+  "Temperature",
+  "Turbidity")
+
+# Constructing a df to iterate over each site-parameter combination
+site_param_combos <- tidyr::crossing(sites, params) %>% 
+  dplyr::mutate(combo = paste0(sites, "-", params)) %>% 
+  dplyr::pull(combo) 
+
+# Make a list of the 15-minute summarized data, joined with field notes
+new_data_subset <-  new_data[names(new_data) %in% site_param_combos]
+
+new_data_tidied_list <- purrr::map(new_data_subset, 
+                                   function(new_data_df) {
+                                     tidy_api_data(api_data = new_data_df, summarize_interval = "15 minutes")
+                                   }) %>% 
+  # remove NULL from the list (indicating a site-param combo that doesn't actually exist)
+  purrr::keep(~ !is.null(.))
+```
+
+Combine our new data with the 24-hour period before it, then add field notes:
+
+```{r}
+combined_data <- combine_datasets(incoming_data_list = new_data_tidied_list,
+                                  historical_data_list = historical_data) %>%
+  purrr::map(~add_field_notes(df = ., 
+                              notes = all_field_notes)) 
+```
+
+#### *Add summary stats*
+
+Here, we are adding in contextual summary statistics that can be used to describe a given
+observation's relationship to its neighboring observations. This includes:
+
+-   the previous and next observation and their slopes*
+-   the 7-point (each observation and the previous 6) moving median, mean, slope, and
+standard deviation
+-   the hydrologic "season" in which the observation lands in. Currently we are defining them as...
+Winter base flow: Dec, Jan, Feb, Mar, Apr 
+Snow melt: May, Jun 
+Monsoon: Jul, Aug, Sep 
+Fall base flow: Oct, Nov
+
+```{r}
+all_data_summary_stats_list <- combined_data %>%
+  purrr::map(~generate_summary_statistics(.)) 
+```
+
+## Step 2: Begin flagging the data 
+
+*Add flagging functions for each df in all_data_summary_list*
+
+*Pass the dfs in all_data_summary_stats_list through the flagging functions:*
+
+```{r}
+single_sensor_flags <- purrr::map(all_data_summary_stats_list, function(data) {
+  data %>%
+    # flag field visits
+    add_field_flag(df = .) %>%
+    # flag instances outside the spec range
+    add_spec_flag(df = ., spec_table = yaml::read_yaml("test_data/qaqc_files/sensor_spec_thresholds.yml")) %>%
+    # flag data outside of seasonal range
+    add_seasonal_flag(df = ., threshold_table = read_csv("test_data/qaqc_files/seasonal_thresholds.csv", show_col_types = FALSE)) %>%
+    # flag missing data
+    add_na_flag(df = .) %>%
+    # flag DO noise 
+    find_do_noise(df = .) %>%
+    # flag repeating values
+    add_repeat_flag(df = .) %>%
+    # find times when sonde was moved up/down in housing
+    add_depth_shift_flag(df = ., level_shift_table =  all_field_notes, post2024 = TRUE) %>%
+    # find instances of sensor drift (FDOM, Chl-a, Turbidity only)
+    add_drift_flag(df = .) 
+})
+```
+
+```{r}
+# How does this change if we swap out a sensor later in the season, and then swap it back?
+intrasensor_flags <- single_sensor_flags %>% # check where intersensor_flags is referenced
+  dplyr::bind_rows() %>%
+  split(f = .$site, sep = "-") %>%
+  # flag times when water was below freezing
+  purrr::map(~add_frozen_flag(.)) %>%
+  # overflagging correction. remove slope violation flag if it occurs concurrently
+  # with temp or depth
+  purrr::map(~intersensor_check(.)) %>%
+    # add sonde burial. If DO is noise is long-term, likely burial:
+  purrr::map(~add_burial_flag(.)) %>%
+  # flag times when sonde was unsubmerged
+  purrr::map(~add_unsubmerged_flag(.)) %>%
+  dplyr::bind_rows() %>%
+  data.table::data.table() %>%
+  # lil' cleanup of flag column contents
+  dplyr::mutate(flag = ifelse(flag == "", NA, flag)) %>%
+  # transform back to site-parameter dfs
+  split(f = list(.$site, .$parameter), sep = "-") %>%
+  purrr::discard(~ nrow(.) == 0) %>%
+  # Add in KNOWN instances of sensor malfunction
+  purrr::map(~add_malfunction_flag(df = ., malfunction_records = sensor_malfunction_notes))
+```
+
+Tidy up the flagging information and data frame to save as new "pwqn_data" file containing all PWQN data.
+
+```{r}
+# Then go across sites to remove
+# seasonal threshold flags that occurred up-/down-stream at the same time
+# Lastly, if over 50% of data is flagged in a moving 2-hour window, flag ALL 
+# the data in that window
+final_flags <- intrasensor_flags %>%
+  # creates new column, "auto_flag" that reduces overflagging of drastic system-wide
+  # WQ changes
+  purrr::map(~network_check(df = ., intrasensor_flags_arg = intrasensor_flags)) %>%
+  dplyr::bind_rows() %>%
+  tidy_flag_column() %>%
+  split(f = list(.$site, .$parameter), sep = "-") %>%
+  purrr::map(~add_suspect_flag(.)) %>%
+  dplyr::bind_rows() %>%
+  # Remove lonely "suspect" flags after auto-cleaning of data (i.e., suspect observations
+  # that are totally isolated and no longer linked to any "real" quality flag)
+  dplyr::mutate(auto_flag = ifelse(is.na(auto_flag), NA,
+                                           ifelse(auto_flag == "suspect data" & is.na(lag(auto_flag, 1)) & is.na(lead(auto_flag, 1)), NA, auto_flag))) %>%
+  # remove columns we don't need anymore:
+  dplyr::select(c("DT_round", "DT_join", "site", "parameter", "mean", "units", "n_obs", "spread", "auto_flag", "mal_flag", "sonde_moved", "historical")) %>%
+  dplyr::mutate(auto_flag = ifelse(is.na(auto_flag), NA, ifelse(auto_flag == "", NA, auto_flag))) %>%
+  split(f = list(.$site, .$parameter), sep = "-") 
+```
+
+```{r}
+final_historical_bind <- final_data_binder(final_flags, historical_data) %>%
+  purrr::keep(~ !is.null(.)) %>%
+  dplyr::bind_rows() %>% 
+  dplyr::mutate(historical = TRUE) # set any data that is in final_historical_bind as historical
+```
+
+## Step 3: Save new updated pwqn dataset, move the api data out of the api folder into archive.
+
+```{r}
+saveRDS(final_historical_bind, "test_data/pwqn_data.RDS")
+
+move_api_data(api_dir = "test_data/api/", archive_dir = "test_data/api_archive/")
+```
+
