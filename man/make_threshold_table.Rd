@@ -18,6 +18,3 @@ A function designed to generate a threshold table for QAQC. This table
 contains the thresholds for the mean, slope_behind, and standard deviation
 of the mean for each site and season.
 }
-\examples{
-make_threshold_table(df = all_data_flagged$`archery-Actual Conductivity`)
-}
