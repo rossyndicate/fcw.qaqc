@@ -4,7 +4,7 @@
 \alias{network_check}
 \title{Reduce overflagging by comparing across monitoring network}
 \usage{
-network_check(df, intrasensor_flags_arg = intrasensor_flags)
+network_check(df, network = "all", intrasensor_flags_arg = intrasensor_flags)
 }
 \arguments{
 \item{df}{A site-parameter dataframe that has undergone initial flagging. Must include:
@@ -14,6 +14,9 @@ network_check(df, intrasensor_flags_arg = intrasensor_flags)
 \item \code{DT_round}: Timestamp for measurements
 \item \code{flag}: Existing quality flags
 }}
+
+\item{network}{Whether to perform the network crawl across FCW sites only ("fcw") or
+all sites ("all")}
 
 \item{intrasensor_flags_arg}{A list of data frames that have gone through the
 intra-sensor flagging functions which are indexed by their corresponding
