@@ -26,5 +26,5 @@ Install the development version from GitHub:
 install.packages("devtools")
 
 # Install fcw.qaqc
-devtools::install_github("yourusername/fcw.qaqc")
+devtools::install_github("rossyndicate/fcw.qaqc")
 ```
