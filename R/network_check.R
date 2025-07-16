@@ -20,6 +20,8 @@
 #' @param intrasensor_flags_arg A list of data frames that have gone through the 
 #' intra-sensor flagging functions which are indexed by their corresponding 
 #' site-parameter combination.
+#' @param network Whether to perform the network crawl across FCW sites only ("fcw") or
+#' all sites ("all")
 #'
 #' @return A dataframe with the same structure as the input, plus an `auto_flag` column
 #' that contains cleaned flags where network-wide events have been accounted for.
@@ -27,21 +29,53 @@
 #' @examples
 #' # Examples are temporarily disabled
 
-network_check <- function(df, intrasensor_flags_arg = intrasensor_flags) {
+network_check <- function(df, network = "all", intrasensor_flags_arg = intrasensor_flags) {
   
   # Extract site and parameter name from dataframe
   site_name <- unique(na.omit(df$site))
   parameter_name <- unique(na.omit(df$parameter))
   
-  # Define site order based on spatial arrangement along river
-  sites_order <- c("bellvue",
-                   "salyer",
-                   "udall",
-                   "riverbend",
-                   "cottonwood",
-                   "elc", 
-                   "archery",
-                   "riverbluffs")
+  # vector of sites in the order that they are in in the network
+  if(network  %in% c("csu", "CSU", "fcw", "FCW")){
+    
+    sites_order <- c("bellvue",
+                     "salyer",
+                     "udall",
+                     "riverbend",
+                     "cottonwood",
+                     "elc",
+                     "archery",
+                     "riverbluffs")
+  } else {
+    
+    # Define site order based on spatial arrangement along river
+    sites_order <-  c("joei",
+                      "cbri",
+                      "chd",
+                      "pfal",
+                      "pbd",
+                      "pbr",
+                      "pman",
+                      "bellvue",
+                      "salyer",
+                      "udall",
+                      "riverbend",
+                      "cottonwood",
+                      "elc",
+                      "archery",
+                      "riverbluffs")
+    
+    # SFM network 
+    if (site_name %in% c("mtncampus", "sfm")){
+      sites_order <- c("mtncampus", "sfm")
+    }
+    
+    # Sites without a network
+    if (site_name %in% c("lbea", "penn", "springcreek", "boxcreek")){
+      return(df)
+    }
+    
+  }
   
   # Find the index of current site in ordered list
   site_index <- which(sites_order == sites_order[grep(site_name, sites_order, ignore.case = TRUE)])
@@ -123,8 +157,8 @@ network_check <- function(df, intrasensor_flags_arg = intrasensor_flags) {
     ## 1 = at least one site has relevant flags
     dplyr::mutate(flag_binary = dplyr::if_else(
       (is.na(flag_up) | grepl(ignore_flags, flag_up)) & 
-      (is.na(flag_down) | grepl(ignore_flags, flag_down)), 0, 1
-      )) %>%
+        (is.na(flag_down) | grepl(ignore_flags, flag_down)), 0, 1
+    )) %>%
     # Check for flags in 4-hour window (+/-2 hours around each point, 17 observations at 15-min intervals)
     dplyr::mutate(overlapping_flag = zoo::rollapply(flag_binary, width = width_fun, FUN = check_2_hour_window_fail, fill = NA, align = "center")) %>%
     add_column_if_not_exists(column_name = "auto_flag") %>%
