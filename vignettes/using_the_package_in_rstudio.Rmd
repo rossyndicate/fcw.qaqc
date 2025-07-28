@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-This vignette demonstrates a comprehensive workflow for processing water quality sensor data from multiple sources (mWater and HydroVu APIs), applying quality assurance and quality control (QAQC) flags, and preparing the data for analysis. The workflow combines automated data retrieval, statistical analysis, and multi-level flagging to ensure data quality.
+This vignette demonstrates a comprehensive workflow for processing water quality sensor data (HydroVu API), adding relevant field notes (mWater API), applying quality assurance and quality control (QAQC) flags, and preparing the data for analysis. The workflow combines automated data retrieval, statistical analysis, and multi-level flagging to ensure data quality.
 
 ### Output Data Structure
 
