@@ -9,9 +9,6 @@
 #'
 #' @return A data frame with the thresholds for the mean, slope_behind, and
 #' standard deviation of the mean for each site and season.
-#'
-#' @examples
-#' make_threshold_table(df = all_data_flagged$`archery-Actual Conductivity`)
 
 make_threshold_table <- function(df){
 
@@ -19,7 +16,7 @@ make_threshold_table <- function(df){
     # Get threshold for negative slope data
     dplyr::filter(slope_behind < 0) %>%
     dplyr::group_by(season) %>%
-    dplyr::summarize(f_slope_behind_01 = quantile(slope_behind, 0.01, na.rm = TRUE))
+    dplyr::summarize(f_slope_behind_01 = stats::quantile(slope_behind, 0.01, na.rm = TRUE))
 
   slope_up <- df %>%
     # Get threshold for positive slope data
