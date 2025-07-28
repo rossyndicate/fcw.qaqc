@@ -23,7 +23,7 @@ This vignette demonstrates a comprehensive workflow for processing water quality
 
 The final dataset contains the following key columns:
 
-`DT_round: Datetime rounded to 15-minute intervals
+`DT_round`: Datetime rounded to 15-minute intervals
 `site`: Site identifier
 `parameter`: Measured parameter (e.g., "Temperature", "Dissolved Oxygen")
 `mean`: Average value for the 15-minute time interval
