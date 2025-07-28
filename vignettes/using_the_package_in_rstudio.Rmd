@@ -207,7 +207,7 @@ hv_data <- list.files(staging_directory, full.names = TRUE) %>%
   }, .progress = TRUE)
 
 # preprocess and standardize data
-data_2024 <- hv_data %>%
+hv_data_standardized <- hv_data %>%
   data.table() %>%
   select(-id) %>%
   mutate(units = as.character(units)) %>%
