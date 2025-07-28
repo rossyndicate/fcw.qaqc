@@ -49,7 +49,7 @@ You can customize the workflow by:
 
 Modifying the sites_to_process vector to include/exclude specific sites
 Adjusting the date range for data retrieval
-Changing the summarization interval in tidy_api_data()
+Changing the summarization interval in `tidy_api_data()`
 Adding custom threshold files for different parameters or seasons
 Modifying chunk sizes for different hardware configurations
 
