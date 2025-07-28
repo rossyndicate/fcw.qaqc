@@ -234,7 +234,7 @@ The `tidy_api_data()` function cleans and summarizes data at 15-minute intervals
 
 ```{r}
 # tidy raw data (default 15-minute intervals)
-tidy_data <- data_2024 %>%
+tidy_data <- hv_data_standardized %>%
   future_map(~tidy_api_data(api_data = .), .progress = TRUE) %>%
   keep(~!is.null(.))
 
