@@ -78,7 +78,10 @@ network_check <- function(df, network = "all", intrasensor_flags_arg = intrasens
                       "elc",
                       "archery",
                       "riverbluffs")
-    
+    # Virridy sites
+    if (site_name %in% c("cottonwood_virridy", "riverbend_virridy", "archery_virridy")){
+      sites_order <- c("udall", "riverbend_virridy", "cottonwood_virridy", "archery_virridy", "riverbluffs")
+    }
     # SFM network 
     if (site_name %in% c("mtncampus", "sfm")){
       sites_order <- c("mtncampus", "sfm")
