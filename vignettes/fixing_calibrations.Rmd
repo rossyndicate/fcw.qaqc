@@ -1,0 +1,320 @@
+---
+title: "fixing_calibrations"
+output: html_document
+---
+
+# Introduction
+
+This vignette demonstrates the complete workflow for back-calibrating water 
+quality sensor data using calibration information extracted from HTML calibration 
+files. The process corrects sensor drift and applies temporal interpolation 
+between calibrations to produce accurate time series data.
+
+# Prepare Environment
+
+```{r}
+# Load necessary packages:
+source("src/package_loader.R")
+
+CRAN_packages <- c(
+  "tidyverse", # Data manipulation
+  "janitor", # Clean dirty data
+  "lubridate", # Date-Time Manipulation
+  "rvest", # HTML Retrieval and Manipulation
+  "readxl", # Reading excel files
+  "here", # Easy, cross platform file referencing
+  "ggplot2", # Plotting libraries
+  "ggpubr",
+  "plotly",
+  "devtools", # For downloading GitHub packages
+  "remotes",
+  "yaml"
+)
+
+lapply(CRAN_packages, package_loader)
+
+# Source all calibration functions
+walk(list.files('src/', pattern = "*.R", full.names = TRUE, recursive = TRUE), source)
+```
+
+The environment setup loads essential packages for data manipulation and 
+sources all calibration functions needed for the workflow.
+
+# Load Calibration Data
+
+```{r load-cal-data}
+load_calibration_data()
+```
+
+The `load_calibration_data()` function loads the calibration coefficients and 
+drift correction information which were extracted from the HTML calibration files,
+if they exist within the file path which is provided to it. This file path, by
+default, is `here("data", "calibration_reports", "0_cal_data_munge", "munged_calibration_data.RDS")`
+
+If the data does not exist, or the `update` option is set to `TRUE`, this function 
+calls the `cal_extract_markup_data()`, which generates this calibration data 
+fresh from raw HTML files from the directory provided to it. By default these 
+directories are: `field_cal_dir = here("data", "calibration_reports")` and
+`benchtop_cal_dir = here("data", "calibration_reports", "benchtop_calibrations")`.
+Though, note that the arguments for `cal_extract_markup_data()` can be change 
+within `load_calibration_data()` via the `...` arguments. Note that `cal_extract_markup_data()`
+takes a minute to finish running.
+
+## Calibration Data Structure
+
+The resulting `calibration_data` object follows an organizational structure 
+which contains a nested list organized by year, where each year 
+contains site-parameter combinations (e.g., "lincoln-pH", "tamasag-Turbidity"). 
+Each site-parameter entry includes calibration coefficients (slope and offset values) 
+and drift correction measurements (pre- and post-calibration standard readings),
+along with their related identification and datetime information.
+
+# Load Sensor Data
+
+```{r load-snsr-data}
+# Read in 2022, 2023, 2024, and 2025 sensor data
+if (file.exists(here("data", "manual_data_verification", "complete_dataset", "23_25_hv_pull"))) {
+  sensor_data <- read_rds(here("data", "manual_data_verification", "complete_dataset", "23_25_hv_pull")) %>% 
+    set_names(names(calibration_data)) %>% 
+    compact()
+} else {
+  library(fcw.qaqc)
+  
+  sensor_data <- names(calibration_data) %>% 
+    map(function(year){
+      
+      # Grab the site for the year from the calibration_data[[year]]
+      site_list <- map(names(calibration_data[[year]]), ~word(.x, 1, sep = "-")) %>% 
+        unlist() %>% 
+        unique(.) 
+      
+      site_list <- unique(c("tamasag", "legacy", "lincoln", "timberline", "prospect", "boxelder", "archery", "river bluffs", site_list)) 
+      
+      # Generate start and end times for the HydroVu API request
+      start_dt_string <- paste0(year, "-01-01 00:00:00")
+      start_dt = as.POSIXct(start_dt_string, tz = "America/Denver")
+      start_dt_utc = with_tz(start_dt, tzone = "UTC")
+      
+      end_dt_string <- paste0(year, "-12-31 11:59:59")
+      end_dt = as.POSIXct(end_dt_string, tz = "America/Denver")
+      end_dt_utc = with_tz(end_dt, tzone = "UTC")
+      
+      api_start_dates <- tibble(site = site_list,
+                                start_DT = start_dt_utc,
+                                end_DT = end_dt_utc)
+      
+      # Grab HydroVu Credits
+      hv_creds <- read_yaml(here("creds", "HydroVuCreds.yml"))
+      
+      hv_token <- hv_auth(client_id = as.character(hv_creds["client"]),
+                          client_secret = as.character(hv_creds["secret"]))
+      
+      hv_sites <- hv_locations_all(hv_token) %>% 
+        filter(!grepl("vulink|virridy", name, ignore.case = TRUE),
+               grepl(str_flatten(site_list, collapse = "|"), name, ignore.case = TRUE))
+      
+      # Create temporary directory
+      temp_dir <- file.path(tempdir(), paste0("api_data_", year))
+      dir.create(temp_dir, showWarnings = FALSE)
+      temp_dir <- normalizePath(temp_dir)
+      
+      # Pull the API data
+      pwalk(api_start_dates,
+            function(site, start_DT, end_DT) {
+              message("Requesting HydroVu data for site: ", site)
+              fcw.qaqc::api_puller(
+                site = site,
+                start_dt = start_DT,
+                end_dt = end_DT,
+                api_token = hv_token,
+                hv_sites_arg = hv_sites,
+                # Use temporary directory for the API call
+                dump_dir = temp_dir,
+                synapse_env = FALSE,
+                fs = NULL
+              )
+            }
+      )
+      
+      # Munge the API data
+      message("Starting Munge Step")
+      
+      if (length(list.files(temp_dir)) == 0) {
+        return(NULL)
+      }
+      
+      new_data <- fcw.qaqc::munge_api_data(api_dir = temp_dir) %>% 
+        fix_sites() %>%
+        split(f = list(.$site, .$parameter), sep = "-") %>%
+        purrr::keep(~ nrow(.) > 0)
+      
+      # Tidy the API data
+      message("Starting Tidy Step")
+      sites <- unique(dplyr::bind_rows(new_data) %>% dplyr::pull(site))
+      
+      params <- c("Chl-a Fluorescence", "Depth", "DO", "ORP", "pH", "Specific Conductivity",
+                  "Pressure", "Turbidity")
+      
+      site_param_combos <- crossing(sites, params) %>% 
+        mutate(combo = paste0(sites, "-", params)) %>% 
+        pull(combo) 
+      
+      new_data <- new_data[names(new_data) %in% site_param_combos]
+      
+      sensor_data <- map(new_data, ~fcw.qaqc::tidy_api_data(api_data = .x)) %>% 
+        keep(~!is.null(.))
+      
+      # Save the API data...
+      return(sensor_data)
+    })
+  
+  # Save the raw data into a file that we can pull in in the future...
+  write_rds(sensor_data, here("data", "manual_data_verification", "complete_dataset", "23_25_hv_pull"))
+}
+
+```
+
+## Expected Sensor Data Structure
+
+The sensor data must be organized as a year list structure where each year contains 
+site-parameter lists. For example, the 2024 data would contain separate entries 
+for "lincoln-pH", "lincoln-Turbidity", "tamasag-pH", etc. Each site-parameter 
+combination contains time series data with datetime stamps and sensor measurements. 
+This consistent structure allows the calibration functions to properly match 
+sensor readings with their corresponding calibration information.
+
+# Processing steps
+
+## Join Sensor and Calibration Data
+
+```{r join-data}
+sensor_calibration_data <- cal_join_sensor_calibration_data(
+  # Sometimes the calibration date does not line up with a field visit.
+  sensor_data_list = sensor_data,
+  calibration_data_list = calibration_data
+) 
+```
+
+The `join_sensor_calibration_data()` function links each sensor measurement to 
+its appropriate calibration information using temporal proximity matching. This 
+function identifies the most recent calibration that applies to each sensor 
+reading, creating a foundation for the back-calibration process.
+
+## Prepare Data for Back Calibration
+
+```{r prep-data}
+prepped_snsr_cal_data <- cal_prepare_sensor_calibration_data(sensor_calibration_data)
+```
+
+The `prepare_sensor_calibration_data()` function segments the joined data into 
+calibration windows bounded by consecutive calibrations. Each window represents 
+a time period where linear interpolation between two calibrations can be applied. 
+This segmentation creates manageable chunks that allow for temporal weighting of 
+calibration parameters.
+
+# Back Calibration
+
+```{r Apply back calibration functions to the data}
+# NOTE: THIS WILL NOT RUN YET!
+calibrated_data <- prepped_snsr_cal_data %>% 
+  map(function(year){
+    calibrated_site_param_list <- year %>%
+      map(function(site_param){
+        site_param %>% 
+          map_dfr(function(chunk){
+            cal_back_calibrate(chunk) 
+          })
+      })
+  })
+```
+
+## Understanding the Nested Map Structure
+
+The back calibration process uses an explicit nested map approach that differs 
+from the simpler function calls used in previous processing steps. This design 
+choice provides three levels of iteration: years, site-parameters within each 
+year, and calibration chunks within each site-parameter. While `join_sensor_calibration_data()` 
+and `prepare_sensor_calibration_data()` handle similar nested year/site-parameter 
+iterations internally, they abstract away this complexity from the user.
+
+The explicit nested structure in  the `back_calibration()` function call serves 
+a purpose for future functionality. While automated calibration works well for 
+most situations, some sensor data may require manual intervention or custom 
+calibration approaches. The exposed nested maps allow users to easily extract 
+specific years, site-parameters, or individual chunks for manual processing 
+while maintaining the overall automated workflow for standard cases.
+
+## The `back_calibrate()` Function
+
+The `back_calibrate()` function serves as the orchestrator for the entire calibration 
+process within each chunk. It automatically determines the appropriate calibration 
+workflow based on the sensor parameter type. Standard sensors (Chlorophyll-a, 
+FDOM, ORP, Pressure, Specific Conductivity, RDO) follow a five-step process 
+involving temporal weighting, inverse linear modeling, linear transformation, 
+single-point drift correction, and validation. Turbidity sensors use a similar 
+workflow but with two-point drift correction, while pH sensors require specialized 
+three-point processing due to their multi-segment calibration approach.
+
+This function design ensures that users only need to call one function per chunk 
+while the internal logic handles the complexity of parameter-specific calibration 
+requirements.
+
+# Saving the Back-calibrated Data
+
+```{r save-cal-data}
+write_rds(calibrated_data, here("data", "manual_data_verification", "complete_dataset", "calibrated_sensor_data.rds"))
+```
+
+# Explore the calibrations
+
+```{r explore-cal}
+# update `calibrated_test` object with the data you would like to explore...
+calibrated_test <- calibrated_data$`2024`$`cottonwood-Turbidity`
+
+# Extract parameter and site info for dynamic labeling
+parameter <- unique(calibrated_test$parameter)
+site <- unique(calibrated_test$site)
+
+# Create ggplot with basic labels and legend
+calibration_p_test <- ggplot(calibrated_test) +
+  geom_line(aes(x = DT_round, y = mean, color = "Original"), alpha = 0.6) +
+  geom_line(aes(x = DT_round, y = mean_raw, color = "Raw"), alpha = 0.3, linetype = "dotted") +
+  geom_line(aes(x = DT_round, y = mean_drift_trans, color = "Drift Corrected"), alpha = 0.6) +
+  geom_line(aes(x = DT_round, y = mean_lm_trans, color = "Linear Transform"), alpha = 0.6) +
+  scale_color_manual(values = c("Original" = "red", "Raw" = "yellow", 
+                                "Linear Transform" = "green", "Drift Corrected" = "blue")) +
+  labs(
+    title = paste(site, parameter, "2024 Calibration"),
+    x = "Date",
+    y = paste(parameter, "(units)"),
+    color = "Data Type"
+  ) +
+  ylim(c(0,50)) +
+  theme_minimal()
+
+# Convert to plotly
+calibration_p_test <- ggplotly(calibration_p_test)
+
+# Add vertical lines for calibration dates
+vline_dates <- round_date(unique(calibrated_test$file_date), "15 minutes")
+for(date in vline_dates) {
+  calibration_p_test <- calibration_p_test %>% add_segments(x = date, xend = date, 
+                                                            y = min(calibrated_test$mean_drift_trans, na.rm = TRUE), 
+                                                            yend = max(calibrated_test$mean_drift_trans, na.rm = TRUE), 
+                                                            line = list(color = "black", dash = "dash"),
+                                                            showlegend = FALSE)
+}
+
+# Display the plot
+calibration_p_test <- ggplotly(calibration_p_test)
+
+calibration_p_test
+```
+
+# Workflow Summary
+The complete calibration workflow transforms raw sensor data through four main stages. 
+First, calibration information is loaded and joined with sensor data using temporal 
+matching. Second, the joined data is segmented into calibration windows for processing. 
+Third, each window undergoes back calibration using parameter-specific algorithms 
+that account for instrument characteristics and drift patterns. Finally, the calibrated 
+results are validated and compiled into a clean time series dataset ready for analysis.
