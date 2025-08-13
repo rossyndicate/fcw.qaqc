@@ -35,6 +35,14 @@ low_pass_filter <- function(df) {
   # Only apply low pass filter to turbidity data due to its susceptibility to optical noise
   if (unique(df$parameter) == "Turbidity") {
     
+    # Function to add column if it doesn't exist
+    add_column_if_not_exists <- function(df, column_name, default_value = NA) {
+      if (!column_name %in% colnames(df)) {
+        df <- df %>% dplyr::mutate(!!sym(column_name) := default_value)
+      }
+      return(df)
+    }
+    
     # Define 5-point binomial kernel function with weights [1,4,6,4,1]
     binomial_kernel <- function(int_vec) {
       kernel <- c(1, 4, 6, 4, 1)  
@@ -45,16 +53,23 @@ low_pass_filter <- function(df) {
     # Apply low pass smoothing filter three times in succession for aggressive noise reduction
     # Each application uses a centered 5-point window covering ±30 minutes (at 15-min intervals)
     df <- df %>% 
+      add_column_if_not_exists(column_name = "smoothed_mean") %>% 
       mutate(
         # First pass
-        smoothed_mean = data.table::frollapply(mean, n = 5, FUN = binomial_kernel, 
-                                               fill = NA, align = "center"),
+        smoothed_mean = if_else(is.na(smoothed_mean), 
+                                data.table::frollapply(mean, n = 5, FUN = binomial_kernel, 
+                                                       fill = NA, align = "center"),
+                                smoothed_mean),
         # Second pass
-        smoothed_mean = data.table::frollapply(smoothed_mean, n = 5, FUN = binomial_kernel, 
-                                               fill = NA, align = "center"),
+        smoothed_mean = if_else(is.na(smoothed_mean), 
+                                data.table::frollapply(smoothed_mean, n = 5, FUN = binomial_kernel, 
+                                                       fill = NA, align = "center"),
+                                smoothed_mean),
         # Third pass
-        smoothed_mean = data.table::frollapply(smoothed_mean, n = 5, FUN = binomial_kernel, 
-                                               fill = NA, align = "center")
+        smoothed_mean = if_else(is.na(smoothed_mean), 
+                                data.table::frollapply(smoothed_mean, n = 5, FUN = binomial_kernel, 
+                                                       fill = NA, align = "center"),
+                                smoothed_mean)
       )
     
     return(df)
