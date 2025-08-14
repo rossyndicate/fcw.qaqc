@@ -50,7 +50,7 @@ network_check <- function(df, network = "all", intrasensor_flags_arg = intrasens
     
     # Define site order based on spatial arrangement along river
     sites_order <-  c("joei",
-    "cbri",
+                      "cbri",
                       "chd",
                       "pfal",
                       "pbr",
@@ -63,7 +63,7 @@ network_check <- function(df, network = "all", intrasensor_flags_arg = intrasens
                       "cottonwood",
                       "elc",
                       "archery",
-                      "riverbluffs")
+                      "riverbluffs",
                       "cbri",
                       "chd",
                       "pfal",

@@ -21,7 +21,7 @@ column updated to include "drift" for periods showing evidence of sensor drift.
 }
 \description{
 Identifies and flags periods when optical sensors show evidence of progressive drift,
-which often indicates biofouling or calibration issues. The function analyzes time series
+which often indicates biofouling issues. The function analyzes time series
 patterns to detect when measurements show a steady linear trend over time that is
 unlikely to represent natural environmental conditions.
 
