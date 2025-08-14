@@ -57,15 +57,27 @@ add_drift_flag <- function(df) {
   
   visit_regex <- "(site\\s*visit|\\bsv\\b)"
   
-  df %>%
+  new <- df %>%
     mutate(visit_group = cumsum(str_detect(replace_na(flag, ""), regex(visit_regex, ignore_case = TRUE)))) %>%
     group_by(visit_group) %>%
-    mutate(r2_s_right = rollapply(mean, width = win_short, FUN = progressive_drift, align = "right",  fill = NA),
-           r2_l_right = rollapply(mean, width = win_long,  FUN = progressive_drift, align = "right",  fill = NA),
-           r2_s_center = rollapply(mean, width = win_short, FUN = progressive_drift, align = "center", fill = NA),
-           r2_l_center = rollapply(mean, width = win_long,  FUN = progressive_drift, align = "center", fill = NA),
-           tightest_r = pmax(r2_s_center, r2_s_right, r2_l_center, r2_l_right, na.rm = TRUE),
-           failed = rollapply(tightest_r, width = win_short, FUN = too_steady, align = "right", fill = NA)) %>%
-    ungroup() %>%
-    add_flag(failed, "drift") %>%
+    # Calculate R-squared values for different window sizes and alignments
+    # 96 observations = 1 day at 15-minute intervals
+    # 288 observations = 3 days at 15-minute intervals
+    dplyr::mutate(
+      # 1-day windows with different alignments
+      r2_s_right = data.table::frollapply(mean, n = 96, FUN = progressive_drift, align = "right", fill = NA),
+      r2_s_center = data.table::frollapply(mean, n = 96, FUN = progressive_drift, align = "left", fill = NA),
+      # 3-day windows with different alignments
+      r2_l_right = data.table::frollapply(mean, n = 288, FUN = progressive_drift, align = "right", fill = NA),
+      r2_l_center = data.table::frollapply(mean, n = 288, FUN = progressive_drift, align = "left", fill = NA),
+      # Take the maximum R-squared from any window configuration
+      tightest_r = pmax(r2_s_center, r2_s_right, r2_l_center, r2_l_right, na.rm = TRUE),
+      # Check if any 1-day period has consistently high R-squared values
+      failed = data.table::frollapply(tightest_r, n = 96, FUN = too_steady, align = "right", fill = NA)) %>%
+    data.table::data.table() %>%
+    # Add drift flag for periods with consistent linear trends
+    add_flag(failed == 1, "drift") %>% 
     select(-visit_group, -r2_s_right, -r2_s_center, -r2_l_right, -r2_l_center, -tightest_r, -failed)
+  
+  return(new)
+}
