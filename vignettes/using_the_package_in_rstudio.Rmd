@@ -164,6 +164,9 @@ all_field_notes <- grab_mWater_sensor_notes(mWater_api_data = mWater_data) %>%
 sensor_malfunction_notes <- grab_mWater_malfunction_notes(mWater_api_data = mWater_data) %>%
   mutate(start_DT = with_tz(start_DT, tzone = "UTC"),
          end_DT = with_tz(end_DT, tzone = "UTC"))
+
+# grab cleaning records
+sensor_cleaning_notes <- grab_mWater_cleaning_notes(mWater_api_data = mWater_data)
 ```
 
 ## Step 3: Retrieve Sensor Data
