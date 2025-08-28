@@ -17,4 +17,8 @@ inst/doc
 /doc/
 /Meta/
 data/
+test_data/
+# Remove scratch/ignore files
 ignore_files/
+# ignore creds
+creds/
