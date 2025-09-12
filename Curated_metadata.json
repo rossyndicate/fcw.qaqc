@@ -1,0 +1,119 @@
+{
+  "folder_name": "Curated",
+  "folder_type": "data_directory", 
+  "processing_stage": "curated",
+  "description": "Stores processed, quality-checked data ready for analysis and visualization. This data has undergone comprehensive quality assurance and quality control (QAQC) processing through the auto-QAQC pipeline.",
+  "purpose": "Provide clean, flagged, and analysis-ready water quality data for scientific analysis, reporting, and visualization",
+  "data_processing": {
+    "qaqc_levels": [
+      "Single-parameter flags (drift, noise, repeating values, spec violations)",
+      "Inter-parameter flags (frozen conditions, burial, unsubmerged sensors)", 
+      "Network-level flags (cross-site comparisons, suspect data identification)"
+    ],
+    "processing_steps": [
+      "Data standardization and temporal aggregation to 15-minute intervals",
+      "Integration with field notes and maintenance records",
+      "Multi-level automated flagging system",
+      "Historical data integration",
+      "Summary statistics generation"
+    ]
+  },
+  "subfolders": [
+    {
+      "name": "HydroVu", 
+      "description": "Processed HydroVu sensor data with QAQC flags applied",
+      "metadata_file": "HydroVu_metadata.json"
+    }
+  ],
+  "file_formats": [
+    "parquet",
+    "csv"
+  ],
+  "data_columns": [
+    {
+      "name": "DT_round",
+      "description": "Datetime rounded to 15-minute intervals",
+      "type": "datetime"
+    },
+    {
+      "name": "site", 
+      "description": "Site identifier",
+      "type": "string"
+    },
+    {
+      "name": "parameter",
+      "description": "Measured parameter (e.g., Temperature, Dissolved Oxygen)",
+      "type": "string"
+    },
+    {
+      "name": "mean",
+      "description": "Average value for the 15-minute time interval", 
+      "type": "numeric"
+    },
+    {
+      "name": "units",
+      "description": "Parameter units",
+      "type": "string"
+    },
+    {
+      "name": "n_obs",
+      "description": "Number of observations in the 15-minute interval",
+      "type": "integer"
+    },
+    {
+      "name": "spread", 
+      "description": "Measure of data variability in the 15-minute interval",
+      "type": "numeric"
+    },
+    {
+      "name": "auto_flag",
+      "description": "Automated quality control flag",
+      "type": "string"
+    },
+    {
+      "name": "mal_flag",
+      "description": "Manual malfunction flag (based on field notes)",
+      "type": "string"  
+    },
+    {
+      "name": "sonde_moved",
+      "description": "Indicator of whether sonde was shifted in housing or up/downstream",
+      "type": "string"
+    },
+    {
+      "name": "season",
+      "description": "Season classification for the measurement",
+      "type": "string"
+    }
+  ],
+  "access_patterns": {
+    "read_frequency": "continuous for analysis and visualization",
+    "write_frequency": "daily after QAQC processing",
+    "primary_users": ["analysts", "researchers", "dashboard applications", "reporting systems"]
+  },
+  "retention_policy": {
+    "description": "Complete datasets archived with version control, visualization datasets updated daily",
+    "main_folder": "most recent version only",
+    "archive_folders": "three most recent versions retained"
+  },
+  "quality_control": {
+    "stage": "comprehensive multi-level QAQC applied",
+    "validation": "automated flagging system with manual review capability",
+    "flag_types": [
+      "Field Activity Flags",
+      "Depth and Submersion Flags", 
+      "Parameter-Specific Flags",
+      "Data Quality Flags",
+      "Maintenance and Malfunction Flags"
+    ]
+  },
+  "related_systems": [
+    "Azure Data Lake Storage Gen2",
+    "fcw.qaqc R package",
+    "Auto-QAQC pipeline",
+    "Visualization dashboards"
+  ],
+  "created_date": "2025-01-13",
+  "last_updated": "2025-01-13", 
+  "schema_version": "1.0"
+}

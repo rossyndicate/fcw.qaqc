@@ -1,0 +1,109 @@
+{
+  "folder_name": "HydroVu",
+  "folder_type": "data_subdirectory",
+  "parent_folder": "Curated",
+  "processing_stage": "curated",
+  "description": "Contains processed and quality-controlled HydroVu sensor data ready for analysis and visualization. Data has undergone comprehensive multi-level QAQC processing and is integrated with field notes and historical records.",
+  "purpose": "Provide analysis-ready water quality data with comprehensive quality flags and metadata",
+  "data_processing": {
+    "source": "Raw/HydroVu sensor measurements and field notes",
+    "processing_pipeline": "fcw.qaqc auto-QAQC pipeline",
+    "temporal_resolution": "15-minute aggregated intervals",
+    "quality_levels": [
+      "Single-parameter quality checks",
+      "Inter-parameter relationship validation", 
+      "Network-wide pattern analysis"
+    ]
+  },
+  "subfolders": [
+    {
+      "name": "complete_archive",
+      "description": "Maintains historical versions of complete QAQC datasets",
+      "metadata_file": "complete_archive_metadata.json"
+    },
+    {
+      "name": "visualization_archive", 
+      "description": "Stores time-limited datasets optimized for dashboards and visualization",
+      "metadata_file": "visualization_archive_metadata.json"
+    }
+  ],
+  "current_datasets": {
+    "complete_dataset": {
+      "description": "Full historical water quality record with QAQC flags",
+      "naming_pattern": "AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet",
+      "content": "all processed data from network deployment to present",
+      "update_frequency": "daily after pipeline execution"
+    },
+    "visualization_dataset": {
+      "description": "Recent 45 days of data optimized for dashboard display",
+      "naming_pattern": "AutoQAQCPWQNvisualizer{YYYYMMDD-THHMMSSZ}.parquet", 
+      "content": "rolling 45-day window of most recent data",
+      "update_frequency": "daily after pipeline execution"
+    }
+  },
+  "data_schema": {
+    "primary_columns": [
+      "DT_round - datetime in 15-minute intervals",
+      "site - monitoring location identifier",
+      "parameter - measured parameter type",
+      "mean - aggregated measurement value",
+      "units - measurement units",
+      "auto_flag - automated quality control flags",
+      "mal_flag - manual malfunction flags from field notes"
+    ],
+    "quality_indicators": [
+      "n_obs - number of observations in aggregation",
+      "spread - variability measure within interval",
+      "sonde_moved - equipment movement indicators",
+      "season - seasonal classification"
+    ]
+  },
+  "quality_control": {
+    "flag_categories": [
+      "Field Activity Flags - site visits and maintenance",
+      "Depth and Submersion Flags - sonde position issues", 
+      "Parameter-Specific Flags - sensor-specific quality issues",
+      "Data Quality Flags - statistical anomalies",
+      "Maintenance and Malfunction Flags - equipment issues"
+    ],
+    "validation_levels": [
+      "Sensor specification compliance",
+      "Seasonal threshold validation",
+      "Cross-parameter consistency checks",
+      "Network-wide pattern analysis"
+    ]
+  },
+  "file_formats": [
+    "parquet - primary storage format for efficient analysis",
+    "csv - alternative format for broader compatibility"
+  ],
+  "access_patterns": {
+    "read_frequency": "continuous by analysis and visualization systems",
+    "write_frequency": "daily after QAQC pipeline completion",
+    "primary_users": [
+      "Data analysts and researchers",
+      "Dashboard and visualization applications", 
+      "Reporting systems",
+      "Water quality monitoring staff"
+    ]
+  },
+  "data_retention": {
+    "main_folder": "current version only - older versions moved to archive",
+    "archive_policy": "maintain 3 most recent versions of each dataset type",
+    "long_term_storage": "complete historical record preserved indefinitely"
+  },
+  "performance_optimization": {
+    "partitioning": "data organized by site and parameter for efficient querying",
+    "compression": "parquet format provides optimal compression and query speed",
+    "indexing": "temporal and spatial indexing for rapid data access"
+  },
+  "related_systems": [
+    "fcw.qaqc R package - processing engine",
+    "Azure Data Lake Storage Gen2 - storage platform",
+    "Dashboard applications - data consumers",
+    "Research analysis platforms - end users"
+  ],
+  "created_date": "2025-01-13",
+  "last_updated": "2025-01-13",
+  "schema_version": "1.0"
+}

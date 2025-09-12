@@ -1,0 +1,68 @@
+{
+  "folder_name": "Archive",
+  "folder_type": "archive_directory",
+  "parent_folder": "Raw/HydroVu", 
+  "processing_stage": "raw_archived",
+  "description": "Long-term storage for raw sensor data after processing is complete. Maintains historical versions of all original data for auditing, reprocessing, and verification purposes.",
+  "purpose": "Preserve original sensor measurements indefinitely while keeping processing directories clean",
+  "archival_policy": {
+    "source": "Files moved from Incoming directory after successful processing",
+    "timing": "End of each data processing cycle",
+    "retention": "indefinite - raw data preserved permanently",
+    "organization": "chronological filing with original timestamps preserved"
+  },
+  "data_integrity": {
+    "verification": "Files verified before removal from Incoming directory",
+    "backup": "Primary backup for raw sensor measurements", 
+    "audit_trail": "Complete record of all data acquisition sessions",
+    "recovery": "Source for data reprocessing if needed"
+  },
+  "file_characteristics": {
+    "format": "parquet files (unchanged from Incoming directory)",
+    "naming": "original filenames with site and timestamp preserved",
+    "content": "unmodified raw sensor measurements from HydroVu API",
+    "structure": "same column structure as received from API"
+  },
+  "access_patterns": {
+    "read_frequency": "rare - only for reprocessing or audit purposes",
+    "write_frequency": "daily during archive operations",
+    "primary_users": [
+      "data managers for audit purposes",
+      "researchers requiring historical raw data",
+      "system administrators for data recovery"
+    ]
+  },
+  "storage_considerations": {
+    "growth_rate": "approximately 1 file per site per day",
+    "file_size": "varies by data volume and time range",
+    "compression": "parquet format provides built-in compression",
+    "indexing": "chronological organization for efficient retrieval"
+  },
+  "data_lineage": {
+    "source_system": "HydroVu API",
+    "processing_stage": "raw - no modifications applied",
+    "quality_control": "none - original measurements preserved",
+    "related_processed_data": "Curated/HydroVu directory contains processed versions"
+  },
+  "related_processes": [
+    "move_api_data() - archive management function",
+    "Data acquisition pipeline - source of archived files",
+    "File retention management - cleanup operations"
+  ],
+  "monitoring_network": {
+    "sites_archived": "all active Poudre Water Quality Network monitoring locations",
+    "parameters_archived": [
+      "Temperature", "Dissolved Oxygen", "pH", "Turbidity",
+      "FDOM Fluorescence", "Chlorophyll-a Fluorescence", "Depth"
+    ],
+    "temporal_coverage": "continuous record from network deployment"
+  },
+  "recovery_procedures": {
+    "reprocessing": "Files can be moved back to Incoming for reprocessing if needed",
+    "data_validation": "Compare against Curated data to verify processing accuracy", 
+    "backup_verification": "Regular integrity checks on archived files"
+  },
+  "created_date": "2025-01-13",
+  "last_updated": "2025-01-13",
+  "schema_version": "1.0"
+}

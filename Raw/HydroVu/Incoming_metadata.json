@@ -1,0 +1,69 @@
+{
+  "folder_name": "Incoming",
+  "folder_type": "staging_directory",
+  "parent_folder": "Raw/HydroVu",
+  "processing_stage": "raw_incoming",
+  "description": "Temporary staging area where newly retrieved sensor data is initially stored before processing. This directory is cleared and repopulated with each data acquisition cycle.",
+  "purpose": "Provide clean workspace for daily API data retrieval and initial data validation",
+  "workflow_role": {
+    "sequence": 1,
+    "description": "First stage in data processing pipeline",
+    "inputs": "HydroVu API responses",
+    "outputs": "Raw parquet files organized by monitoring site",
+    "next_stage": "Data preprocessing and QAQC pipeline"
+  },
+  "data_management": {
+    "lifecycle": "ephemeral - files moved to Archive after processing",
+    "preparation": "Directory cleared before each data retrieval session",
+    "validation": "Basic file creation and format validation only",
+    "retention": "temporary until processing complete"
+  },
+  "file_naming_convention": {
+    "pattern": "{site}_{timestamp}.parquet",
+    "example": "bellvue_2025-07-01T00-00-00.parquet",
+    "description": "Site identifier followed by ISO timestamp"
+  },
+  "file_formats": [
+    "parquet - primary storage format for sensor measurements"
+  ],
+  "data_structure": {
+    "organization": "one file per monitoring site per data retrieval session",
+    "time_range": "determined by api_start_dates table based on latest historical data",
+    "columns": [
+      "timestamp - raw datetime from sensor",
+      "site - monitoring location identifier", 
+      "parameter - measurement type",
+      "value - sensor reading",
+      "units - measurement units",
+      "name - sensor/location name from API"
+    ]
+  },
+  "access_patterns": {
+    "read_frequency": "once per processing cycle", 
+    "write_frequency": "daily during data acquisition",
+    "primary_processes": [
+      "api_puller() function - writes data files",
+      "data preprocessing pipeline - reads data files"
+    ]
+  },
+  "error_handling": {
+    "empty_directory": "pipeline stops with error if no files created after API retrieval",
+    "existing_files": "moved to archive before new data retrieval",
+    "validation_failure": "pipeline halts to prevent processing incomplete data"
+  },
+  "monitoring_sites": [
+    "archery", "bellvue", "boxcreek", "boxelder", "cbri", "chd",
+    "cottonwood", "elc", "joei", "lbea", "legacy", "lincoln", 
+    "mtncampus", "pbd", "pbr", "penn", "pfal", "pman", "prospect",
+    "river bluffs", "riverbluffs", "riverbend", "salyer", "sfm",
+    "springcreek", "tamasag", "timberline", "udall"
+  ],
+  "related_functions": [
+    "api_puller() - data retrieval",
+    "hv_auth() - API authentication", 
+    "hv_locations_all() - site information retrieval"
+  ],
+  "created_date": "2025-01-13",
+  "last_updated": "2025-01-13",
+  "schema_version": "1.0"
+}

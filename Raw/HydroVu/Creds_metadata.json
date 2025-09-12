@@ -1,0 +1,85 @@
+{
+  "folder_name": "Creds",
+  "folder_type": "credentials_directory",
+  "parent_folder": "Raw/HydroVu",
+  "processing_stage": "authentication",
+  "description": "Stores API credentials and authentication files required for secure access to external data sources. Contains sensitive configuration files that enable automated data retrieval from HydroVu and other platforms.",
+  "purpose": "Manage authentication credentials for API access while maintaining security best practices",
+  "security_classification": "SENSITIVE - Contains API keys and authentication tokens",
+  "credential_types": [
+    {
+      "type": "HydroVu_API_credentials",
+      "description": "OAuth2 client credentials for HydroVu API access",
+      "format": "YAML configuration file",
+      "content": [
+        "client_id - OAuth2 client identifier",
+        "client_secret - OAuth2 secret key"
+      ]
+    },
+    {
+      "type": "mWater_API_credentials", 
+      "description": "Authentication URL with embedded access keys for mWater API",
+      "format": "embedded in pipeline code or YAML file",
+      "content": [
+        "authenticated_url - direct access URL with embedded credentials"
+      ]
+    }
+  ],
+  "file_formats": [
+    "yaml - structured configuration files",
+    "encrypted files for sensitive credentials"
+  ],
+  "authentication_workflow": {
+    "step_1": "Download credentials file from secure storage",
+    "step_2": "Extract client ID and secret key", 
+    "step_3": "Create authentication token using hv_auth()",
+    "step_4": "Use token for API requests throughout pipeline",
+    "step_5": "Clean up temporary credential files"
+  },
+  "access_control": {
+    "read_access": "automated pipeline processes only",
+    "write_access": "system administrators and authorized personnel",
+    "encryption": "credentials encrypted in transit and at rest",
+    "audit_logging": "access attempts logged for security monitoring"
+  },
+  "security_measures": {
+    "storage": "credentials stored separately from code repositories", 
+    "transmission": "HTTPS/TLS encryption for all API communications",
+    "lifecycle": "temporary download during processing, cleanup after use",
+    "backup": "secure backup with restricted access",
+    "rotation": "regular credential rotation following security policies"
+  },
+  "related_functions": [
+    "hv_auth() - creates HydroVu authentication token",
+    "read_yaml() - loads credential files",
+    "API authentication handlers"
+  ],
+  "compliance": {
+    "data_protection": "follows organizational data protection policies",
+    "access_governance": "credential access governed by role-based permissions",
+    "audit_requirements": "maintains audit trail of credential usage"
+  },
+  "error_handling": {
+    "missing_credentials": "pipeline fails safely with clear error message",
+    "authentication_failure": "retry logic with exponential backoff",
+    "credential_expiry": "automated notification for credential renewal"
+  },
+  "best_practices": {
+    "principle_of_least_privilege": "credentials grant minimum necessary access",
+    "separation_of_concerns": "credentials isolated from application code",
+    "secure_defaults": "fail-safe configuration with secure defaults"
+  },
+  "monitoring": {
+    "access_logging": "all credential access logged with timestamps",
+    "failure_alerting": "authentication failures trigger alerts",
+    "usage_metrics": "credential usage patterns monitored for anomalies"
+  },
+  "backup_and_recovery": {
+    "backup_strategy": "encrypted backups in separate secure location",
+    "recovery_procedures": "documented procedures for credential recovery",
+    "disaster_recovery": "credential restoration part of DR plan"
+  },
+  "created_date": "2025-01-13",
+  "last_updated": "2025-01-13",
+  "schema_version": "1.0"
+}
