@@ -29,76 +29,78 @@
       "description": "Specific records of sensor malfunctions requiring data flagging",
       "content": [
         "Sensor physical damage",
-        "Electronic component failures",
-        "Sensor burial in sediment",
-        "Biofouling affecting readings",
-        "Other technical issues"
-      ]
-    },
-    {
-      "type": "sensor_cleaning_notes",
-      "description": "Records of sensor maintenance and cleaning activities",
-      "content": [
-        "Cleaning procedures performed",
-        "Equipment servicing",
-        "Calibration adjustments"
+        "Electronic component failures"
       ]
     }
   ],
-  "data_integration": {
-    "qaqc_flags": [
-      "Field visit flags - exact timestamps of technician activities",
-      "Site visit windows - buffer periods around maintenance",
-      "Malfunction flags - known sensor issues affecting data quality",
-      "Sonde movement flags - equipment repositioning events"
-    ],
-    "processing_functions": [
-      "grab_mWater_sensor_notes() - extracts general observations",
-      "grab_mWater_malfunction_notes() - extracts malfunction records", 
-      "grab_mWater_cleaning_notes() - extracts maintenance records",
-      "add_field_notes() - integrates notes with sensor data"
-    ]
-  },
-  "file_formats": [
-    "json - primary format from mWater API",
-    "cached files with timestamps for backup access"
-  ],
-  "data_structure": {
-    "fields": [
-      "DT_round - timestamp rounded to 15-minute intervals",
-      "last_site_visit - most recent technician visit",
-      "sonde_employed - sensor deployment status",
-      "site - monitoring location identifier",
-      "maintenance_type - category of field activity",
-      "notes - free-text observations"
-    ],
-    "timezone_handling": "converted to UTC for consistency with sensor data"
-  },
-  "access_patterns": {
-    "read_frequency": "daily during QAQC processing",
-    "write_frequency": "real-time during field operations plus daily backup",
-    "primary_users": [
-      "field technicians - data entry",
-      "QAQC pipeline - context integration",
-      "data analysts - quality assessment"
-    ]
-  },
-  "quality_impact": {
-    "critical_for_qaqc": "Field notes essential for accurate quality control",
-    "flag_generation": "Source of manual flags that override automated assessments",
-    "data_interpretation": "Provides context for anomalous readings",
-    "maintenance_tracking": "Documents sensor performance and interventions"
-  },
-  "error_handling": {
-    "api_failure": "fallback to most recent cached field notes",
-    "missing_notes": "processing continues with warning logged",
-    "data_validation": "timestamp and site name consistency checks"
-  },
-  "related_systems": [
-    "mWater mobile application",
-    "Field technician workflows",
-    "QAQC flagging algorithms",
-    "Data quality assessment procedures"
+  "columns": [
+    { "name": "site", "type": "string", "description": "Site name" },
+    { "name": "crew", "type": "string", "description": "Field crew" },
+    { "name": "start_dt", "type": "string", "description": "Start date/time (ISO 8601)" },
+    { "name": "visit_type", "type": "string", "description": "Type of visit" },
+    { "name": "sample_collected", "type": "string", "description": "Sample collected (Y/N/NA)" },
+    { "name": "chla_volume_ml", "type": "number", "description": "Chlorophyll a sample volume (ml)" },
+    { "name": "vol_filtered_blank_dup", "type": "number", "description": "Volume filtered for blank/duplicate (ml)" },
+    { "name": "do_mgl", "type": "number", "description": "Dissolved oxygen (mg/L)" },
+    { "name": "cond_ms_cm", "type": "number", "description": "Conductivity (mS/cm)" },
+    { "name": "temp_c", "type": "number", "description": "Temperature (C)" },
+    { "name": "end_dt", "type": "string", "description": "End date/time (ISO 8601)" },
+    { "name": "sensor_change", "type": "string", "description": "Sensor change notes" },
+    { "name": "sn_removed", "type": "string", "description": "Serial number removed" },
+    { "name": "sn_deployed", "type": "string", "description": "Serial number deployed" },
+    { "name": "sn_removed_vulink", "type": "string", "description": "Vulink serial number removed" },
+    { "name": "sn_deployed_vulink", "type": "string", "description": "Vulink serial number deployed" },
+    { "name": "sensors_cleaned", "type": "string", "description": "Sensors cleaned (Y/N)" },
+    { "name": "wiper_working", "type": "string", "description": "Wiper working (Y/N)" },
+    { "name": "rdo_cap_condition", "type": "string", "description": "RDO cap condition" },
+    { "name": "rdo_cap_replaced", "type": "string", "description": "RDO cap replaced (Y/N)" },
+    { "name": "ph_junction_replaced", "type": "string", "description": "pH junction replaced (Y/N)" },
+    { "name": "cals_performed", "type": "string", "description": "Calibrations performed" },
+    { "name": "cal_report_collected", "type": "string", "description": "Calibration report collected (Y/N)" },
+    { "name": "log_downloaded", "type": "string", "description": "Log downloaded (Y/N)" },
+    { "name": "log1_type", "type": "string", "description": "Log 1 type" },
+    { "name": "log1_mmdd", "type": "string", "description": "Log 1 date (MMDD)" },
+    { "name": "log2_type", "type": "string", "description": "Log 2 type" },
+    { "name": "log2_mmdd", "type": "string", "description": "Log 2 date (MMDD)" },
+    { "name": "sensor_malfunction", "type": "string", "description": "Sensor malfunction notes" },
+    { "name": "sonde_moved", "type": "string", "description": "Sonde moved (Y/N)" },
+    { "name": "visit_comments", "type": "string", "description": "Visit comments" },
+    { "name": "photos_downloaded", "type": "string", "description": "Photos downloaded (Y/N)" },
+    { "name": "upstream_pic", "type": "string", "description": "Upstream photo (Y/N)" },
+    { "name": "downstream_pic", "type": "string", "description": "Downstream photo (Y/N)" },
+    { "name": "clarity", "type": "string", "description": "Clarity notes" },
+    { "name": "filter_pic", "type": "string", "description": "Filter photo (Y/N)" },
+    { "name": "other_pic", "type": "string", "description": "Other photo (Y/N)" },
+    { "name": "other_pic_descriptor", "type": "string", "description": "Other photo descriptor" },
+    { "name": "which_sensor_malfunction", "type": "string", "description": "Which sensor malfunctioned" },
+    { "name": "malfunction_end_dt", "type": "string", "description": "Malfunction end date/time (ISO 8601)" },
+    { "name": "q_cfs", "type": "number", "description": "Discharge (cfs)" },
+    { "name": "rdo_pre_clean", "type": "number", "description": "RDO pre-clean value" },
+    { "name": "rdo_post_clean", "type": "number", "description": "RDO post-clean value" },
+    { "name": "rdo_post_cal", "type": "number", "description": "RDO post-calibration value" },
+    { "name": "cond_pre_clean", "type": "number", "description": "Conductivity pre-clean value" },
+    { "name": "cond_post_clean", "type": "number", "description": "Conductivity post-clean value" },
+    { "name": "cond_post_cal", "type": "number", "description": "Conductivity post-calibration value" },
+    { "name": "ph_pre_clean", "type": "number", "description": "pH pre-clean value" },
+    { "name": "ph_post_clean", "type": "number", "description": "pH post-clean value" },
+    { "name": "ph_post_cal", "type": "number", "description": "pH post-calibration value" },
+    { "name": "orp_pre_clean", "type": "number", "description": "ORP pre-clean value" },
+    { "name": "orp_post_clean", "type": "number", "description": "ORP post-clean value" },
+    { "name": "orp_post_cal", "type": "number", "description": "ORP post-calibration value" },
+    { "name": "turb_pre_clean", "type": "number", "description": "Turbidity pre-clean value" },
+    { "name": "turb_post_clean", "type": "number", "description": "Turbidity post-clean value" },
+    { "name": "turb_post_cal", "type": "number", "description": "Turbidity post-calibration value" },
+    { "name": "pre_clean_fdom", "type": "number", "description": "FDOM pre-clean value" },
+    { "name": "post_clea_fdom", "type": "number", "description": "FDOM post-clean value" },
+    { "name": "post_cal_fdom", "type": "number", "description": "FDOM post-calibration value" },
+    { "name": "pre_clean_chla", "type": "number", "description": "Chlorophyll a pre-clean value" },
+    { "name": "post_clean_chla", "type": "number", "description": "Chlorophyll a post-clean value" },
+    { "name": "post_cal_chla", "type": "number", "description": "Chlorophyll a post-calibration value" },
+    { "name": "start_DT", "type": "string", "description": "Start date/time (ISO 8601)" },
+    { "name": "date", "type": "string", "description": "Date (YYYY-MM-DD)" },
+    { "name": "sensor_pulled", "type": "string", "description": "Sensor pulled (Y/N)" },
+    { "name": "sensor_deployed", "type": "string", "description": "Sensor deployed (Y/N)" },
+    { "name": "DT_round", "type": "string", "description": "Rounded date/time (ISO 8601)" }
   ],
   "created_date": "2025-01-13",
   "last_updated": "2025-01-13",
