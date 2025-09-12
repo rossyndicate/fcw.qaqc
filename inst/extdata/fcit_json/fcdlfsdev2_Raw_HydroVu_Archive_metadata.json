@@ -5,13 +5,13 @@
       "Description": "Automatically updated archive of raw HydroVu files.",
       "StorageLocation": "fcdlfsdev2/Raw/HydroVu/Archive/",
       "Columns": [
-  { "Name": "site", "DataType": "STRING", "Description": "Monitoring location identifier.", "SemanticType": "Identifier", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-  { "Name": "id", "DataType": "STRING", "Description": "Unique identifier for the record.", "SemanticType": "Identifier", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-  { "Name": "name", "DataType": "STRING", "Description": "Sensor or site name.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-  { "Name": "timestamp", "DataType": "TIMESTAMP", "Description": "Timestamp of the measurement (UTC).", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-  { "Name": "parameter", "DataType": "STRING", "Description": "Measurement type (e.g., Temperature, DO, pH).", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-  { "Name": "value", "DataType": "DOUBLE", "Description": "Measured value.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-  { "Name": "units", "DataType": "STRING", "Description": "Measurement units (e.g., °C, mg/L, NTU).", "SemanticType": "UnitOfMeasure", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" }
+        { "Name": "site", "DataType": "STRING", "Description": "Monitoring location identifier.", "SemanticType": "Identifier", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "id", "DataType": "STRING", "Description": "Unique identifier for the record.", "SemanticType": "Identifier", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "name", "DataType": "STRING", "Description": "Sensor or site name.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "timestamp", "DataType": "TIMESTAMP", "Description": "Timestamp of the measurement (UTC).", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "parameter", "DataType": "STRING", "Description": "Measurement type (e.g., Temperature, DO, pH).", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "value", "DataType": "DOUBLE", "Description": "Measured value.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "units", "DataType": "STRING", "Description": "Measurement units (e.g., °C, mg/L, NTU).", "SemanticType": "UnitOfMeasure", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" }
       ]
     }
   ]
