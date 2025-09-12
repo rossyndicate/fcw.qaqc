@@ -33,6 +33,7 @@ Imports:
     purrr,
     rlang,
     httr2,
+    rvest,
     stringr,
     arrow,
     readr,
