@@ -1,0 +1,29 @@
+{
+  "datasets": [
+    {
+      "Dataset Name": "seasonal_thresholds",
+      "Description": "Static, manually updated seasonal thresholds dataset.",
+      "StorageLocation": "fcdlfsdev2/Curated/HydroVu/qaqc_files/seasonal_thresholds{YYYYMMDD-THHMMSSZ}.parquet",
+      "Columns": [
+  { "Name": "season", "DataType": "STRING", "Description": "Seasonal period (e.g., fall_baseflow, monsoon).", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "[fall_baseflow, monsoon, snowmelt, winter_baseflow]" },
+  { "Name": "site", "DataType": "STRING", "Description": "Site code.", "SemanticType": "Identifier", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+  { "Name": "parameter", "DataType": "STRING", "Description": "Parameter name (e.g., DO, pH, Temperature).", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+  { "Name": "t_mean01", "DataType": "DOUBLE", "Description": "1st percentile mean value for the parameter in this season/site.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+  { "Name": "t_mean99", "DataType": "DOUBLE", "Description": "99th percentile mean value for the parameter in this season/site.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+  { "Name": "t_slope_behind_01", "DataType": "DOUBLE", "Description": "1st percentile slope (rate of change) for the parameter.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+  { "Name": "t_slope_behind_99", "DataType": "DOUBLE", "Description": "99th percentile slope (rate of change) for the parameter.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+  { "Name": "t_sd_0199", "DataType": "DOUBLE", "Description": "Standard deviation for the parameter in this season/site.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" }
+      ]
+    },
+    {
+      "Dataset Name": "sensor_spec_thresholds",
+      "Description": "Static, manually updated sensor specification thresholds dataset.",
+      "StorageLocation": "fcdlfsdev2/Curated/HydroVu/qaqc_files/sensor_spec_thresholds{YYYYMMDD-THHMMSSZ}.yml",
+      "Columns": [
+        { "Name": "parameter", "DataType": "STRING", "Description": "Parameter name (e.g., DO, pH, Temperature).", "SemanticType": "", "isPrimaryKey": "true", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "min", "DataType": "DOUBLE", "Description": "Minimum specification value for the parameter.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "max", "DataType": "DOUBLE", "Description": "Maximum specification value for the parameter.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" }
+      ]
+    }
+  ]
+}
