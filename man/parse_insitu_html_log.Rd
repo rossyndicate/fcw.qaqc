@@ -15,3 +15,10 @@ A data frame containing the parsed sensor data for the HTML markup.
 \description{
 Parses an Insitu HTML file to extract sensor data with HTML extraction methods.
 }
+\examples{
+\dontrun{
+# Example requires HTML file
+html_content <- rvest::read_html("path/to/file.html")
+result <- parse_insitu_html_log(html_content)
+}
+}

@@ -1,4 +1,5 @@
 #' @title Parse In-Situ log HTML File
+#' @export
 #'
 #' @description
 #' Parses an Insitu HTML file to extract sensor data with HTML extraction methods.
@@ -6,6 +7,12 @@
 #' @param html_markup HTML markup from an In Situ Log file created by VuSitu. 
 #'
 #' @return A data frame containing the parsed sensor data for the HTML markup.
+#' @examples
+#' \dontrun{
+#' # Example requires HTML file
+#' html_content <- rvest::read_html("path/to/file.html")
+#' result <- parse_insitu_html_log(html_content)
+#' }
 
 parse_insitu_html_log <- function(html_markup) {
   
@@ -127,38 +134,37 @@ parse_insitu_html_log <- function(html_markup) {
   }
   
   # Free up memory
-  # TODO: Combine the data table data and data steps 
   rm(all_data_values, data_table_headers)
   
   data <- data_table_data %>%
-    pivot_longer(cols = -`Date Time`, values_to = "value", names_to = "parameter") %>%
-    extract(parameter, into = c("parameter", "unit", "sensor_sn"),
+    tidyr::pivot_longer(cols = -`Date Time`, values_to = "value", names_to = "parameter") %>%
+    tidyr::extract(parameter, into = c("parameter", "unit", "sensor_sn"),
             regex = "^([^(]+)\\(([^)]+)\\)\\s*\\(([^)]+)\\)$") %>%
-    clean_names() %>%
-    mutate(site = site,
+    janitor::clean_names() %>%
+    dplyr::mutate(site = site,
            #simplify parameter names
-           parameter = case_when(
-             str_detect(parameter, "pH mV") ~ NA,
-             str_detect(parameter, "Saturation") ~ NA,
-             str_detect(parameter, "Temperature") ~ "Temperature",
-             str_detect(parameter, "Turbidity") ~ "Turbidity",
-             str_detect(parameter, "Specific Conductivity") ~ "Specific Conductivity",
-             str_detect(parameter, "RDO Concentration") ~ "DO",
-             str_detect(parameter, "pH") ~ "pH",
-             str_detect(parameter, "Depth") ~ "Depth",
-             str_detect(parameter, "ORP") ~ "ORP",
-             str_detect(parameter, "Chlorophyll-a") ~ "Chl-a Fluorescence",
-             str_detect(parameter, "FDOM") ~ "FDOM Fluorescence",
+           parameter = dplyr::case_when(
+             stringr::str_detect(parameter, "pH mV") ~ NA,
+             stringr::str_detect(parameter, "Saturation") ~ NA,
+             stringr::str_detect(parameter, "Temperature") ~ "Temperature",
+             stringr::str_detect(parameter, "Turbidity") ~ "Turbidity",
+             stringr::str_detect(parameter, "Specific Conductivity") ~ "Specific Conductivity",
+             stringr::str_detect(parameter, "RDO Concentration") ~ "DO",
+             stringr::str_detect(parameter, "pH") ~ "pH",
+             stringr::str_detect(parameter, "Depth") ~ "Depth",
+             stringr::str_detect(parameter, "ORP") ~ "ORP",
+             stringr::str_detect(parameter, "Chlorophyll-a") ~ "Chl-a Fluorescence",
+             stringr::str_detect(parameter, "FDOM") ~ "FDOM Fluorescence",
              TRUE ~ NA # Filter this out later
            ), 
            # Transform Depth and ORP values
-           value = case_when(
+           value = dplyr::case_when(
              parameter == "Depth" ~ as.numeric(value) * 0.3048, # Convert feet to meters
              (parameter == "ORP" & unit == "mV") ~ as.numeric(value) / 1000, # Convert mV to V
              TRUE ~ as.numeric(value)
            ),
            # Update Depth and ORP units according to transformations
-           unit = case_when(
+           unit = dplyr::case_when(
              parameter == "Depth" ~ "m",
              parameter == "ORP" ~ "V",
              TRUE ~ unit
@@ -170,12 +176,12 @@ parse_insitu_html_log <- function(html_markup) {
            DT_join = as.character(DT_round)
     ) %>%
     # Filter out irrelevant parameters
-    filter(!is.na(parameter)) %>%
-    select(DT_round, site, parameter, value, unit, DT, DT_join, sensor_sn) %>% 
-    group_by(site, parameter) %>%
-    arrange(DT_round, .by_group = T) %>%
-    ungroup() %>%
-    distinct()
+    dplyr::filter(!is.na(parameter)) %>%
+    dplyr::select(DT_round, site, parameter, value, unit, DT, DT_join, sensor_sn) %>% 
+    dplyr::group_by(site, parameter) %>%
+    dplyr::arrange(DT_round, .by_group = T) %>%
+    dplyr::ungroup() %>%
+    dplyr::distinct()
   
   # Free up memory
   rm(data_table_data)
