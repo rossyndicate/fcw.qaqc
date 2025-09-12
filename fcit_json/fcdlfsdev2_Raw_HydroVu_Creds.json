@@ -1,0 +1,78 @@
+{
+  "folder_name": "Creds",
+  "folder_type": "configuration_directory",
+  "parent_folder": "fcdlfsdev2/Raw/HydroVu",
+  "storage_location": "fcdlfsdev2/Raw/HydroVu/Creds/",
+  "processing_stage": "configuration_credentials",
+  "description": "Static credentials directory containing authentication files for HydroVu API access. Files are manually maintained and contain sensitive authentication information required for data acquisition.",
+  "purpose": "Securely store API credentials and authentication configurations needed for accessing the HydroVu sensor data platform",
+  "datasets": [
+    {
+      "name": "HydroVu API Credentials",
+      "description": "Authentication credentials file containing client ID and secret key for HydroVu API access, used to generate authentication tokens for data retrieval",
+      "file_pattern": "HydroVuCreds{YYYYMMDD-THHMMSSZ}.yml",
+      "storage_location": "fcdlfsdev2/Raw/HydroVu/Creds/HydroVuCreds20250414-T213652Z.yml",
+      "update_frequency": "static_manually_updated",
+      "data_type": "credentials_file",
+      "file_format": "yaml",
+      "content": "Client ID and secret key for OAuth2 authentication with HydroVu API platform"
+    }
+  ],
+  "security_configuration": {
+    "authentication_type": "OAuth2_with_client_credentials",
+    "credential_components": ["client_id", "secret_key"],
+    "token_generation": "credentials_used_to_create_authentication_token",
+    "access_scope": "read_access_to_Poudre_River_sensor_network_data"
+  },
+  "credential_management": {
+    "update_process": "manual_updates_by_authorized_personnel",
+    "version_control": "timestamped_filenames_for_credential_tracking",
+    "rotation_policy": "periodic_credential_rotation_per_security_protocols",
+    "backup": "secure_backup_of_credential_files_maintained"
+  },
+  "access_control": {
+    "read_permissions": "restricted_to_data_acquisition_pipeline",
+    "write_permissions": "limited_to_authorized_data_managers",
+    "usage_monitoring": "credential_usage_logged_for_security_auditing",
+    "storage_security": "files_stored_in_secured_Azure_storage_environment"
+  },
+  "integration_workflow": {
+    "pipeline_usage": "downloaded_temporarily_during_processing",
+    "token_creation": "credentials_used_to_generate_access_tokens",
+    "cleanup": "temporary_local_copies_removed_after_token_generation",
+    "error_handling": "authentication_failures_logged_and_reported"
+  },
+  "data_acquisition_dependency": {
+    "critical_component": "required_for_all_HydroVu_API_data_retrieval",
+    "failure_impact": "authentication_failures_halt_data_acquisition",
+    "validation": "credentials_tested_during_pipeline_initialization",
+    "fallback": "backup_credentials_available_for_continuity"
+  },
+  "maintenance_procedures": {
+    "validation_frequency": "credentials_tested_with_each_pipeline_run",
+    "expiration_monitoring": "track_credential_expiration_dates",
+    "renewal_process": "coordinate_with_HydroVu_support_for_renewals",
+    "documentation": "maintain_log_of_credential_updates_and_changes"
+  },
+  "compliance_and_governance": {
+    "data_privacy": "credentials_do_not_contain_personally_identifiable_information",
+    "access_logging": "all_credential_access_logged_for_audit_purposes",
+    "retention_policy": "old_credentials_securely_archived_after_replacement",
+    "incident_response": "procedures_for_credential_compromise_scenarios"
+  },
+  "related_systems": [
+    "HydroVu_API_In_Situ_Inc_platform",
+    "fcw_qaqc_data_acquisition_pipeline",
+    "Azure_Data_Lake_Storage_Gen2_security",
+    "OAuth2_authentication_services"
+  ],
+  "api_details": {
+    "platform": "HydroVu_by_In_Situ_Inc",
+    "authentication_method": "OAuth2_client_credentials_flow",
+    "token_lifespan": "limited_duration_requires_periodic_renewal",
+    "rate_limits": "API_calls_subject_to_platform_rate_limiting"
+  },
+  "created_date": "2025-01-13",
+  "last_updated": "2025-01-13",
+  "schema_version": "1.0"
+}

@@ -1,0 +1,60 @@
+{
+  "folder_name": "HydroVu",
+  "folder_type": "data_directory",
+  "parent_folder": "fcdlfsdev2/Curated",
+  "storage_location": "fcdlfsdev2/Curated/HydroVu/",
+  "processing_stage": "curated",
+  "description": "Main curated HydroVu data directory containing processed and quality-controlled water quality sensor data. Houses the most recent datasets and serves as the primary location for analysis-ready data.",
+  "purpose": "Store the most current quality-controlled water quality datasets for immediate access by analysis and visualization systems",
+  "datasets": [
+    {
+      "name": "AutoQAQC PWQN Current Dataset", 
+      "description": "Most recent complete quality-controlled water quality dataset containing all processed sensor measurements with comprehensive QAQC flags",
+      "file_pattern": "AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet",
+      "storage_location": "fcdlfsdev2/Curated/HydroVu/AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet",
+      "update_frequency": "automatically_updated_daily",
+      "data_type": "live_most_recent_file",
+      "file_format": "parquet",
+      "content": "Complete historical water quality record with multi-level QAQC processing"
+    },
+    {
+      "name": "AutoQAQC PWQN Visualizer Dataset",
+      "description": "Current visualization-optimized dataset containing the most recent 45 days of quality-controlled data for dashboard and analysis applications", 
+      "file_pattern": "AutoQAQCPWQNVisualizer{YYYYMMDD-THHMMSSZ}.parquet",
+      "storage_location": "fcdlfsdev2/Curated/HydroVu/AutoQAQCPWQNVisualizer{YYYYMMDD-THHMMSSZ}.parquet",
+      "update_frequency": "automatically_updated_daily",
+      "data_type": "live_most_recent_file", 
+      "file_format": "parquet",
+      "content": "Rolling 45-day window of most recent quality-controlled measurements"
+    }
+  ],
+  "data_characteristics": {
+    "temporal_resolution": "15-minute aggregated intervals",
+    "spatial_coverage": "Poudre River watershed monitoring network",
+    "parameters": [
+      "Temperature (°C)", "Dissolved Oxygen (mg/L, %)", "pH", 
+      "Turbidity (NTU)", "FDOM Fluorescence (QSU)",
+      "Chlorophyll-a Fluorescence (µg/L)", "Depth (ft)"
+    ]
+  },
+  "quality_control": {
+    "processing_pipeline": "fcw.qaqc auto-QAQC system",
+    "flag_types": ["field_activity", "depth_submersion", "parameter_specific", "data_quality", "maintenance_malfunction"],
+    "validation_levels": ["sensor_specification", "seasonal_thresholds", "cross_parameter", "network_wide"]
+  },
+  "subfolders": [
+    "complete_archive", "qaqc_files", "visualization_archive"
+  ],
+  "access_patterns": {
+    "read_frequency": "continuous by analysis and visualization systems",
+    "write_frequency": "daily after QAQC pipeline completion",
+    "retention_policy": "current version only - older versions moved to archive subfolders"
+  },
+  "related_systems": [
+    "fcw.qaqc R package", "Azure Data Lake Storage Gen2", 
+    "Dashboard applications", "Research analysis platforms"
+  ],
+  "created_date": "2025-01-13",
+  "last_updated": "2025-01-13", 
+  "schema_version": "1.0"
+}

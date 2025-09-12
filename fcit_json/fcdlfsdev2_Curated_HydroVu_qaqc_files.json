@@ -1,0 +1,80 @@
+{
+  "folder_name": "qaqc_files",
+  "folder_type": "configuration_directory",
+  "parent_folder": "fcdlfsdev2/Curated/HydroVu", 
+  "storage_location": "fcdlfsdev2/Curated/HydroVu/qaqc_files/",
+  "processing_stage": "configuration",
+  "description": "Static configuration directory containing quality control thresholds and sensor specifications used by the auto-QAQC pipeline. Files are manually updated and maintained by data managers.",
+  "purpose": "Store critical configuration files that define quality control parameters, seasonal thresholds, and sensor specifications for the automated QAQC system",
+  "datasets": [
+    {
+      "name": "Seasonal Thresholds Configuration",
+      "description": "Seasonal quality control thresholds defining acceptable measurement ranges for each parameter by season and monitoring location",
+      "file_pattern": "seasonal_thresholds{YYYYMMDD-THHMMSSZ}.parquet",
+      "storage_location": "fcdlfsdev2/Curated/HydroVu/qaqc_files/seasonal_thresholds20250812-T191224Z.parquet",
+      "update_frequency": "static_manually_updated",
+      "data_type": "configuration_file",
+      "file_format": "parquet",
+      "content": "Site-specific and season-specific threshold values for automated quality flagging"
+    },
+    {
+      "name": "Sensor Specification Thresholds",
+      "description": "Manufacturer-defined operating ranges and technical specifications for water quality sensors used in quality control validation",
+      "file_pattern": "sensor_spec_thresholds{YYYYMMDD-THHMMSSZ}.yml",
+      "storage_location": "fcdlfsdev2/Curated/HydroVu/qaqc_files/sensor_spec_thresholds20250414-T213652Z.yml",
+      "update_frequency": "static_manually_updated", 
+      "data_type": "configuration_file",
+      "file_format": "yaml",
+      "content": "Technical specifications and operating limits for In-Situ sensors including temperature, DO, pH, turbidity, FDOM, chlorophyll-a, and depth"
+    }
+  ],
+  "configuration_management": {
+    "update_process": "manual_updates_by_data_managers",
+    "version_control": "timestamped_filenames_for_version_tracking",
+    "validation": "configuration_tested_before_deployment",
+    "backup": "previous_versions_retained_for_rollback_capability"
+  },
+  "threshold_development": {
+    "seasonal_thresholds": {
+      "methodology": "historical_data_analysis_of_2023_field_campaign",
+      "fallback": "expert_knowledge_when_data_insufficient",
+      "percentile_ranges": "1st_to_99th_percentile_seasonal_ranges",
+      "site_specificity": "location_specific_adjustments_for_river_characteristics"
+    },
+    "sensor_specifications": {
+      "source": "manufacturer_technical_documentation",
+      "parameters": "operating_ranges_accuracy_specifications",
+      "environmental_limits": "temperature_pressure_depth_constraints"
+    }
+  },
+  "quality_control_integration": {
+    "pipeline_usage": "loaded_at_pipeline_initialization",
+    "flag_generation": "threshold_violations_trigger_quality_flags",
+    "validation_hierarchy": "sensor_specs_then_seasonal_ranges",
+    "override_capability": "manual_threshold_adjustments_supported"
+  },
+  "access_patterns": {
+    "read_frequency": "daily_during_pipeline_execution",
+    "write_frequency": "rare_manual_updates_as_needed",
+    "primary_users": ["fcw.qaqc_pipeline", "data_managers", "quality_control_analysts"]
+  },
+  "maintenance_procedures": {
+    "review_schedule": "quarterly_threshold_evaluation",
+    "update_triggers": ["new_sensor_deployment", "seasonal_pattern_changes", "network_expansion"],
+    "testing_protocol": "configuration_validation_before_production_use",
+    "documentation": "change_log_maintained_for_all_updates"
+  },
+  "data_governance": {
+    "ownership": "Fort_Collins_water_quality_monitoring_team",
+    "approval_process": "reviewed_and_approved_before_implementation",
+    "impact_assessment": "evaluate_effects_on_historical_data_processing"
+  },
+  "related_systems": [
+    "fcw.qaqc auto-QAQC pipeline",
+    "seasonal_threshold_analysis_workflows", 
+    "sensor_calibration_procedures"
+  ],
+  "created_date": "2025-01-13",
+  "last_updated": "2025-01-13",
+  "schema_version": "1.0"
+}

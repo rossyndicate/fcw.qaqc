@@ -1,0 +1,87 @@
+{
+  "folder_name": "HV_tracking",
+  "folder_type": "tracking_directory",
+  "parent_folder": "fcdlfsdev2/Raw/HydroVu",
+  "storage_location": "fcdlfsdev2/Raw/HydroVu/HV_tracking/",
+  "processing_stage": "api_tracking",
+  "description": "HydroVu API tracking directory containing logs and metadata about API data retrieval activities. Tracks successful and failed API calls, data volumes, and processing timestamps.",
+  "purpose": "Monitor and log HydroVu API data acquisition activities for troubleshooting, auditing, and system performance analysis",
+  "datasets": [
+    {
+      "name": "HydroVu API Tracker Current",
+      "description": "Current tracking file logging all HydroVu API data retrieval activities, including successful downloads, errors, and processing metadata",
+      "file_pattern": "HVAPITracker{YYYYMMDD-THHMMSSZ}.parquet",
+      "storage_location": "fcdlfsdev2/Raw/HydroVu/HV_tracking/HVAPITracker{YYYYMMDD-THHMMSSZ}.parquet",
+      "update_frequency": "automatically_updated_with_each_pipeline_run",
+      "data_type": "tracking_log_file",
+      "file_format": "parquet",
+      "content": "API call logs, data retrieval timestamps, success/failure status, data volumes, and error messages"
+    }
+  ],
+  "tracking_capabilities": {
+    "api_monitoring": "log_all_HydroVu_API_requests_and_responses",
+    "error_tracking": "capture_authentication_failures_and_connection_issues",
+    "performance_metrics": "track_data_retrieval_volumes_and_processing_times",
+    "audit_trail": "comprehensive_record_of_all_data_acquisition_activities"
+  },
+  "log_content": {
+    "request_details": "API_endpoints_called_parameters_sent_timestamps",
+    "response_data": "HTTP_status_codes_data_volumes_retrieved_processing_times",
+    "error_information": "detailed_error_messages_stack_traces_failure_causes",
+    "metadata": "processing_session_identifiers_pipeline_version_system_information"
+  },
+  "subfolders": [
+    {
+      "name": "hv_tracking_archive",
+      "description": "Archive subdirectory for historical API tracking files with automatic retention management",
+      "storage_location": "fcdlfsdev2/Raw/HydroVu/HV_tracking/hv_tracking_archive/"
+    }
+  ],
+  "operational_benefits": {
+    "troubleshooting": "identify_patterns_in_API_failures_and_connection_issues",
+    "performance_monitoring": "track_data_acquisition_efficiency_over_time",
+    "capacity_planning": "analyze_data_volumes_and_processing_requirements",
+    "audit_compliance": "maintain_detailed_records_of_all_data_access_activities"
+  },
+  "data_retention": {
+    "current_file": "most_recent_tracking_data_in_main_directory",
+    "archive_policy": "older_tracking_files_moved_to_hv_tracking_archive_subfolder",
+    "retention_period": "historical_tracking_data_maintained_for_audit_purposes"
+  },
+  "access_patterns": {
+    "read_frequency": "daily_for_monitoring_and_troubleshooting",
+    "write_frequency": "continuous_during_pipeline_execution",
+    "primary_users": [
+      "system_administrators_for_monitoring",
+      "data_managers_for_troubleshooting",
+      "audit_processes_for_compliance"
+    ]
+  },
+  "integration": {
+    "pipeline_component": "integral_part_of_fcw_qaqc_data_acquisition",
+    "error_handling": "tracking_failures_trigger_system_alerts",
+    "reporting": "tracking_data_used_for_system_health_reports",
+    "automation": "automated_analysis_of_tracking_patterns"
+  },
+  "monitoring_alerts": {
+    "failure_detection": "API_failures_trigger_automated_notifications",
+    "performance_degradation": "slow_response_times_flagged_for_investigation",
+    "data_quality": "unexpected_data_volumes_or_patterns_investigated",
+    "system_health": "overall_tracking_metrics_monitored_continuously"
+  },
+  "troubleshooting_support": {
+    "error_diagnosis": "detailed_logs_support_rapid_problem_identification",
+    "pattern_analysis": "historical_tracking_data_reveals_recurring_issues",
+    "performance_optimization": "tracking_metrics_guide_system_improvements",
+    "vendor_support": "detailed_logs_available_for_HydroVu_technical_support"
+  },
+  "related_systems": [
+    "HydroVu_API_platform",
+    "fcw_qaqc_data_acquisition_pipeline",
+    "system_monitoring_and_alerting",
+    "audit_and_compliance_frameworks"
+  ],
+  "created_date": "2025-01-13",
+  "last_updated": "2025-01-13",
+  "schema_version": "1.0"
+}

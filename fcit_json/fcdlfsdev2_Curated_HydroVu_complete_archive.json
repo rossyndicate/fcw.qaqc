@@ -1,0 +1,76 @@
+{
+  "folder_name": "complete_archive",
+  "folder_type": "archive_directory", 
+  "parent_folder": "fcdlfsdev2/Curated/HydroVu",
+  "storage_location": "fcdlfsdev2/Curated/HydroVu/complete_archive/",
+  "processing_stage": "curated_archived",
+  "description": "Archive directory maintaining historical versions of complete QAQC datasets. Automatically updated with new file versions while managing retention policy to prevent unlimited storage growth.",
+  "purpose": "Preserve historical versions of complete quality-controlled datasets for auditing, comparison, and data recovery purposes",
+  "datasets": [
+    {
+      "name": "AutoQAQC PWQN Archive - Most Recent",
+      "description": "Most recent archived version of the complete quality-controlled water quality dataset",
+      "file_pattern": "AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet",
+      "storage_location": "fcdlfsdev2/Curated/HydroVu/complete_archive/AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet",
+      "update_frequency": "automatically_updated_on_pipeline_runs",
+      "data_type": "most_recent_archived",
+      "file_format": "parquet",
+      "content": "Complete historical water quality record with comprehensive QAQC flags"
+    },
+    {
+      "name": "AutoQAQC PWQN Archive - Second Most Recent",
+      "description": "Second most recent archived version of the complete quality-controlled dataset",
+      "file_pattern": "AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet", 
+      "storage_location": "fcdlfsdev2/Curated/HydroVu/complete_archive/AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet",
+      "update_frequency": "automatically_updated_on_pipeline_runs",
+      "data_type": "second_most_recent_archived",
+      "file_format": "parquet",
+      "content": "Historical version for comparison and recovery purposes"
+    },
+    {
+      "name": "AutoQAQC PWQN Archive - Third Most Recent",
+      "description": "Third most recent archived version of the complete quality-controlled dataset",
+      "file_pattern": "AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet",
+      "storage_location": "fcdlfsdev2/Curated/HydroVu/complete_archive/AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet", 
+      "update_frequency": "automatically_updated_on_pipeline_runs",
+      "data_type": "third_most_recent_archived",
+      "file_format": "parquet",
+      "content": "Historical version for extended comparison and recovery"
+    }
+  ],
+  "archival_policy": {
+    "retention_count": 3,
+    "retention_strategy": "oldest_file_gets_pushed_out_on_update",
+    "update_trigger": "new_pipeline_execution_with_data_changes",
+    "file_management": "automatic_deletion_of_files_beyond_retention_limit"
+  },
+  "data_lineage": {
+    "source": "fcdlfsdev2/Curated/HydroVu/ main directory",
+    "processing_stage": "post-QAQC archival",
+    "quality_level": "fully_processed_with_comprehensive_flags",
+    "temporal_coverage": "complete_historical_record_from_network_deployment"
+  },
+  "access_patterns": {
+    "read_frequency": "occasional for data comparison and recovery",
+    "write_frequency": "daily during pipeline archive operations", 
+    "primary_users": ["data_managers", "researchers_requiring_historical_versions", "audit_processes"]
+  },
+  "recovery_capabilities": {
+    "data_rollback": "previous_versions_available_for_comparison",
+    "audit_trail": "chronological_record_of_dataset_versions",
+    "quality_verification": "compare_processing_results_across_versions"
+  },
+  "storage_management": {
+    "compression": "parquet_format_built_in_compression",
+    "indexing": "temporal_organization_for_efficient_retrieval",
+    "cleanup": "automated_removal_of_excess_versions"
+  },
+  "related_processes": [
+    "fcw.qaqc auto-QAQC pipeline",
+    "file_retention_management",
+    "data_backup_and_recovery_procedures"
+  ],
+  "created_date": "2025-01-13",
+  "last_updated": "2025-01-13",
+  "schema_version": "1.0"
+}
