@@ -22,3 +22,5 @@ test_data/
 ignore_files/
 # ignore creds
 creds/
+# ignore vs code settings
+.vscode/

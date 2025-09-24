@@ -1,0 +1,36 @@
+{
+  "datasets": [
+    {
+      "Dataset Name": "mWaterFieldNotes",
+      "Description": "Automatically updated mWater field notes dataset.",
+      "StorageLocation": "fcdlfsdev2/Raw/HydroVu/mWaterFieldNotes/MWaterFieldNotes{YYYYMMDD-THHMMSSZ}.parquet",
+      "Columns": [
+        { "Name": "site", "DataType": "STRING", "Description": "Standardized site name (lowercase, no spaces).", "SemanticType": "Identifier", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "crew", "DataType": "STRING", "Description": "Field crew identifier.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "DT_round", "DataType": "TIMESTAMP", "Description": "Rounded timestamp for joining with sensor data.", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "sonde_employed", "DataType": "INT", "Description": "Indicator of sensor deployment status (0 = deployed, 1 = pulled).", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "[0, 1]" },
+        { "Name": "sensors_cleaned", "DataType": "STRING", "Description": "List of sensors cleaned during the visit.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "wiper_working", "DataType": "BOOLEAN", "Description": "Whether the sensor wiper was working.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "[true, false]" },
+        { "Name": "rdo_cap_condition", "DataType": "STRING", "Description": "Condition of the RDO cap.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "rdo_cap_replaced", "DataType": "BOOLEAN", "Description": "Whether the RDO cap was replaced.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "[true, false]" },
+        { "Name": "ph_junction_replaced", "DataType": "BOOLEAN", "Description": "Whether the pH junction was replaced.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "[true, false]" },
+        { "Name": "cals_performed", "DataType": "STRING", "Description": "Calibration events performed during the visit.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "cal_report_collected", "DataType": "BOOLEAN", "Description": "Whether a calibration report was collected.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "[true, false]" },
+        { "Name": "sonde_moved", "DataType": "BOOLEAN", "Description": "Whether the sonde was moved during the visit.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "[true, false]" },
+        { "Name": "sensor_malfunction", "DataType": "STRING", "Description": "Noted sensor issues.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "sensor_pulled", "DataType": "STRING", "Description": "Serial number of sensor removed.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "sensor_deployed", "DataType": "STRING", "Description": "Serial number of sensor deployed.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "sensor_swapped_notes", "DataType": "STRING", "Description": "Notes about equipment changes.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "visit_type", "DataType": "STRING", "Description": "Type of field visit.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "DT_join", "DataType": "STRING", "Description": "String version of DT_round for joining purposes.", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "start_DT", "DataType": "TIMESTAMP", "Description": "Start time of field visit (UTC).", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "end_dt", "DataType": "TIMESTAMP", "Description": "End time of field visit (UTC).", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "date", "DataType": "DATE", "Description": "Date of field visit.", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "visit_comments", "DataType": "STRING", "Description": "Technician observations during site visits.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "photos_downloaded", "DataType": "BOOLEAN", "Description": "Whether photos were downloaded during the visit.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "[true, false]" },
+        { "Name": "field_season", "DataType": "INT", "Description": "Year of the field season.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "last_site_visit", "DataType": "TIMESTAMP", "Description": "Timestamp of most recent site visit.", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" }
+      ]
+    }
+  ]
+}

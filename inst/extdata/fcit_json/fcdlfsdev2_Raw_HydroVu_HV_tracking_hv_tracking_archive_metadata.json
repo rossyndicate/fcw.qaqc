@@ -1,0 +1,18 @@
+{
+  "datasets": [
+    {
+      "Dataset Name": "HVAPITracker archive",
+      "Description": "Archive of HydroVu API tracker datasets.",
+      "StorageLocation": "fcdlfsdev2/Raw/HydroVu/HV_tracking/hv_tracking_archive/HVAPITracker{YYYYMMDD-THHMMSSZ}.parquet",
+      "Columns": [
+        { "Name": "site", "DataType": "STRING", "Description": "Monitoring location identifier.", "SemanticType": "Identifier", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "parameter", "DataType": "STRING", "Description": "Measurement type (e.g., Temperature, DO).", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "site_parameter", "DataType": "STRING", "Description": "Combined site and parameter identifier.", "SemanticType": "Identifier", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "failure_count", "DataType": "INT", "Description": "Number of consecutive failed pulls.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "last_success", "DataType": "TIMESTAMP", "Description": "Timestamp of last successful pull.", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
+        { "Name": "auto_disabled", "DataType": "BOOLEAN", "Description": "Whether auto-pulling is disabled for this parameter.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "[true, false]" },
+        { "Name": "try_again", "DataType": "BOOLEAN", "Description": "Whether to retry pulling for this parameter.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "FeferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "[true, false]" }
+      ]
+    }
+  ]
+}
