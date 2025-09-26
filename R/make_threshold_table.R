@@ -1,4 +1,5 @@
 #' @title Generate Threshold Table for QAQC
+#' @export
 #'
 #' @description
 #' A function designed to generate a threshold table for QAQC. This table
