@@ -375,11 +375,58 @@ iwalk(intrasensor_flags_list,
 
 Apply network-wide checks that compare data across multiple sites:
 
+### Defining a site order
+```{r}
+my_site_order <- function(site_name){
+  # Primary network order
+  sites_order <-  c("joei",
+                    "cbri",
+                    "chd",
+                    "pfal",
+                    "pbr",
+                    "pman",
+                    "pbd",
+                    "bellvue",
+                    "salyer",
+                    "udall",
+                    "riverbend",
+                    "cottonwood",
+                    "elc",
+                    "archery",
+                    "riverbluffs")
+  # If the site is in the primary order, return that order
+  if(site_name %in% sites_order){
+    return(sites_order)
+  }
+  # springcreek cases
+  if(site_name == "springcreek"){
+    sites_order <- c("riverbend",
+                     "springcreek",
+                     "cottonwood")
+    return(sites_order)
+  }
+  # boxcreek cases
+  if(site_name == "boxcreek"){
+    sites_order <- c("elc",
+                     "boxcreek",
+                     "archery")
+    return(sites_order)
+  }
+  # disconnected/independant sites: mtn campus, sfm
+  if (site_name %in% c("mtncampus", "sfm")){
+    return(NULL)
+  }
+}
+```
+
+## Applying network-level checks
+
 ```{r}
 # apply network-level quality control
 network_flags <- intrasensor_flags_list %>%
   # network check compares patterns across sites
-  purrr::map(~network_check(df = ., intrasensor_flags_arg = intrasensor_flags_list)) %>%
+  purrr::map(~network_check(df = ., intrasensor_flags_arg = intrasensor_flags_list,
+                            network = "custom", site_order_fun = my_site_order)) %>% # define network as custom and input a function to define site order by site name
   rbindlist(fill = TRUE) %>%
   # clean up flag column formatting
   tidy_flag_column() %>%
