@@ -39,15 +39,6 @@
 #' @seealso [add_field_notes()]
 
 generate_summary_statistics <- function(site_param_df) {
-
-  # Helper function to safely add a new column if it doesn't already exist
-  # This preserves historical data when present and adds placeholder columns when needed
-  add_column_if_not_exists <- function(df, column_name, default_value = NA) {
-    if (!column_name %in% colnames(df)) {
-      df <- df %>% dplyr::mutate(!!sym(column_name) := default_value)
-    }
-    return(df)
-  }
   
   summary_stats_df <- site_param_df %>%
     # Initialize or preserve columns for statistical context

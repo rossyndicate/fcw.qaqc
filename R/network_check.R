@@ -108,14 +108,6 @@ network_check <- function(df, network = "fcw", intrasensor_flags_arg = intrasens
   
   # <<< Establish helper functions >>> ----
   
-  # Function to add column if it doesn't exist
-  add_column_if_not_exists <- function(df, column_name, default_value = NA) {
-    if (!column_name %in% colnames(df)) {
-      df <- df %>% dplyr::mutate(!!sym(column_name) := default_value)
-    }
-    return(df)
-  }
-  
   # Function to check if any flags exist in a time window
   check_2_hour_window_fail <- function(x) {
     sum(x) >= 1
