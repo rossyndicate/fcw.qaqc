@@ -24,8 +24,8 @@
 #'  This method may be appropriate in situations where depth data is unreliable or unavailable.
 #'
 #' @return A dataframe with the same structure as the input, but with the `flag`
-#' column updated to include "sonde unsubmerged" for all parameters when depth
-#' readings indicate the sonde was not fully underwater.
+#' column updated to include "sonde unsubmerged" for all parameters when depth 
+#' and/or specific conductivity readings indicate the sonde was not fully underwater.
 #'
 #' @examples
 #' # Examples are temporarily disabled

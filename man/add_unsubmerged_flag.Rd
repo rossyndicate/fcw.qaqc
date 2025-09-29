@@ -29,7 +29,7 @@ This method may be appropriate in situations where depth data is unreliable or u
 \value{
 A dataframe with the same structure as the input, but with the \code{flag}
 column updated to include "sonde unsubmerged" for all parameters when depth
-readings indicate the sonde was not fully underwater.
+and/or specific conductivity readings indicate the sonde was not fully underwater.
 }
 \description{
 Identifies and flags water quality measurements collected when the monitoring
