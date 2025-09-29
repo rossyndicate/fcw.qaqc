@@ -4,7 +4,7 @@
 \alias{add_unsubmerged_flag}
 \title{Flag measurements when sonde was not fully submerged}
 \usage{
-add_unsubmerged_flag(df)
+add_unsubmerged_flag(df, method = "depth")
 }
 \arguments{
 \item{df}{A dataframe containing all parameters for a single site. Must include columns:
@@ -14,6 +14,17 @@ add_unsubmerged_flag(df)
 \item \code{mean}: The calculated mean value of measurements
 \item \code{flag}: Existing quality flags (will be updated by this function)
 }}
+
+\item{method}{Method to determine submersion status. Options are:
+-\code{"depth"}: (default) Uses only depth readings to flag data. This method flags data when depth is less than or equal to 0.
+This method may be appropriate in situations where specific conductivity data is unreliable or unavailable.
+\itemize{
+\item \code{"depth_sc"}: Uses both depth and specific conductivity readings to flag data.
+This method flags data when depth is less than or equal to 0 or when specific conductivity is less than or equal to 10 uS/cm.
+This is the recommended method for most scenarios.
+-\code{"sc"}: Uses only specific conductivity readings to flag data. This method flags data when specific conductivity is less than or equal to 10 uS/cm.
+This method may be appropriate in situations where depth data is unreliable or unavailable.
+}}
 }
 \value{
 A dataframe with the same structure as the input, but with the \code{flag}
@@ -22,10 +33,10 @@ readings indicate the sonde was not fully underwater.
 }
 \description{
 Identifies and flags water quality measurements collected when the monitoring
-sonde was not fully submerged in water. This function uses depth sensor readings
+sonde was not fully submerged in water. This function uses depth and specific conductivity sensor readings
 to determine submersion status and applies flags across all parameters measured
 at the same time. The data will be flagged if the value in the \code{relative_depth}
-column is less than or equal to 0.
+column is less than or equal to 0. This data will also be flagged if \verb{specific conductivity} is less than 10 uS/cm.
 }
 \examples{
 # Examples are temporarily disabled
