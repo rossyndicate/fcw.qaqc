@@ -4,7 +4,12 @@
 \alias{network_check}
 \title{Reduce overflagging by comparing across monitoring network}
 \usage{
-network_check(df, network = "all", intrasensor_flags_arg = intrasensor_flags)
+network_check(
+  df,
+  network = "all",
+  intrasensor_flags_arg = intrasensor_flags,
+  site_order_fun = NULL
+)
 }
 \arguments{
 \item{df}{A site-parameter dataframe that has undergone initial flagging. Must include:
@@ -21,6 +26,9 @@ all sites ("all")}
 \item{intrasensor_flags_arg}{A list of data frames that have gone through the
 intra-sensor flagging functions which are indexed by their corresponding
 site-parameter combination.}
+
+\item{site_order_fun}{A function that returns a vector of site names in a user defined order.
+See Step 9 in \code{vignettes/using_in_rstudio.rmd} for an example usage. Defined as NULL and is not used if network is CSU or FCW}
 }
 \value{
 A dataframe with the same structure as the input, plus an \code{auto_flag} column

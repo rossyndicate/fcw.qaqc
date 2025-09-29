@@ -20,8 +20,11 @@
 #' @param intrasensor_flags_arg A list of data frames that have gone through the 
 #' intra-sensor flagging functions which are indexed by their corresponding 
 #' site-parameter combination.
-#' @param network Whether to perform the network crawl across FCW sites only ("fcw") or
+#' @param network Whether to perform the network crawl across FCW sites only ("fcw", Default) or
 #' all sites ("all")
+#' 
+#' @param site_order_fun A function that returns a vector of site names in a user defined order. 
+#' See Step 9 in `vignettes/using_in_rstudio.rmd` for an example usage. Defined as NULL and is not used if network is CSU or FCW
 #'
 #' @return A dataframe with the same structure as the input, plus an `auto_flag` column
 #' that contains cleaned flags where network-wide events have been accounted for.
@@ -29,7 +32,7 @@
 #' @examples
 #' # Examples are temporarily disabled
 
-network_check <- function(df, network = "all", intrasensor_flags_arg = intrasensor_flags) {
+network_check <- function(df, network = "fcw", intrasensor_flags_arg = intrasensor_flags, site_order_fun = NULL){
   
   # Extract site and parameter name from dataframe
   site_name <- unique(na.omit(df$site))
@@ -47,38 +50,18 @@ network_check <- function(df, network = "all", intrasensor_flags_arg = intrasens
                      "archery",
                      "riverbluffs")
   } else {
-    
-    # Define site order based on spatial arrangement along river
-    sites_order <-  c("joei",
-                      "cbri",
-                      "chd",
-                      "pfal",
-                      "pbd",
-                      "pbr",
-                      "pman",
-                      "bellvue",
-                      "salyer",
-                      "udall",
-                      "riverbend",
-                      "cottonwood",
-                      "elc",
-                      "archery",
-                      "riverbluffs")
-    # Virridy sites
-    if (site_name %in% c("cottonwood_virridy", "riverbend_virridy", "archery_virridy")){
-      sites_order <- c("udall", "riverbend_virridy", "cottonwood_virridy", "archery_virridy", "riverbluffs")
+    #Check to see if site_order_fun is provided
+    if (is.null(site_order_fun) || !is.function(site_order_fun)) {
+      stop("For networks other than CSU or FCW, a valid site_order_fun must be provided. See vignette for example usage.")
     }
-    # SFM network 
-    if (site_name %in% c("mtncampus", "sfm")){
-      sites_order <- c("mtncampus", "sfm")
+    #use site_order_fun to get the order of sites if not in CSU or FCW network
+    sites_order <- site_order_fun(site_name)
+    # If site is not in a defined order, return original df
+    if (is.null(sites_order)) {
+      return(df)  # no site order, therefore no network check
     }
-    
-    # Sites without a network
-    if (site_name %in% c("lbea", "penn", "springcreek", "boxcreek")){
-      return(df)
-    }
-    
   }
+    
   
   # Find the index of current site in ordered list
   site_index <- which(sites_order == sites_order[grep(site_name, sites_order, ignore.case = TRUE)])
