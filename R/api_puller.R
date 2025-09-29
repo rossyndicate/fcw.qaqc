@@ -28,6 +28,9 @@
 #' @param dump_dir Character string specifying the directory path where 
 #' downloaded CSV files should be saved.
 #' 
+#' @param network Character string indicating the network type, either "fcw",or "all". 
+#' If fcw is selected, FDOM data will be excluded from the download/processing
+#' 
 #' @param fs Logical, whether to use the file system functions
 #'
 #' @return No direct return value. The function writes parquet files to the specified 
@@ -45,6 +48,7 @@ api_puller <- function(site,
                        api_token,
                        hv_sites_arg = hv_sites,
                        dump_dir, 
+                       network = "fcw",
                        synapse_env = FALSE, fs = NULL) {
   
   # Synapse runs in parallel, so stagger API calls to prevent overloading server
@@ -80,10 +84,14 @@ api_puller <- function(site,
                   units = Units) %>%
     dplyr::left_join(., site_loc, by = "id") %>%
     dplyr::mutate(site = tolower(site)) %>%
-    dplyr::select(site, id, name, timestamp, parameter, value, units) %>% 
-    # For FCW/CSU networks exclude FDOM parameter
-    dplyr::filter(parameter != "FDOM Fluorescence")
+    dplyr::select(site, id, name, timestamp, parameter, value, units) 
   
+  # For FCW networks exclude FDOM parameter
+  if(network == "fcw"){
+    site_df <- site_df %>%
+      dplyr::filter(parameter != "FDOM Fluorescence")
+  }
+
   # Format the timestamp string for filenames
   timestamp_str <- format(end_dt, "%Y%m%d-T%H%M%SZ", tz = "UTC")
   # Create clean path (remove any double slashes) for file upload
