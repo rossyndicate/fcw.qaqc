@@ -375,7 +375,8 @@ iwalk(intrasensor_flags_list,
 
 Apply network-wide checks that compare data across multiple sites:
 
-### Defining a site order
+### Defining a site order 
+
 ```{r}
 my_site_order <- function(site_name){
   # Primary network order
