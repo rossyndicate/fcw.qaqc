@@ -6,7 +6,7 @@
 \usage{
 network_check(
   df,
-  network = "all",
+  network = "fcw",
   intrasensor_flags_arg = intrasensor_flags,
   site_order_fun = NULL
 )
@@ -20,7 +20,7 @@ network_check(
 \item \code{flag}: Existing quality flags
 }}
 
-\item{network}{Whether to perform the network crawl across FCW sites only ("fcw") or
+\item{network}{Whether to perform the network crawl across FCW sites only ("fcw", Default) or
 all sites ("all")}
 
 \item{intrasensor_flags_arg}{A list of data frames that have gone through the
