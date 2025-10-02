@@ -33,7 +33,11 @@
 
 add_unsubmerged_flag <- function(df, method = "depth"){
   
-  if(method %in% c("depth_sc", "depth", "sc")){
+  #check if method is not one of the options
+  if(!method %in% c("depth_sc", "depth", "sc")){
+    stop("Invalid method. Choose from 'depth_sc', 'depth', or 'sc'.")
+  }
+
     # valid method
     # Extract depth measurements for the site if a depth method is selected
     if(method %in% c("depth_sc", "depth")){
@@ -82,10 +86,7 @@ add_unsubmerged_flag <- function(df, method = "depth"){
         # Remove temporary SC column to maintain original structure
         dplyr::select(-SC)
     }
-    
-  } else {
-    stop("Invalid method. Choose from 'depth_sc', 'depth', or 'sc'.")
-  }
+
  
   return(depth_checked)
 }
