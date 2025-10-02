@@ -4,7 +4,11 @@
 \alias{network_check}
 \title{Reduce overflagging by comparing across monitoring network}
 \usage{
-network_check(df, network = "all", intrasensor_flags_arg = intrasensor_flags)
+network_check(
+  df,
+  intrasensor_flags_arg = intrasensor_flags,
+  site_order_arg = site_order_list
+)
 }
 \arguments{
 \item{df}{A site-parameter dataframe that has undergone initial flagging. Must include:
@@ -15,12 +19,13 @@ network_check(df, network = "all", intrasensor_flags_arg = intrasensor_flags)
 \item \code{flag}: Existing quality flags
 }}
 
-\item{network}{Whether to perform the network crawl across FCW sites only ("fcw") or
-all sites ("all")}
-
 \item{intrasensor_flags_arg}{A list of data frames that have gone through the
 intra-sensor flagging functions which are indexed by their corresponding
 site-parameter combination.}
+
+\item{site_order_arg}{A list defining the order of sites in the network. This requires
+a user create a yaml or csv file with formatting consistent
+with the example in \code{load_site_order()} and to create a site_order_list object using \code{load_site_order()}}
 }
 \value{
 A dataframe with the same structure as the input, plus an \code{auto_flag} column
@@ -38,4 +43,7 @@ measurements are site-specific.
 }
 \examples{
 # Examples are temporarily disabled
+}
+\seealso{
+\code{\link[=load_site_order]{load_site_order()}}
 }

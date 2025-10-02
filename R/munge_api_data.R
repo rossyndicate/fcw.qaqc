@@ -6,7 +6,7 @@
 #' This function reads parquet files from either Azure Data Lake Storage or
 #' local storage and transforms them into a consistent format for downstream
 #' processing.
-#'
+#' 
 #' @param api_dir Character string specifying the directory path containing the
 #' raw parquet files downloaded from the HydroVu API.
 #'
@@ -19,6 +19,7 @@
 #' @return A dataframe containing processed water quality monitoring data with
 #' standardized columns:
 #' - site: Standardized site name (lowercase, no spaces)
+#' - name: Original equipment name from the API
 #' - DT: Original timestamp (UTC timezone)
 #' - DT_round: Rounded timestamp for consistent time intervals
 #' - DT_join: Character representation of rounded timestamp for joining
@@ -73,13 +74,13 @@ munge_api_data <- function(api_dir, summarize_interval = "15 minutes",
     # Remove ID column
     dplyr::select(-id) %>%
     # Ensure units are stored as character strings for consistency
-    dplyr::mutate(units = as.character(units)) %>%
+    dplyr::mutate(units = as.character(units))%>%
     # Filter out VuLink data (not used in CSU/FCW networks)
-    dplyr::filter(!grepl("vulink", name, ignore.case = TRUE)) %>%
+    #dplyr::filter(!grepl("vulink", name, ignore.case = TRUE)) %>%
     # Filter out Virridy data (not used in CSU/FCW networks)
-    dplyr::filter(!grepl("virridy", name, ignore.case = TRUE)) %>%
+    #dplyr::filter(!grepl("virridy", name, ignore.case = TRUE)) %>%
     # Remove the equipment name column
-    dplyr::select(-name) %>%
+    #dplyr::select(-name) %>%
     dplyr::mutate(
       # Round timestamps to specified interval for consistent time series
       DT = timestamp, 

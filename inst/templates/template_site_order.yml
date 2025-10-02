@@ -1,0 +1,11 @@
+network:
+  clp:
+    joei, cbri, chd, pfal, pbr, pman, pbd, bellvue, salyer, udall, riverbend, cottonwood, elc, archery, riverbluffs
+  springcreek:
+    riverbend, springcreek, cottonwood
+  boxcreek:
+    elc, boxcreek, archery
+  sfm:
+    sfm
+  mtn_campus:
+    mtn_campus
