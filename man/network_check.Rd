@@ -24,8 +24,8 @@ intra-sensor flagging functions which are indexed by their corresponding
 site-parameter combination.}
 
 \item{site_order_arg}{A list defining the order of sites in the network. This requires
-a user create a yaml file with formatting consistent
-with the example in \code{load_site_order_yaml()} and to create a site_order_list object using \code{load_site_order_yaml()}}
+a user create a yaml or csv file with formatting consistent
+with the example in \code{load_site_order()} and to create a site_order_list object using \code{load_site_order()}}
 }
 \value{
 A dataframe with the same structure as the input, plus an \code{auto_flag} column
@@ -45,5 +45,5 @@ measurements are site-specific.
 # Examples are temporarily disabled
 }
 \seealso{
-\code{\link[=load_site_order_yaml]{load_site_order_yaml()}}
+\code{\link[=load_site_order]{load_site_order()}}
 }

@@ -21,15 +21,15 @@
 #' intra-sensor flagging functions which are indexed by their corresponding 
 #' site-parameter combination.
 #' @param site_order_arg A list defining the order of sites in the network. This requires 
-#' a user create a yaml file with formatting consistent 
-#' with the example in `load_site_order_yaml()` and to create a site_order_list object using `load_site_order_yaml()`
+#' a user create a yaml or csv file with formatting consistent 
+#' with the example in `load_site_order()` and to create a site_order_list object using `load_site_order()`
 #'
 #' @return A dataframe with the same structure as the input, plus an `auto_flag` column
 #' that contains cleaned flags where network-wide events have been accounted for.
 #'
 #' @examples
 #' # Examples are temporarily disabled
-#' @seealso [load_site_order_yaml()]
+#' @seealso [load_site_order()]
 
 network_check <- function(df, intrasensor_flags_arg = intrasensor_flags, site_order_arg = site_order_list){
   
