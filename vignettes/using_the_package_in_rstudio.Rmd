@@ -199,36 +199,26 @@ walk(sites_to_process,
 
 ## Step 4: Load and Preprocess Raw Data
 
-The `api_puller()` function saves data as parquet files. Now we load and combine all files:
+The `api_puller()` function saves data as parquet files. Now we load and combine all files using `munge_api_data()`:
 
 ```{r}
-# load all raw data files
-hv_data <- list.files(staging_directory, full.names = TRUE) %>%
-  future_map_dfr(function(file_path){
-    site_df <- read_parquet(file_path, as_data_frame = TRUE)
-    return(site_df)
-  }, .progress = TRUE)
 
-# preprocess and standardize data
-hv_data_standardized <- hv_data %>%
-  data.table() %>%
-  select(-id) %>%
-  mutate(units = as.character(units)) %>%
-  filter(!grepl("vulink", name, ignore.case = TRUE)) %>%
-  mutate(
-    DT = timestamp,
-    DT_round = round_date(DT, "15 minutes"),
-    DT_join = as.character(DT_round),
-    site = tolower(site),
-    site = ifelse(grepl("virridy", name, ignore.case = TRUE), 
-                  str_replace(site, " virridy", "_virridy"), site)
-  ) %>%
-  select(-name) %>%
+# preprocess data
+hv_data <- munge_api_data(api_dir = staging_directory)
+# standardize and remove unwanted data(Vulink, virridy and FDOM Fluorescence)
+hv_data_standardized <- hv_data%>%
+  # Filter out VuLink data (not used in CSU/FCW networks)
+  dplyr::filter(!grepl("vulink", name, ignore.case = TRUE)) %>%
+  # Filter out Virridy data (not used in CSU/FCW networks)
+  dplyr::filter(!grepl("virridy", name, ignore.case = TRUE)) %>%
+  # Remove FDOM Fluorescence data (not used in CSU/FCW networks)
+  dplyr::filter(!grepl("FDOM Fluorescence", parameter, ignore.case = TRUE)) %>%
+  # Remove the equipment name column
+  select(-name)%>%
   fix_site_names() %>%
-  distinct(.keep_all = TRUE) %>%
-  # split into site-parameter combinations for parallel processing
   split(f = list(.$site, .$parameter), sep = "-") %>%
-  keep(~nrow(.) > 0)
+  purrr::discard(~ nrow(.) == 0)
+
 ```
 
 ## Step 5: Data Tidying and Summarization
@@ -377,8 +367,12 @@ Apply network-wide checks that compare data across multiple sites:
 
 ### Defining a site order 
 
+See `load_site_order()` for details on formatting. Here we load from a YAML file:
+
 ```{r}
-site_order_list <- load_site_order_yaml("path/to/site_orders.yaml")
+site_order_list <- load_site_order("templates/template_site_orders.yaml")
+#Or from CSV
+#site_order_list <- load_site_order("templates/template_site_orders.csv")
 ```
 
 ## Applying network-level checks
@@ -388,7 +382,7 @@ site_order_list <- load_site_order_yaml("path/to/site_orders.yaml")
 network_flags <- intrasensor_flags_list %>%
   # network check compares patterns across sites
   purrr::map(~network_check(df = ., intrasensor_flags_arg = intrasensor_flags_list,
-                            site_order_arg = site_order_list)) %>% # set your site order list
+                            site_order_arg = site_order_list)) %>% # using site order list from above to determine network connectivity
   rbindlist(fill = TRUE) %>%
   # clean up flag column formatting
   tidy_flag_column() %>%
