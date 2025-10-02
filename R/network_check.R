@@ -41,12 +41,25 @@ network_check <- function(df, intrasensor_flags_arg = intrasensor_flags, site_or
   if(missing(site_order_arg) || !is.list(site_order_arg)){
     stop("site_order_arg is missing or not a list. Please provide a valid site order list.")
   }
-  #grab sites order specific to the site/df being processed
-  sites_order <- site_order_arg[[site_name]]
+
+  #grab the lists that have the site name in them
+  sites_order <- site_order_arg %>%
+    keep(~ any(.x == site_name))
+  #if no site order is found for the site, return original dataframe with message
+  if(length(sites_order) == 0){
+    message(paste0("Skipping network check (No site order found in site_order_arg) for: ", site_name, "\nPlease check the site name and site order list."))
+    return(df)
+  }
+  #if the site is found in multiple lists and has a list that matches the site name, use that one otherwise use the first one
+  if(length(sites_order) > 1 & (site_name %in% names(sites_order))){
+    sites_order <- sites_order[[which(names(sites_order) == site_name)]]
+  }else{
+    sites_order <- sites_order[[1]]
+  }
   
-  # If no site order is found for the site (ie only one site in site order arg), return original dataframe with message
-  if(length(sites_order = 1)){
-    message(paste0("No site order found for ", site_name, ". Skipping network_check()."))
+  # If no site order is found for the site (ie only one site in network list), return original dataframe with message
+  if(length(sites_order) ==  1){
+    message(paste0("Skipping network check (no upstream/downstream relationship) for: ", site_name))
     return(df)
   }
   
@@ -62,7 +75,7 @@ network_check <- function(df, intrasensor_flags_arg = intrasensor_flags, site_or
   
   # Try to get upstream site data
   tryCatch({
-    # Skip trying to find upstream sites for sites with no upstream site (ie top of watershed/monitoring network). 
+    # Skip trying to find upstream sites for first site (ie top of monitoring network).
     if (site_index != 1){
       previous_site <- paste0(sites_order[site_index-1],"-",parameter_name)
       upstr_site_df <- intrasensor_flags_arg[[previous_site]] %>%
