@@ -1,4 +1,5 @@
 #' Load site order definitions from a YAML file
+#' @export
 #'
 #' @description
 #' Reads a YAML or csv file that defines upstream and downstream relationships
