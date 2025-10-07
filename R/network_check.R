@@ -50,10 +50,10 @@ network_check <- function(df, intrasensor_flags_arg = intrasensor_flags, site_or
     message(paste0("Skipping network check (No site order found in site_order_arg) for: ", site_name, "\nPlease check the site name and site order list."))
     return(df)
   }
-  #if the site is found in multiple lists and has a list that matches the site name, use that one otherwise use the first one
-  if(length(sites_order) > 1 & (site_name %in% names(sites_order))){
-    sites_order <- sites_order[[which(names(sites_order) == site_name)]]
-  }else{
+  #if a list that matches the site name, use that one otherwise use the first one
+  if (site_name %in% names(sites_order)) {
+    sites_order <- sites_order[[site_name]]
+  } else {
     sites_order <- sites_order[[1]]
   }
   
