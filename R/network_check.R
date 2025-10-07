@@ -20,64 +20,47 @@
 #' @param intrasensor_flags_arg A list of data frames that have gone through the 
 #' intra-sensor flagging functions which are indexed by their corresponding 
 #' site-parameter combination.
-#' @param network Whether to perform the network crawl across FCW sites only ("fcw") or
-#' all sites ("all")
+#' @param site_order_arg A list defining the order of sites in the network. This requires 
+#' a user create a yaml or csv file with formatting consistent 
+#' with the example in `load_site_order()` and to create a site_order_list object using `load_site_order()`
 #'
 #' @return A dataframe with the same structure as the input, plus an `auto_flag` column
 #' that contains cleaned flags where network-wide events have been accounted for.
 #'
 #' @examples
 #' # Examples are temporarily disabled
+#' @seealso [load_site_order()]
 
-network_check <- function(df, network = "all", intrasensor_flags_arg = intrasensor_flags) {
+network_check <- function(df, intrasensor_flags_arg = intrasensor_flags, site_order_arg = site_order_list){
   
   # Extract site and parameter name from dataframe
   site_name <- unique(na.omit(df$site))
   parameter_name <- unique(na.omit(df$parameter))
   
-  # vector of sites in the order that they are in in the network
-  if(network  %in% c("csu", "CSU", "fcw", "FCW")){
-    
-    sites_order <- c("bellvue",
-                     "salyer",
-                     "udall",
-                     "riverbend",
-                     "cottonwood",
-                     "elc",
-                     "archery",
-                     "riverbluffs")
+  #Check if site_order_arg exists and is a list
+  if(missing(site_order_arg) || !is.list(site_order_arg)){
+    stop("site_order_arg is missing or not a list. Please provide a valid site order list.")
+  }
+
+  #grab the lists that have the site name in them
+  sites_order <- site_order_arg %>%
+    keep(~ any(.x == site_name))
+  #if no site order is found for the site, return original dataframe with message
+  if(length(sites_order) == 0){
+    message(paste0("Skipping network check (No site order found in site_order_arg) for: ", site_name, "\nPlease check the site name and site order list."))
+    return(df)
+  }
+  #if a list that matches the site name, use that one otherwise use the first one
+  if (site_name %in% names(sites_order)) {
+    sites_order <- sites_order[[site_name]]
   } else {
-    
-    # Define site order based on spatial arrangement along river
-    sites_order <-  c("joei",
-                      "cbri",
-                      "chd",
-                      "pfal",
-                      "pbd",
-                      "pbr",
-                      "pman",
-                      "bellvue",
-                      "salyer",
-                      "udall",
-                      "riverbend",
-                      "cottonwood",
-                      "elc",
-                      "archery",
-                      "riverbluffs")
-    # Virridy sites
-    if (site_name %in% c("cottonwood_virridy", "riverbend_virridy", "archery_virridy")){
-      sites_order <- c("udall", "riverbend_virridy", "cottonwood_virridy", "archery_virridy", "riverbluffs")
-    }
-    # SFM network 
-    if (site_name %in% c("mtncampus", "sfm")){
-      sites_order <- c("mtncampus", "sfm")
-    }
-    
-    # Sites without a network
-    if (site_name %in% c("lbea", "penn", "springcreek", "boxcreek")){
-      return(df)
-    }
-    
+    sites_order <- sites_order[[1]]
+  }
+  
+  # If no site order is found for the site (ie only one site in network list), return original dataframe with message
+  if(length(sites_order) ==  1){
+    message(paste0("Skipping network check (no upstream/downstream relationship) for: ", site_name))
+    return(df)
   }
   
   # Find the index of current site in ordered list
@@ -92,7 +75,7 @@ network_check <- function(df, network = "all", intrasensor_flags_arg = intrasens
   
   # Try to get upstream site data
   tryCatch({
-    # Skip trying to find upstream sites for first site (Bellvue).
+    # Skip trying to find upstream sites for first site (ie top of monitoring network).
     if (site_index != 1){
       previous_site <- paste0(sites_order[site_index-1],"-",parameter_name)
       upstr_site_df <- intrasensor_flags_arg[[previous_site]] %>%
@@ -106,7 +89,7 @@ network_check <- function(df, network = "all", intrasensor_flags_arg = intrasens
   
   # Try to get downstream site data
   tryCatch({
-    # Skip trying to find downstream sites for last site (Riverbluffs).
+    # Skip trying to find downstream sites for last site (ie bottom of monitoring network).
     if (site_index != length(sites_order)){
       next_site <- paste0(sites_order[site_index+1],"-",parameter_name)
       dnstr_site_df <- intrasensor_flags_arg[[next_site]] %>%
@@ -124,14 +107,6 @@ network_check <- function(df, network = "all", intrasensor_flags_arg = intrasens
     dplyr::left_join(dnstr_site_df, by = "DT_round")
   
   # <<< Establish helper functions >>> ----
-  
-  # Function to add column if it doesn't exist
-  add_column_if_not_exists <- function(df, column_name, default_value = NA) {
-    if (!column_name %in% colnames(df)) {
-      df <- df %>% dplyr::mutate(!!sym(column_name) := default_value)
-    }
-    return(df)
-  }
   
   # Function to check if any flags exist in a time window
   check_2_hour_window_fail <- function(x) {

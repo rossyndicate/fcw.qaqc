@@ -35,14 +35,6 @@ low_pass_filter <- function(df) {
   # Only apply low pass filter to turbidity data due to its susceptibility to optical noise
   if (unique(df$parameter) == "Turbidity") {
     
-    # Function to add column if it doesn't exist
-    add_column_if_not_exists <- function(df, column_name, default_value = NA) {
-      if (!column_name %in% colnames(df)) {
-        df <- df %>% dplyr::mutate(!!sym(column_name) := default_value)
-      }
-      return(df)
-    }
-    
     # Define 5-point binomial kernel function with weights [1,4,6,4,1]
     binomial_kernel <- function(int_vec) {
       kernel <- c(1, 4, 6, 4, 1)  

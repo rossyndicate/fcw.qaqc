@@ -2,6 +2,7 @@
 
 export("%>%")
 export(add_burial_flag)
+export(add_column_if_not_exists)
 export(add_depth_shift_flag)
 export(add_drift_flag)
 export(add_field_flag)

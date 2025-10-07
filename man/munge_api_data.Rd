@@ -26,6 +26,7 @@ A dataframe containing processed water quality monitoring data with
 standardized columns:
 \itemize{
 \item site: Standardized site name (lowercase, no spaces)
+\item name: Original equipment name from the API
 \item DT: Original timestamp (UTC timezone)
 \item DT_round: Rounded timestamp for consistent time intervals
 \item DT_join: Character representation of rounded timestamp for joining
