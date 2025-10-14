@@ -7,18 +7,23 @@
 parse_insitu_html_log(html_markup)
 }
 \arguments{
-\item{html_markup}{HTML markup from an In Situ Log file created by VuSitu.}
+\item{html_markup}{HTML markup from an In Situ Log file created by VuSitu.
+NOTE: This HTML markup must be extracted with xml2 or there will be}
 }
 \value{
-A data frame containing the parsed sensor data for the HTML markup.
+A tibble with columns: DT_round (datetime floored to 15 min), site,
+parameter, value, unit, DT (original datetime), DT_join (character datetime),
+and sensor_sn. All datetimes are converted to UTC.
 }
 \description{
-Parses an Insitu HTML file to extract sensor data with HTML extraction methods.
+Parses an In-Situ HTML file exported from HydroVu, VuLink, or Troll devices.
+Detects file type based on metadata table structure, extracts sensor data,
+handles timezone conversions, and returns standardized long-format data.
 }
 \examples{
 \dontrun{
 # Example requires HTML file
-html_content <- rvest::read_html("path/to/file.html")
+html_content <- xml2::read_html("path/to/file.html")
 result <- parse_insitu_html_log(html_content)
 }
 }
