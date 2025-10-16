@@ -11,9 +11,10 @@ parse_insitu_html_log(html_markup)
 NOTE: This HTML markup must be extracted with xml2 or there will be}
 }
 \value{
-A tibble with columns: DT_round (datetime floored to 15 min), site,
-parameter, value, unit, DT (original datetime), DT_join (character datetime),
-and sensor_sn. All datetimes are converted to UTC.
+A tibble with columns: DT_round (DT floored to 15 min), site,
+parameter, value, unit, DT (precise datetime in UTC), DT_join (character DT_round),
+and sensor_sn. All datetimes are converted to UTC. Original timezone information
+is not preserved in the output.
 }
 \description{
 Parses an In-Situ HTML file exported from HydroVu, VuLink, or Troll devices.

@@ -10,9 +10,10 @@
 #' NOTE: This HTML markup must be extracted with `xml2` instead of `rvest` or 
 #' there will be pointer errors. 
 #'
-#' @return A tibble with columns: DT_round (datetime floored to 15 min), site,
-#'   parameter, value, unit, DT (original datetime), DT_join (character datetime),
-#'   and sensor_sn. All datetimes are converted to UTC.
+#' @return A tibble with columns: DT_round (DT floored to 15 min), site,
+#'   parameter, value, unit, DT (precise datetime in UTC), DT_join (character DT_round),
+#'   and sensor_sn. All datetimes are converted to UTC. Original timezone information
+#'   is not preserved in the output.
 #'
 #' @examples
 #' \dontrun{
@@ -192,7 +193,6 @@ parse_insitu_html_log <- function(html_markup) {
   rm(html_markup, section_data, section_groups, all_data_values, data_table_headers)
   
   # Transform to Long Format ----
-  
   data <- data_table_data %>%
     tidyr::pivot_longer(cols = -`Date Time`, values_to = "value", names_to = "parameter") %>%
     # Regex extracts "Parameter Name (unit) (serial_number)" into three capture groups:
@@ -215,11 +215,13 @@ parse_insitu_html_log <- function(html_markup) {
       # Standardize parameter names
       parameter = dplyr::case_when(
         stringr::str_detect(parameter, "pH mV") ~ NA,
+        stringr::str_detect(parameter, "pH MV") ~ NA,
         stringr::str_detect(parameter, "Saturation") ~ NA,
         stringr::str_detect(parameter, "Temperature") ~ "Temperature",
         stringr::str_detect(parameter, "Turbidity") ~ "Turbidity",
         stringr::str_detect(parameter, "Specific Conductivity") ~ "Specific Conductivity",
         stringr::str_detect(parameter, "RDO Concentration") ~ "DO",
+        stringr::str_detect(parameter, "DO (mg/L)") ~ "DO",
         stringr::str_detect(parameter, "pH") ~ "pH",
         stringr::str_detect(parameter, "Depth") ~ "Depth",
         stringr::str_detect(parameter, "ORP") ~ "ORP",
@@ -229,8 +231,8 @@ parse_insitu_html_log <- function(html_markup) {
       ),
       # Convert units: feet to meters for Depth, mV to V for ORP
       value = dplyr::case_when(
-        parameter == "Depth" ~ as.numeric(value) * 0.3048,
-        (parameter == "ORP" & unit == "mV") ~ as.numeric(value) / 1000,
+        (parameter == "Depth" & grepl("ft", unit, ignore.case = TRUE)) ~ as.numeric(value) * 0.3048,
+        (parameter == "ORP" & grepl("mV", unit, ignore.case = TRUE)) ~ as.numeric(value) / 1000,
         TRUE ~ as.numeric(value)
       ),
       unit = dplyr::case_when(
