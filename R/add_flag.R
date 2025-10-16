@@ -47,7 +47,9 @@ add_flag <- function(df, condition_arg, description_arg) {
   # Update the flag column based on the provided condition
   # This uses tidyverse programming techniques to evaluate the condition
   # within the context of the dataframe
-  df <- df %>% dplyr::mutate(flag = dplyr::case_when(
+  df <- df %>% 
+    fcw.qaqc::add_column_if_not_exists(column_name = "flag") %>%
+    dplyr::mutate(flag = dplyr::case_when(
     # For rows where the condition is TRUE:
     {{condition_arg}} ~ dplyr::if_else(
       # If there's no existing flag, use just the new description
