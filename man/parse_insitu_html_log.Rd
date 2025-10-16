@@ -8,7 +8,8 @@ parse_insitu_html_log(html_markup)
 }
 \arguments{
 \item{html_markup}{HTML markup from an In Situ Log file created by VuSitu.
-NOTE: This HTML markup must be extracted with xml2 or there will be}
+NOTE: This HTML markup must be extracted with \code{xml2} instead of \code{rvest} or
+there will be pointer errors.}
 }
 \value{
 A tibble with columns: DT_round (DT floored to 15 min), site,
