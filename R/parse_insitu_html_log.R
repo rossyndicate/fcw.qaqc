@@ -7,7 +7,8 @@
 #' handles timezone conversions, and returns standardized long-format data.
 #'
 #' @param html_markup HTML markup from an In Situ Log file created by VuSitu.
-#' NOTE: This HTML markup must be extracted with xml2 or there will be 
+#' NOTE: This HTML markup must be extracted with `xml2` instead of `rvest` or 
+#' there will be pointer errors. 
 #'
 #' @return A tibble with columns: DT_round (datetime floored to 15 min), site,
 #'   parameter, value, unit, DT (original datetime), DT_join (character datetime),
