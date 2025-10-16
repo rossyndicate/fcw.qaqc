@@ -1,4 +1,5 @@
 #' @title Load Calibration Data
+#' @export
 #'
 #' @description
 #' Loads or generates calibration coefficient and drift correction data from

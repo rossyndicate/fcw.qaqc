@@ -1,4 +1,5 @@
-# Extract RDO data
+#' @title Extract RDO Data from Calibration Markup
+#' @export
 cal_extract_rdo_data <- function(div) {
   # Instantiate a named div tables list ----
   div_tables <- div %>%

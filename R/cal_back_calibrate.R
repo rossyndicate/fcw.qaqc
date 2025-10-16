@@ -1,4 +1,5 @@
 #' @title Back Calibration Orchestrator
+#' @export
 #'
 #' @description
 #' Orchestrates the complete back calibration workflow for sensor data chunks

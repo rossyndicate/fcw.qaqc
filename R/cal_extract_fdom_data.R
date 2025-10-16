@@ -1,4 +1,5 @@
-# Extract FDOM data
+#' @title Extract FDOM Data from Calibration Markup
+#' @export
 cal_extract_fdom_data <- function(div) {
   # Instantiate a named div tables list ----
   div_tables <- div %>%

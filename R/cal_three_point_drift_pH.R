@@ -1,4 +1,5 @@
 #' @title Three Point Drift Calibration (pH Specific)
+#' @export
 #'
 #' @description
 #' Applies three-point drift correction using low, medium, and high pH calibration

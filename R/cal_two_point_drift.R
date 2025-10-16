@@ -1,4 +1,5 @@
 #' @title Two Point Drift Calibration
+#' @export
 #'
 #' @description
 #' Applies two-point drift correction using low and high calibration standards.

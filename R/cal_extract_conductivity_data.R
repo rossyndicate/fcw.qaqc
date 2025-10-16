@@ -1,3 +1,5 @@
+#' @title Extract Conductivity Data from Calibration Markup
+#' @export
 # Extract conductivity data
 cal_extract_conductivity_data <- function(div) {
   # Instantiate a named div tables list ----

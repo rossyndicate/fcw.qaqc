@@ -11,30 +11,59 @@ files. The process corrects sensor drift and applies temporal interpolation
 between calibrations to produce accurate time series data.
 
 # Prepare Environment
+```{r setup}
+knitr::opts_chunk$set(
+  eval = FALSE,
+  echo = TRUE
+)
+```
 
 ```{r}
-# Load necessary packages:
-source("src/package_loader.R")
-
-CRAN_packages <- c(
-  "tidyverse", # Data manipulation
-  "janitor", # Clean dirty data
-  "lubridate", # Date-Time Manipulation
-  "rvest", # HTML Retrieval and Manipulation
-  "readxl", # Reading excel files
-  "here", # Easy, cross platform file referencing
-  "ggplot2", # Plotting libraries
-  "ggpubr",
-  "plotly",
-  "devtools", # For downloading GitHub packages
-  "remotes",
-  "yaml"
+#Installing and loading all packages
+invisible(
+  lapply(c(
+    "tidyverse", # Data manipulation
+    "janitor", # Clean dirty data
+    "lubridate", # Date-Time Manipulation
+    "rvest", # HTML Retrieval and Manipulation
+    "readxl", # Reading excel files
+    "here", # Easy, cross platform file referencing
+    "ggplot2", # Plotting libraries
+    "ggpubr",
+    "plotly",
+    "devtools", # For downloading GitHub packages
+    "remotes",
+    "yaml"
+  ),
+  function(x) {
+    if (x %in% installed.packages()) {
+      suppressMessages({
+        library(x, character.only = TRUE)
+      })
+    } else {
+      suppressMessages({
+        install.packages(x)
+        library(x, character.only = TRUE)
+      })
+    }
+  })
 )
 
-lapply(CRAN_packages, package_loader)
-
-# Source all calibration functions
-walk(list.files('src/', pattern = "*.R", full.names = TRUE, recursive = TRUE), source)
+#library non CRAN packages
+lapply(c("rossyndicate/fcw.qaqc"), function(x) {
+  pack_name <- unlist(strsplit(x, "/"))[2] #get package name (no GH username)
+  
+  if (pack_name %in% installed.packages()) {
+    suppressMessages({
+      library(pack_name, character.only = TRUE)
+    })
+  } else {
+    suppressMessages({
+      devtools::install_github(x)
+      library(pack_name, character.only = TRUE)
+    })
+  }
+})
 ```
 
 The environment setup loads essential packages for data manipulation and 

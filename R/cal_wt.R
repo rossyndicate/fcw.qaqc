@@ -1,4 +1,5 @@
 #' @title Temporal Weight Factor Calculation
+#' @export
 #'
 #' @description
 #' Calculates temporal weight factors for linear interpolation between consecutive

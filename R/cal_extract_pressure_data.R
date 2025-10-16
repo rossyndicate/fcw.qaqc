@@ -1,4 +1,5 @@
-# Extract pressure data
+#' @title Extract Pressure Data from Calibration Markup
+#' @export
 cal_extract_pressure_data <- function(div) {
   # Instantiate a named div tables list ----
   div_tables <- div %>%
