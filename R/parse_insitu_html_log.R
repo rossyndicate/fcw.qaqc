@@ -2,49 +2,86 @@
 #' @export
 #'
 #' @description
-#' Parses an Insitu HTML file to extract sensor data with HTML extraction methods.
+#' Parses an In-Situ HTML file exported from HydroVu, VuLink, or Troll devices.
+#' Detects file type based on metadata table structure, extracts sensor data,
+#' handles timezone conversions, and returns standardized long-format data.
 #'
-#' @param html_markup HTML markup from an In Situ Log file created by VuSitu. 
+#' @param html_markup HTML markup from an In Situ Log file created by VuSitu.
+#' NOTE: This HTML markup must be extracted with `xml2` instead of `rvest` or 
+#' there will be pointer errors. 
 #'
-#' @return A data frame containing the parsed sensor data for the HTML markup.
+#' @return A tibble with columns: DT_round (DT floored to 15 min), site,
+#'   parameter, value, unit, DT (precise datetime in UTC), DT_join (character DT_round),
+#'   and sensor_sn. All datetimes are converted to UTC. Original timezone information
+#'   is not preserved in the output.
+#'
 #' @examples
 #' \dontrun{
 #' # Example requires HTML file
-#' html_content <- rvest::read_html("path/to/file.html")
+#' html_content <- xml2::read_html("path/to/file.html")
 #' result <- parse_insitu_html_log(html_content)
 #' }
 
 parse_insitu_html_log <- function(html_markup) {
   
-  # Extract information ----
-  # Find the logical groups for the sections in the HTML (metadata stuff)
-  section_groups <- html_markup %>%
-    rvest::html_elements("[isi-group]") %>%
-    rvest::html_attr("isi-group") %>%
-    unique(.) %>%
-    keep(~ .x %in% c("LocationProperties",
-                     "InstrumentProperties"))
+  # Detect File Type ----
+  # HydroVu: 1 table (LocationProperties)
+  # Troll: LocationProperties + 1 InstrumentProperties table
+  # VuLink: LocationProperties + 2 InstrumentProperties tables
   
-  # For each of the section groups grab the sectionMember information
+  section_groups <- html_markup %>%
+    xml2::xml_find_all(".//*[@isi-group]") %>%
+    xml2::xml_attr("isi-group") %>%
+    purrr::keep(~ .x %in% c("LocationProperties", "InstrumentProperties"))
+  
+  if (!"LocationProperties" %in% section_groups) {
+    stop("'LocationProperties' table not in HTML markup. Unable to parse.")
+  }
+  
+  file_type <- NULL
+  
+  if ("LocationProperties" %in% section_groups && length(section_groups) == 1) {
+    file_type <- "hydrovu"
+  }
+  
+  if ("InstrumentProperties" %in% section_groups && sum(grepl("InstrumentProperties", section_groups)) == 1) {
+    file_type <- "troll"
+  }
+  
+  if ("InstrumentProperties" %in% section_groups && sum(grepl("InstrumentProperties", section_groups)) == 2) {
+    file_type <- "vulink"
+  }
+  
+  if (is.null(file_type)) {
+    stop("File type (HydroVu, Vulink, or Troll) of HTML markup cannot be determined.")
+  }
+  
+  # Extract Metadata ----
+  
   section_data <- section_groups %>%
-    purrr::map(function(group_string){
-      
-      group_string <- paste0("[isi-group-member='", group_string, "']")
+    purrr::map(function(group_string) {
+      group_xpath <- paste0(".//*[@isi-group-member='", group_string, "']")
       
       group_member_markup <- html_markup %>%
-        rvest::html_elements(group_string)
+        xml2::xml_find_all(group_xpath)
       
       group_cols <- group_member_markup %>%
-        rvest::html_elements("[isi-label]") %>%
-        rvest::html_text()
+        xml2::xml_find_all(".//*[@isi-label]") %>%
+        xml2::xml_text()
       
       group_vals <- group_member_markup %>%
-        rvest::html_elements("[isi-value]") %>%
-        rvest::html_text()
+        xml2::xml_find_all(".//*[@isi-value]") %>%
+        xml2::xml_text()
       
-      group_df <- tibble::tibble(cols = group_cols, vals = group_vals) %>%
+      # Only keep labels that have corresponding values
+      min_len <- min(length(group_cols), length(group_vals))
+      
+      group_df <- tibble::tibble(
+        cols = group_cols[1:min_len],
+        vals = group_vals[1:min_len]
+      ) %>%
         tidyr::pivot_wider(names_from = cols, values_from = vals, values_fn = list) %>%
-        tidyr::unnest(cols = everything()) %>%
+        tidyr::unnest(cols = dplyr::everything()) %>%
         janitor::clean_names()
       
       return(group_df)
@@ -52,139 +89,167 @@ parse_insitu_html_log <- function(html_markup) {
     }) %>%
     purrr::set_names(section_groups)
   
-  # Free up space
-  rm(section_groups)
+  # Validate Metadata ----
   
-  # Check that we got the tables that we expected, in the form that we expected,
-  # and end function if we did not. If we did get what we expected set the variables
-  # needed for the data extraction
-  
-  for (group in c("LocationProperties", "InstrumentProperties")){
+  if (file_type == "hydrovu") {
+    table_info <- section_data[["LocationProperties"]]
+    if (nrow(table_info) == 0) return(NULL)
     
-    # Check if table exists
-    table_check <- purrr::pluck_exists(section_data[[group]])
-    if(!table_check) return(NULL)
+    col_name_check <- any(colnames(table_info) %in% c("location_name"))
+    if (!col_name_check) return(NULL)
     
-    # Check if table information exists
-    table_info <- section_data[[group]]
-    if(nrow(table_info) == 0) return(NULL)
+  } else if (file_type == "troll" || file_type == "vulink") {
+    table_info <- section_data[["LocationProperties"]]
+    if (nrow(table_info) == 0) return(NULL)
     
-    # Check if the column names we expect are in the table
-    col_name_check <- any(colnames(table_info) %in% c("location_name",
-                                                      "device_model",
-                                                      "device_sn"))
-    if(!col_name_check) return(NULL)
+    col_name_check <- any(colnames(table_info) %in% c("location_name"))
+    if (!col_name_check) return(NULL)
     
-    # Free up space 
-    rm(table_check, table_info, col_name_check)
+    table_info <- section_data[["InstrumentProperties"]]
+    if (nrow(table_info) == 0) return(NULL)
     
+    col_name_check <- any(colnames(table_info) %in% c("device_model", "device_sn"))
+    if (!col_name_check) return(NULL)
+    
+  } else {
+    stop("Table structures are not as the function expects them to be.")
   }
   
-  # All checks passed, set variables for data table extraction
+  site <- section_data[["LocationProperties"]][["location_name"]] %>%
+    stringr::str_remove_all("\\d+") %>%
+    stringr::str_trim()
   
-  # Set site name
-  site <- section_data[["LocationProperties"]][["location_name"]]
+  # Extract Data Table ----
   
-  # Check if this is a vulink or troll log
-  troll_sn <- section_data[["InstrumentProperties"]] %>%
-    dplyr::filter(grepl("TROLL", device_model, ignore.case = T)) %>%
-    dplyr::pull(device_sn)
-  
-  troll_log_check <- nrow(section_data[["InstrumentProperties"]]) == 1
-  
-  if (!troll_log_check){
-    vulink_sn <- section_data[["InstrumentProperties"]] %>%
-      dplyr::filter(!grepl("TROLL", device_model, ignore.case = T)) %>%
-      dplyr::pull(device_sn)
-  }
-  
-  # Free up space
-  rm(section_data)
-  
-  # Extract isi-data-table header information
   data_table_headers <- html_markup %>%
-    rvest::html_elements(".dataHeader[isi-data-table]") %>%
-    rvest::html_text() %>%
-    stringr::str_split_1("\n") %>%
-    dplyr::tibble(headers = .) %>%
-    dplyr::filter(headers != "") %>%
-    dplyr::pull(headers)
+    xml2::xml_find_all(".//*[@isi-data-column-header]") %>%
+    xml2::xml_text()
   
-  # Extract isi-data-table data information
-  # Get all data row values at once (exclude headers and metadata)
+  # Get all data row values at once
   all_data_values <- html_markup %>%
-    rvest::html_elements("tr.data[isi-data-row] td") %>%
-    rvest::html_text()
+    xml2::xml_find_all(".//tr[@class='data'][@isi-data-row]/td") %>%
+    xml2::xml_text()
   
-  # Free up space 
-  rm(html_markup)
-  
-  # Convert to matrix 
+  # Convert to data frame
   n_cols <- length(data_table_headers)
   data_table_data <- matrix(all_data_values, ncol = n_cols, byrow = TRUE) %>%
     as.data.frame(stringsAsFactors = FALSE)
   
-  # Set column names
   colnames(data_table_data) <- data_table_headers
   
-  # Format the data so that it is in line with the API pull
-  if (!troll_log_check){
-    data_table_data <- data_table_data %>%
-      dplyr::select(-contains(paste0("(", vulink_sn, ")")))
+  # Handle Datetime Conversion ----
+  # Troll/VuLink files have local time with offset metadata
+  # HydroVu files use unix timestamps and are always UTC
+  
+  if (file_type == "troll" || file_type == "vulink") {
+    time_offset_str <- html_markup %>%
+      xml2::xml_find_all(".//tr[@class='sectionMember']") %>%
+      xml2::xml_text() %>%
+      stringr::str_subset("Time Offset") %>%
+      stringr::str_extract("-?\\d{2}:\\d{2}:\\d{2}")
+    
+    local_datetimes <- html_markup %>%
+      xml2::xml_find_all(".//tr[@class='data']/td[@class='dateTime']") %>%
+      xml2::xml_text()
+    
+    # Convert local time to UTC by subtracting the offset
+    utc_dt <- tibble::tibble(
+      local_dt_str = local_datetimes,
+      time_offset = time_offset_str,
+      utc_dt = lubridate::ymd_hms(local_dt_str) - lubridate::hms(time_offset)
+    ) %>%
+      dplyr::pull(utc_dt)
   }
   
-  # Free up memory
-  rm(all_data_values, data_table_headers)
+  if (file_type == "hydrovu") {
+    utc_dt <- html_markup %>%
+      xml2::xml_find_all(".//tr[@class='data']") %>%
+      xml2::xml_attr("isi-hv-timestamp") %>%
+      tibble::tibble(isi_hv_timestamp = .) %>%
+      dplyr::mutate(
+        # HydroVu uses millisecond unix timestamps
+        utc_dt = lubridate::as_datetime(as.numeric(isi_hv_timestamp) / 1000,
+                                        tz = "UTC")
+      ) %>%
+      dplyr::pull(utc_dt)
+  }
   
+  data_table_data <- data_table_data %>%
+    dplyr::mutate(`Date Time` = utc_dt)
+  
+  # Remove VuLink Device Columns ----
+  # VuLink has its own columns that we need to remove
+  
+  if (file_type == "vulink") {
+    vulink_sn <- section_data[["InstrumentProperties"]] %>%
+      dplyr::filter(grepl("vulink", device_model, ignore.case = TRUE)) %>%
+      dplyr::pull(device_sn)
+    
+    data_table_data <- data_table_data %>%
+      dplyr::select(-dplyr::contains(paste0("(", vulink_sn, ")")))
+  }
+  
+  # Clean up large objects
+  rm(html_markup, section_data, section_groups, all_data_values, data_table_headers)
+  
+  # Transform to Long Format ----
   data <- data_table_data %>%
     tidyr::pivot_longer(cols = -`Date Time`, values_to = "value", names_to = "parameter") %>%
-    tidyr::extract(parameter, into = c("parameter", "unit", "sensor_sn"),
-            regex = "^([^(]+)\\(([^)]+)\\)\\s*\\(([^)]+)\\)$") %>%
-    janitor::clean_names() %>%
-    dplyr::mutate(site = site,
-           #simplify parameter names
-           parameter = dplyr::case_when(
-             stringr::str_detect(parameter, "pH mV") ~ NA,
-             stringr::str_detect(parameter, "Saturation") ~ NA,
-             stringr::str_detect(parameter, "Temperature") ~ "Temperature",
-             stringr::str_detect(parameter, "Turbidity") ~ "Turbidity",
-             stringr::str_detect(parameter, "Specific Conductivity") ~ "Specific Conductivity",
-             stringr::str_detect(parameter, "RDO Concentration") ~ "DO",
-             stringr::str_detect(parameter, "pH") ~ "pH",
-             stringr::str_detect(parameter, "Depth") ~ "Depth",
-             stringr::str_detect(parameter, "ORP") ~ "ORP",
-             stringr::str_detect(parameter, "Chlorophyll-a") ~ "Chl-a Fluorescence",
-             stringr::str_detect(parameter, "FDOM") ~ "FDOM Fluorescence",
-             TRUE ~ NA # Filter this out later
-           ), 
-           # Transform Depth and ORP values
-           value = dplyr::case_when(
-             parameter == "Depth" ~ as.numeric(value) * 0.3048, # Convert feet to meters
-             (parameter == "ORP" & unit == "mV") ~ as.numeric(value) / 1000, # Convert mV to V
-             TRUE ~ as.numeric(value)
-           ),
-           # Update Depth and ORP units according to transformations
-           unit = dplyr::case_when(
-             parameter == "Depth" ~ "m",
-             parameter == "ORP" ~ "V",
-             TRUE ~ unit
-           ),
-           # Removed timestamp because it is just a duplicated DT. 
-           # Here there is a America/Denver -> UTC DT conversion, assuming this data always comes in with Denver time
-           DT = lubridate::with_tz(lubridate::ymd_hms(date_time, tz = "America/Denver"), "UTC"),
-           DT_round = lubridate::floor_date(DT, "15 minutes") , 
-           DT_join = as.character(DT_round)
+    # Regex extracts "Parameter Name (unit) (serial_number)" into three capture groups:
+    # 1. parameter name (everything before first parenthesis)
+    # 2. unit (content between first pair of parentheses)
+    # 3. (optional) sensor serial number (content between second pair of parentheses) (HydroVu files do not have this information)
+    tidyr::extract(
+      parameter,
+      into = c("parameter", "unit", "sensor_sn"),
+      regex = "^([^(]+)\\(([^)]+)\\)(?:\\s*\\(([^)]+)\\))?$",
+      remove = TRUE
     ) %>%
-    # Filter out irrelevant parameters
+    dplyr::mutate(
+      parameter = stringr::str_trim(parameter),
+      sensor_sn = ifelse(sensor_sn == "", NA, sensor_sn)
+    ) %>%
+    janitor::clean_names() %>%
+    dplyr::mutate(
+      site = site,
+      # Standardize parameter names
+      parameter = dplyr::case_when(
+        stringr::str_detect(parameter, "pH mV") ~ NA,
+        stringr::str_detect(parameter, "pH MV") ~ NA,
+        stringr::str_detect(parameter, "Saturation") ~ NA,
+        stringr::str_detect(parameter, "Temperature") ~ "Temperature",
+        stringr::str_detect(parameter, "Turbidity") ~ "Turbidity",
+        stringr::str_detect(parameter, "Specific Conductivity") ~ "Specific Conductivity",
+        stringr::str_detect(parameter, "RDO Concentration") ~ "DO",
+        stringr::str_detect(parameter, "DO (mg/L)") ~ "DO",
+        stringr::str_detect(parameter, "pH") ~ "pH",
+        stringr::str_detect(parameter, "Depth") ~ "Depth",
+        stringr::str_detect(parameter, "ORP") ~ "ORP",
+        stringr::str_detect(parameter, "Chlorophyll-a") ~ "Chl-a Fluorescence",
+        stringr::str_detect(parameter, "FDOM") ~ "FDOM Fluorescence",
+        TRUE ~ NA
+      ),
+      # Convert units: feet to meters for Depth, mV to V for ORP
+      value = dplyr::case_when(
+        (parameter == "Depth" & grepl("ft", unit, ignore.case = TRUE)) ~ as.numeric(value) * 0.3048,
+        (parameter == "ORP" & grepl("mV", unit, ignore.case = TRUE)) ~ as.numeric(value) / 1000,
+        TRUE ~ as.numeric(value)
+      ),
+      unit = dplyr::case_when(
+        parameter == "Depth" ~ "m",
+        parameter == "ORP" ~ "V",
+        TRUE ~ unit
+      ),
+      DT = date_time,
+      DT_round = lubridate::floor_date(DT, "15 minutes"),
+      DT_join = as.character(DT_round)
+    ) %>%
     dplyr::filter(!is.na(parameter)) %>%
-    dplyr::select(DT_round, site, parameter, value, unit, DT, DT_join, sensor_sn) %>% 
+    dplyr::select(DT_round, site, parameter, value, unit, DT, DT_join, sensor_sn) %>%
     dplyr::group_by(site, parameter) %>%
     dplyr::arrange(DT_round, .by_group = T) %>%
     dplyr::ungroup() %>%
     dplyr::distinct()
-  
-  # Free up memory
-  rm(data_table_data)
   
   return(data)
 }
