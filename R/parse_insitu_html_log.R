@@ -221,7 +221,7 @@ parse_insitu_html_log <- function(html_markup) {
         stringr::str_detect(parameter, "Turbidity") ~ "Turbidity",
         stringr::str_detect(parameter, "Specific Conductivity") ~ "Specific Conductivity",
         stringr::str_detect(parameter, "RDO Concentration") ~ "DO",
-        stringr::str_detect(parameter, "DO (mg/L)") ~ "DO",
+        parameter == "DO" ~ "DO",
         stringr::str_detect(parameter, "pH") ~ "pH",
         stringr::str_detect(parameter, "Depth") ~ "Depth",
         stringr::str_detect(parameter, "ORP") ~ "ORP",
