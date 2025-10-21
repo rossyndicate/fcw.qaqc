@@ -39,8 +39,7 @@ Imports:
     readr,
     readxl,
     tibble,
-    tidyr,
-    xml2
+    tidyr
 Suggests: 
     knitr,
     AzureStor,
