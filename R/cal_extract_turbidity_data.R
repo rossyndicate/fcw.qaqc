@@ -1,4 +1,5 @@
-# Extract turbidity data
+#' @title Extract Turbidity Data from Calibration Markup
+#' @export
 cal_extract_turbidity_data <- function(div) {
   # Instantiate a named div tables list ----
   div_tables <- div %>%

@@ -1,4 +1,5 @@
 #' @title Linear Transition Between Linear Models
+#' @export
 #'
 #' @description
 #' Applies temporally-weighted linear transformation between two consecutive

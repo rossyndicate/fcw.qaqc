@@ -1,4 +1,5 @@
 #' @title Inverse Linear Model Transformation
+#' @export
 #'
 #' @description
 #' Converts sensor observations back to raw instrumental values by applying the

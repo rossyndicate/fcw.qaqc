@@ -1,4 +1,5 @@
 #' @title pH Linear Model Transformation
+#' @export
 #'
 #' @description
 #' Converts pH observations to millivolt units using two-segment linear models

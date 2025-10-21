@@ -1,4 +1,5 @@
 #' @title Extract Calibration Data from HTML Markup
+#' @export
 #'
 #' @description
 #' Extracts calibration coefficients and drift correction information from HTML

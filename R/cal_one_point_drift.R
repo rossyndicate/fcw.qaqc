@@ -1,4 +1,5 @@
 #' @title One Point Drift Calibration
+#' @export
 #'
 #' @description
 #' Applies single-point drift correction using pre- and post-measurement

@@ -24,3 +24,6 @@ ignore_files/
 creds/
 # ignore vs code settings
 .vscode/
+# renv stuff
+^renv$
+^renv\.lock$

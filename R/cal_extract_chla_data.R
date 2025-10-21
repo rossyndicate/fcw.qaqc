@@ -1,4 +1,5 @@
-# Extract Chl-a data
+#' @title Extract Chlorophyll-a data from calibration file html markup
+#' @export
 cal_extract_chla_data <- function(div) {
   # Instantiate a named div tables list  ----
   div_tables <- div %>%

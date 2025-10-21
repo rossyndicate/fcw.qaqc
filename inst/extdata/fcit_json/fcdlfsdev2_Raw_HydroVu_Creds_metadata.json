@@ -5,8 +5,30 @@
       "Description": "Static credentials file for HydroVu.",
       "StorageLocation": "fcdlfsdev2/Raw/HydroVu/Creds/HydroVuCreds{YYYYMMDD-THHMMSSZ}.yml",
       "Columns": [
-        { "Name": "client_id", "DataType": "STRING", "Description": "HydroVu API client ID.", "SemanticType": "Credential", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-        { "Name": "client_secret", "DataType": "STRING", "Description": "HydroVu API client secret.", "SemanticType": "Credential", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" }
+        {
+          "Name": "client_id",
+          "DataType": "STRING",
+          "Description": "HydroVu API client ID.",
+          "SemanticType": "Credential",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "client_secret",
+          "DataType": "STRING",
+          "Description": "HydroVu API client secret.",
+          "SemanticType": "Credential",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        }
       ]
     }
   ]

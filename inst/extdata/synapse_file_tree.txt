@@ -1,0 +1,32 @@
+fcdlfsdev2/
+├── Raw/
+│   └── HydroVu/
+│       ├── Incoming/
+│       │   └── (incoming files before processing)
+│       │       └── HydroVu_Incoming_{timestamp}.parquet
+│       │
+│       ├── Archive/
+│       │   └── Raw_HydroVu_Archive/{YYYYMMDD-THHMMSSZ}.parquet
+│       │
+│       ├── HV_tracking/
+│       │   ├── HVAPITracker{YYYYMMDD-THHMMSSZ}.parquet          # latest / rolling
+│       │   └── hv_tracking_archive/
+│       │       └── HVAPITracker{YYYYMMDD-THHMMSSZ}.parquet    # archived tracker snapshots
+│       │
+│       ├── Creds/
+│       │   └── HydroVuCreds{YYYYMMDD-THHMMSSZ}.yml            # credentials (sensitive)
+│       │
+│       └── mWaterFieldNotes/
+│           └── MWaterFieldNotes{YYYYMMDD-THHMMSSZ}.parquet   # mWater field notes snapshots
+│
+└── Curated/
+    └── HydroVu/
+        ├── AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet             # latest autoQAQC product
+        ├── AutoQAQCPWQNVisualizer{YYYYMMDD-THHMMSSZ}.parquet   # visualizer product
+        ├── complete_archive/
+        │   └── AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet       # rolling archive of AutoQAQCPWQN
+        ├── visualization_archive/
+        │   └── AutoQAQCPWQNVisualizer{YYYYMMDD-THHMMSSZ}.parquet
+        └── qaqc_files/
+            ├── seasonal_thresholds{YYYYMMDD-THHMMSSZ}.parquet   # seasonal thresholds table
+            └── sensor_spec_thresholds{YYYYMMDD-THHMMSSZ}.yml   # sensor spec thresholds (YML)

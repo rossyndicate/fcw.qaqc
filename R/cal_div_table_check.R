@@ -1,3 +1,5 @@
+#' @title Calibration file div table check
+#' @export
 cal_div_table_check <- function(table_list, table_name, col_names) {
 
   # Check if initial function conditions are met ----

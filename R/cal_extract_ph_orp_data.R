@@ -1,4 +1,5 @@
-# Extract pH and ORP data
+#' @title Extract pH and ORP Data from Calibration Markup
+#' @export
 cal_extract_ph_orp_data <- function(div) {
 
   # Instantiate a named div tables list ----

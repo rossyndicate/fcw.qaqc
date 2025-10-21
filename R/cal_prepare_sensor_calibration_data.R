@@ -1,4 +1,5 @@
 #' @title Prepare Sensor Calibration Data for Back Calibration
+#' @export
 #'
 #' @description
 #' Segments joined sensor-calibration data into calibration windows bounded by

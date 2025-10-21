@@ -1,4 +1,5 @@
 #' @title Join Sensor and Calibration Data
+#' @export
 #'
 #' @description
 #' Joins sensor time series data with calibration information using temporal

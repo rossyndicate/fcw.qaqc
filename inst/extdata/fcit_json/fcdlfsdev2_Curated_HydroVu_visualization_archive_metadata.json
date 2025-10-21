@@ -5,16 +5,126 @@
       "Description": "Rolling archive of the three most recent AutoQAQCPWQNVisualizer datasets.",
       "StorageLocation": "fcdlfsdev2/Curated/HydroVu/visualization_archive/AutoQAQCPWQNVisualizer{YYYYMMDD-THHMMSSZ}.parquet",
       "Columns": [
-        { "Name": "DT_round", "DataType": "TIMESTAMP", "Description": "Rounded timestamp defining each 15-minute interval.", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-        { "Name": "DT_join", "DataType": "STRING", "Description": "String version of DT_round for joining purposes.", "SemanticType": "Time", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-        { "Name": "site", "DataType": "STRING", "Description": "Monitoring location identifier.", "SemanticType": "Identifier", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-        { "Name": "parameter", "DataType": "STRING", "Description": "Measurement type (e.g., Temperature, DO).", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-        { "Name": "mean", "DataType": "DOUBLE", "Description": "Average value for the 15-minute interval.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-        { "Name": "units", "DataType": "STRING", "Description": "Measurement units (e.g., °C, mg/L).", "SemanticType": "UnitOfMeasure", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-        { "Name": "n_obs", "DataType": "INT", "Description": "Number of observations averaged in each interval.", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-        { "Name": "spread", "DataType": "DOUBLE", "Description": "Range of values within the interval (max - min).", "SemanticType": "", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-        { "Name": "auto_flag", "DataType": "STRING", "Description": "Auto-generated QAQC flags.", "SemanticType": "Flag", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" },
-        { "Name": "mal_flag", "DataType": "STRING", "Description": "Field note-based sonde malfunction flags.", "SemanticType": "Flag", "isPrimaryKey": "false", "isForeignKey": "false", "ReferencesDataset": "", "ReferencesColumn": "", "UnitOfMeasure": "", "EnumValues": "" }
+        {
+          "Name": "DT_round",
+          "DataType": "TIMESTAMP",
+          "Description": "Rounded timestamp defining each 15-minute interval.",
+          "SemanticType": "Time",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "DT_join",
+          "DataType": "STRING",
+          "Description": "String version of DT_round for joining purposes.",
+          "SemanticType": "Time",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "site",
+          "DataType": "STRING",
+          "Description": "Monitoring location identifier.",
+          "SemanticType": "Identifier",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "parameter",
+          "DataType": "STRING",
+          "Description": "Measurement type (e.g., Temperature, DO).",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "mean",
+          "DataType": "DOUBLE",
+          "Description": "Average value for the 15-minute interval.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "units",
+          "DataType": "STRING",
+          "Description": "Measurement units (e.g., \u00b0C, mg/L).",
+          "SemanticType": "UnitOfMeasure",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "n_obs",
+          "DataType": "INT",
+          "Description": "Number of observations averaged in each interval.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "spread",
+          "DataType": "DOUBLE",
+          "Description": "Range of values within the interval (max - min).",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "auto_flag",
+          "DataType": "STRING",
+          "Description": "Auto-generated QAQC flags.",
+          "SemanticType": "Flag",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "mal_flag",
+          "DataType": "STRING",
+          "Description": "Field note-based sonde malfunction flags.",
+          "SemanticType": "Flag",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        }
       ]
     }
   ]

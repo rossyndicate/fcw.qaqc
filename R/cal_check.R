@@ -1,4 +1,5 @@
 #' @title Calibration Validation and Final Value Selection
+#' @export
 #'
 #' @description
 #' Validates calibration results and creates final calibrated values by
