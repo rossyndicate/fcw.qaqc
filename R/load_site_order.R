@@ -2,41 +2,50 @@
 #' @export
 #'
 #' @description
-#' Reads a YAML or csv file that defines upstream and downstream relationships
+#' Reads a YAML or CSV file that defines upstream and downstream relationships
 #' for each site and returns a named list of site order vectors. If the site is in an independent network,
 #' the name of the list should be the name of that site to avoid confusion/duplicate searches. 
 #' 
 #' For each network, this function constructs a vector containing the upstream sites
 #' (if defined), the site itself, and the downstream sites (if defined).
 #' 
-#' # Example YAML file format (see template in inst/templates/template_site_orders.yaml):
-#'  network:
-#'    clp:
-#'      joei, cbri, chd, pfal, pbr, pman, pbd, bellvue, salyer, udall, riverbend, cottonwood, elc, archery, riverbluffs
-#'    springcreek:
-#'      riverbend, springcreek, cottonwood
-#'    boxcreek:
-#'      elc, boxcreek, archery
-#'    sfm:
-#'      sfm
-#'    mtn_campus:
-#'      mtn_campus
-#'
-#'# Example CSV format (see template in inst/templates/template_site_orders.csv):
-#'network_name,network
-#'clp,"joei, cbri, chd, pfal, pbr, pman, pbd, bellvue, salyer, udall, riverbend, cottonwood, elc, archery, riverbluffs"
-#'springcreek,"riverbend, springcreek, cottonwood"
-#'boxcreek,"elc, boxcreek, archery"
-#'sfm,sfm
-#'mtn_campus,mtn_campus
-#'
-#' Expected Outputs: 
-#' site_order_list <- load_site_order_yaml("site_orders.yaml")
+#' @details
+#' ## Example YAML file format 
+#' See template in inst/templates/template_site_orders.yaml:
+#' \preformatted{
+#' network:
+#'   clp:
+#'     joei, cbri, chd, pfal, pbr, pman, pbd, bellvue, salyer, udall, riverbend, cottonwood, elc, archery, riverbluffs
+#'   springcreek:
+#'     riverbend, springcreek, cottonwood
+#'   boxcreek:
+#'     elc, boxcreek, archery
+#'   sfm:
+#'     sfm
+#'   mtn_campus:
+#'     mtn_campus
+#' }
+#' 
+#' ## Example CSV format 
+#' See template in inst/templates/template_site_orders.csv:
+#' \preformatted{
+#' network_name,network
+#' clp,"joei, cbri, chd, pfal, pbr, pman, pbd, bellvue, salyer, udall, riverbend, cottonwood, elc, archery, riverbluffs"
+#' springcreek,"riverbend, springcreek, cottonwood"
+#' boxcreek,"elc, boxcreek, archery"
+#' sfm,sfm
+#' mtn_campus,mtn_campus
+#' }
+#' 
+#' ## Expected Outputs
+#' \preformatted{
+#' site_order_list <- load_site_order("site_orders.yaml")
 #' site_order_list$clp
-#' #> [1] "joei", "cbri", "chd", "pfal", "pbr", "pman", "pbd", "bellvue", "salyer", "udall", "riverbend", "cottonwood", "elc", "archery", "riverbluffs"
-#'
+#' # "joei" "cbri" "chd" "pfal" "pbr" "pman" "pbd" "bellvue" "salyer" "udall" "riverbend" "cottonwood" "elc" "archery" "riverbluffs"
+#' 
 #' site_order_list$sfm
-#' #> [1] "sfm"
+#' # "sfm"
+#' }
 #'
 #' @param file_path Path to a YAML or CSV file containing site relationships.
 #'
@@ -45,6 +54,7 @@
 #' 
 #' @seealso [network_check()]
 #'
+
 load_site_order <- function(file_path){
   # Make sure file exists
   if(!file.exists(file_path)){
