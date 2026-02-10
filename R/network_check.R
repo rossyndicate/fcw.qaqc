@@ -48,7 +48,7 @@ network_check <- function(df, intrasensor_flags_arg = intrasensor_flags, site_or
   #if no site order is found for the site, return original dataframe with message
   if(length(sites_order) == 0){
     message(paste0("Skipping network check (No site order found in site_order_arg) for: ", site_name, "\nPlease check the site name and site order list."))
-    return(df)
+    return(df %>% mutate(auto_flag = flag))
   }
   #if a list that matches the site name, use that one otherwise use the first one
   if (site_name %in% names(sites_order)) {
@@ -60,7 +60,7 @@ network_check <- function(df, intrasensor_flags_arg = intrasensor_flags, site_or
   # If no site order is found for the site (ie only one site in network list), return original dataframe with message
   if(length(sites_order) ==  1){
     message(paste0("Skipping network check (no upstream/downstream relationship) for: ", site_name))
-    return(df)
+    return(df %>% mutate(auto_flag = flag))
   }
   
   # Find the index of current site in ordered list
