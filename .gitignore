@@ -20,6 +20,7 @@ data/
 test_data/
 # Remove scratch/ignore files
 ignore_files/
+notes/
 # ignore creds
 creds/
 # ignore vs code settings

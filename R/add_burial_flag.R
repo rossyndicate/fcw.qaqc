@@ -7,7 +7,7 @@
 #' all measurements are affected, but the DO sensor often provides the clearest indication
 #' of burial events.
 #'
-#' This function propagates burial flags detected by the `find_do_noise()` function to all
+#' This function propagates burial flags detected by the `detect_do_noise()` function to all
 #' other parameters measured at the same time points. This ensures consistent flagging
 #' across all measurements during burial events.
 #'
@@ -18,7 +18,7 @@
 #' - `parameter`: Measurement type (function looks for "DO" parameter)
 #' - `DT_join`: Character timestamp used for joining measurements across parameters
 #' - `flag`: Existing quality flags, with "Possible burial" flags already applied to DO
-#'   measurements by the `find_do_noise()` function
+#'   measurements by the `detect_do_noise()` function
 #'
 #' @return A dataframe with the same structure as the input, but with the `flag`
 #' column updated to include "Possible burial" flags for all parameters when burial
@@ -27,7 +27,7 @@
 #' @examples
 #' # Examples are temporarily disabled
 #' @seealso [add_flag()]
-#' @seealso [find_do_noise()]
+#' @seealso [detect_do_noise()]
 
 add_burial_flag <- function(df){  
   # Extract DO readings and their flag status for the site

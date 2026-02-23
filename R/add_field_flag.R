@@ -32,7 +32,7 @@
 #'
 #' @examples
 #' # Examples are temporarily disabled
-#' @seealso [add_field_notes()]
+#' @seealso [prep_add_field_notes()]
 #' @seealso [add_flag()]
 
 add_field_flag <- function(df) {

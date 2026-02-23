@@ -12,7 +12,7 @@ add_burial_flag(df)
 \item \code{parameter}: Measurement type (function looks for "DO" parameter)
 \item \code{DT_join}: Character timestamp used for joining measurements across parameters
 \item \code{flag}: Existing quality flags, with "Possible burial" flags already applied to DO
-measurements by the \code{find_do_noise()} function
+measurements by the \code{detect_do_noise()} function
 }}
 }
 \value{
@@ -26,7 +26,7 @@ by the dissolved oxygen (DO) sensor. When a monitoring sonde becomes buried in s
 all measurements are affected, but the DO sensor often provides the clearest indication
 of burial events.
 
-This function propagates burial flags detected by the \code{find_do_noise()} function to all
+This function propagates burial flags detected by the \code{detect_do_noise()} function to all
 other parameters measured at the same time points. This ensures consistent flagging
 across all measurements during burial events.
 
@@ -39,5 +39,5 @@ containing multiple parameters rather than individual site-parameter combination
 \seealso{
 \code{\link[=add_flag]{add_flag()}}
 
-\code{\link[=find_do_noise]{find_do_noise()}}
+\code{\link[=detect_do_noise]{detect_do_noise()}}
 }

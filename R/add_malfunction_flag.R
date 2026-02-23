@@ -28,7 +28,7 @@
 #'
 #' @examples
 #' # Examples are temporarily disabled
-#' @seealso [grab_mWater_malfunction_notes()]
+#' @seealso [api_mWater_grab_malfunction_notes()]
 
 add_malfunction_flag <- function(df, malfunction_records){
   

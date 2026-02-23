@@ -41,5 +41,5 @@ allowing malfunction information to be treated differently in downstream process
 # Examples are temporarily disabled
 }
 \seealso{
-\code{\link[=grab_mWater_malfunction_notes]{grab_mWater_malfunction_notes()}}
+\code{\link[=api_mWater_grab_malfunction_notes]{api_mWater_grab_malfunction_notes()}}
 }

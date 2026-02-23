@@ -42,7 +42,7 @@ have already been joined to the water quality data.
 # Examples are temporarily disabled
 }
 \seealso{
-\code{\link[=add_field_notes]{add_field_notes()}}
+\code{\link[=prep_add_field_notes]{prep_add_field_notes()}}
 
 \code{\link[=add_flag]{add_flag()}}
 }

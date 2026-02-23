@@ -393,7 +393,7 @@ After quality control processing is complete, the pipeline integrates new data i
 
 ## 6.1 Combine with Historical Dataset
 
-The pipeline merges newly processed and flagged data with the existing historical record to create a comprehensive, continuous dataset. The final_data_binder function handles this integration, maintaining continuity while incorporating the latest quality assessments. This function is careful to preserve data context and ensures that overlapping data periods are handled appropriately, with newer quality assessments taking precedence over older ones. All records are marked as "historical" once integrated, establishing a clean baseline for the next processing cycle.
+The pipeline merges newly processed and flagged data with the existing historical record to create a comprehensive, continuous dataset. The `prep_bind_datasets()` function handles this integration, maintaining continuity while incorporating the latest quality assessments. This function is careful to preserve data context and ensures that overlapping data periods are handled appropriately, with newer quality assessments taking precedence over older ones. All records are marked as "historical" once integrated, establishing a clean baseline for the next processing cycle.
 
 ## 6.2 Save Complete Dataset
 
