@@ -15,7 +15,7 @@
 #' @examples
 #' # Examples are temporarily disabled
 
-fix_turbidity <- function(df){
+standardize_turbidity <- function(df){
 
 # Filter records for relevant site-param information
 df_site <- unique(df$site)

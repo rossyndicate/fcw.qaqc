@@ -21,15 +21,15 @@
 #' \dontrun{
 #' # Example usage with default column name
 #' sample_df <- data.frame(site = c("Tamasag", "LEGACY", "River Bluffs"))
-#' fixed_df <- fix_site_names(sample_df)
+#' fixed_df <- standardize_site_names(sample_df)
 #' 
 #' # Example usage with custom column name
 #' sample_df2 <- data.frame(location = c("Tamasag", "LEGACY", "River Bluffs"))
-#' fixed_df2 <- fix_site_names(sample_df2, site_col = "location")
+#' fixed_df2 <- standardize_site_names(sample_df2, site_col = "location")
 #' }
 #'
 #' @export
-fix_site_names <- function(df, site_col = "site") {
+standardize_site_names <- function(df, site_col = "site") {
   fixed_df <- df %>%
     dplyr::mutate(!!sym(site_col) := tolower(!!sym(site_col))) %>%
     # renaming all the sites, just in case

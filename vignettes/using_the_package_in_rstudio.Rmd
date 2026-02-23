@@ -135,7 +135,7 @@ Load threshold data and API credentials:
 # read threshold data
 sensor_thresholds <- read_yaml(sensor_thresholds_file)
 season_thresholds <- read_csv(seasonal_thresholds_file, show_col_types = FALSE) %>%
-  fix_site_names()
+  standardize_site_names()
 
 # read API credentials
 mWater_creds <- read_yaml(mwater_creds_file)
@@ -215,7 +215,7 @@ hv_data_standardized <- hv_data%>%
   dplyr::filter(!grepl("FDOM Fluorescence", parameter, ignore.case = TRUE)) %>%
   # Remove the equipment name column
   select(-name)%>%
-  fix_site_names() %>%
+  standardize_site_names() %>%
   split(f = list(.$site, .$parameter), sep = "-") %>%
   purrr::discard(~ nrow(.) == 0)
 
