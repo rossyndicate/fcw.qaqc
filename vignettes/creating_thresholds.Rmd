@@ -45,7 +45,11 @@ devtools::load_all()
 
 # Overview
 
-This vignette demonstrates how to use previously collected sensor data to create seasonal thresholds for water quality parameters. These thresholds define the "normal" range of behavior for a site and season. We can then use the add_seasonal_flag() function to identify new data points that fall outside these expected patterns.
+This vignette demonstrates how to use previously collected sensor data to create 
+seasonal thresholds for water quality parameters. These thresholds define the 
+"normal" range of behavior for a site and season. We can then use the 
+add_seasonal_flag() function to identify new data points that fall outside these 
+expected patterns.
 
 [The process involves two main phases:]{.underline}
 
@@ -65,11 +69,18 @@ Our sensor dataset must contains the following key columns:
 
 `mean`: Average value for the 15-minute time interval
 
-See the vignette "Using the Package in Rstudio" for examples of how to format your data to match this.
+See the vignette "Using the Package in Rstudio" for examples of how to format 
+your data to match this.
 
-We will read in the example data for three sites for two years. In this case, erroneous data have been manually removed (indicated where `approval_status` is "OMIT").
+We will read in the example data for three sites for two years. In this case, 
+erroneous data have been manually removed (indicated where `approval_status` is "OMIT").
 
-**Note:** This is the data we will use to create our thresholds, but you can use any data you have for your sites (cleaned/uncleaned). The more data you have, the better your thresholds will be. You can start with as little as a year of data, though shorter records increase the risk of overfitting thresholds to patterns in that period. This method is not recommended if you do not have a full year's worth of data.
+**Note:** This is the data we will use to create our thresholds, but you can use 
+any data you have for your sites (cleaned/uncleaned). The more data you have, 
+the better your thresholds will be. You can start with as little as a year of 
+data, though shorter records increase the risk of overfitting thresholds to 
+patterns in that period. This method is not recommended if you do not have a 
+full year's worth of data.
 
 ```{r}
 #data used in these examples are available in the `inst` folder
@@ -105,21 +116,25 @@ cleaned_data <- sensor_data %>%
 
 ### 2. Generate Summary Statistics & Define Seasons
 
-Water quality varies naturally by season. To create accurate thresholds, we must group data into hydrologic seasons.
+Water quality varies naturally by season. To create accurate thresholds, we must 
+group data into hydrologic seasons.
 
-By default, `prep_summary_statistics()` assigns seasons based on **Colorado Snowmelt hydrology**:
+By default, `prep_summary_statistics()` assigns seasons based on 
+**Colorado Snowmelt hydrology**:
 
--   **Winter Baseflow:** Dec 1 – Apr 30
+- **Winter Baseflow:** Dec 1 – Apr 30
 
--   **Snowmelt:** May 1 – Jun 30
+- **Snowmelt:** May 1 – Jun 30
 
--   **Monsoon:** Jul 1 – Sep 30
+- **Monsoon:** Jul 1 – Sep 30
 
--   **Fall Baseflow:** Oct 1 – Nov 30
+- **Fall Baseflow:** Oct 1 – Nov 30
 
-If your site is in a different region (e.g., California), you should manually create a `season` column after running this step (See Example Below)
+If your site is in a different region (e.g., California), you should manually 
+create a `season` column after running this step (See Example Below)
 
-The `add_seasonal_flag()` is **not** specific to our region but will expect the `season` column to be present in the data.
+The `add_seasonal_flag()` is **not** specific to our region but will expect 
+the `season` column to be present in the data.
 
 ```{r}
 
@@ -140,33 +155,40 @@ summarized_data <- cleaned_data%>%
 
 ## 3. Create the Lookup Table
 
-Now we calculate the thresholds. `make_threshold_table` calculates the **1st and 99th percentiles** for:
+Now we calculate the thresholds. `make_threshold_table` calculates 
+the **1st and 99th percentiles** for:
 
-1.  **Mean:** The absolute value of the parameter. This helps identify data that is "out of sample" for the site and season. Typically related to a larger sensor malfunction or unprecedented conditions.
+1. **Mean:** The absolute value of the parameter. This helps identify data that 
+is "out of sample" for the site and season. Typically related to a larger sensor
+malfunction or unprecedented conditions.
 
-2.  **Slope Behind:** The rate of change between the current timestep and the previous one. This helps identify sudden, unrealistic spikes. Most helpful for cleaning optical parameters
+2. **Slope Behind:** The rate of change between the current timestep and the 
+previous one. This helps identify sudden, unrealistic spikes. Most helpful for 
+cleaning optical parameters
 
-3.  Standard Deviation: The standard deviation of data once data outside the 1st and 99th percentile are removed. Not used in `add_seasonal_flag()`
+3. Standard Deviation: The standard deviation of data once data outside the 1st 
+and 99th percentile are removed. Not used in `add_seasonal_flag()`
 
 ```{r}
-
 threshold_table <- summarized_data %>%
   map_dfr(., make_threshold_table)
 
 #Save it for later use!
 #write_csv(threshold_table, "inst/threshold_example/example_seasonal_threshold_table.csv")
 
-head(threshold_table%>%arrange(season))
+head(threshold_table %>% arrange(season))
 ```
 
 # Applying Thresholds to New Data
 
 Now that we have our "definitions of normal," we can flag new data.
 
-We have some new data from the same sites for a different year and want to flag values that fall outside of the expected seasonal patterns. The `add_seasonal_flag()` function compares each data point's statistics against the values in `threshold_table`.
+We have some new data from the same sites for a different year and want to flag 
+values that fall outside of the expected seasonal patterns. The 
+`add_seasonal_flag()` function compares each data point's statistics against the 
+values in `threshold_table`.
 
 ```{r}
-
 new_sensor_data <- read_parquet(file = "inst/threshold_example/new_sensor_data.parquet")%>%
   # Split by site/parameter
   split(f = list(.$site, .$parameter), sep = "-") %>%
@@ -174,8 +196,6 @@ new_sensor_data <- read_parquet(file = "inst/threshold_example/new_sensor_data.p
   map(., prep_summary_statistics) %>%
   # Apply the flags using our threshold table
   map(., ~add_seasonal_flag(.x, threshold_table))
-
-
 ```
 
 ## Plot results
@@ -198,14 +218,20 @@ season_only_plot <- new_sensor_data %>%
 season_only_plot 
 ```
 
-We can see we likely "over-flagged" the new data since we only had two years of data to create our thresholds, but this is a starting point for identifying values that fall outside of expected seasonal patterns. From here, we can use the `network_check` function to reduce overflagging since these sites are upstream and downstream of each other and should have similar patterns.
+We can see we likely "over-flagged" the new data since we only had two years of 
+data to create our thresholds, but this is a starting point for identifying 
+values that fall outside of expected seasonal patterns. From here, we can use 
+the `network_check` function to reduce overflagging since these sites are 
+upstream and downstream of each other and should have similar patterns.
 
 # Network Check
 
-The `network_check` function leverages the fact that sites in the same watershed should behave similarly. If a value is flagged as "anomalous" at one site, but the upstream and downstream sites show the same flag, it is more likely a real event (not a sensor error).
+The `network_check` function leverages the fact that sites in the same watershed 
+should behave similarly. If a value is flagged as "anomalous" at one site, but 
+the upstream and downstream sites show the same flag, it is more likely a real 
+event (not a sensor error).
 
 ```{r}
-
 #See `using_package_in_rstudio` vignette for more detail on how to create a site_order_list
 site_order_list <- load_network_order(file_path = "inst/site_order_templates/template_site_order.yml")
 
@@ -216,8 +242,6 @@ new_sensor_data_network_checked <- new_sensor_data %>%
   map(~network_check(df = .,
                      intrasensor_flags_arg = new_sensor_data,
                      site_order_arg = site_order_list))
-
-
 ```
 
 ## Plot updated results
@@ -240,5 +264,4 @@ network_check_plot <- new_sensor_data_network_checked %>%
 season_only_plot / network_check_plot + 
   plot_layout(guides = "collect") & 
   theme(legend.position = "bottom")
-  
 ```
