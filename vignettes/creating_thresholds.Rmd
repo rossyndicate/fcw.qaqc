@@ -107,7 +107,7 @@ cleaned_data <- sensor_data %>%
 
 Water quality varies naturally by season. To create accurate thresholds, we must group data into hydrologic seasons.
 
-By default, `generate_summary_statistics()` assigns seasons based on **Colorado Snowmelt hydrology**:
+By default, `prep_summary_statistics()` assigns seasons based on **Colorado Snowmelt hydrology**:
 
 -   **Winter Baseflow:** Dec 1 – Apr 30
 
@@ -125,7 +125,7 @@ The `add_seasonal_flag()` is **not** specific to our region but will expect the 
 
 summarized_data <- cleaned_data%>%
   split(f = list(.$site, .$parameter), sep = "-") %>%
-  map(., generate_summary_statistics)
+  map(., prep_summary_statistics)
 
 # --- Example: Customizing Seasons for Different Hydrology ---
 # Example of wet vs dry season hydrology
@@ -171,7 +171,7 @@ new_sensor_data <- read_parquet(file = "inst/threshold_example/new_sensor_data.p
   # Split by site/parameter
   split(f = list(.$site, .$parameter), sep = "-") %>%
   # Add summary statistics
-  map(., generate_summary_statistics) %>%
+  map(., prep_summary_statistics) %>%
   # Apply the flags using our threshold table
   map(., ~add_seasonal_flag(.x, threshold_table))
 
@@ -207,7 +207,7 @@ The `network_check` function leverages the fact that sites in the same watershed
 ```{r}
 
 #See `using_package_in_rstudio` vignette for more detail on how to create a site_order_list
-site_order_list <- load_site_order(file_path = "inst/site_order_templates/template_site_order.yml")
+site_order_list <- load_network_order(file_path = "inst/site_order_templates/template_site_order.yml")
 
 # Apply the network check
 # We pass the full list `new_sensor_data` as the `intrasensor_flags_arg`

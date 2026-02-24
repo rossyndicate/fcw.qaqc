@@ -25,7 +25,7 @@ site-parameter combination.}
 
 \item{site_order_arg}{A list defining the order of sites in the network. This requires
 a user create a yaml or csv file with formatting consistent
-with the example in \code{load_site_order()} and to create a site_order_list object using \code{load_site_order()}}
+with the example in \code{load_network_order()} and to create a site_order_list object using \code{load_network_order()}}
 }
 \value{
 A dataframe with the same structure as the input, plus an \code{auto_flag} column
@@ -45,5 +45,5 @@ measurements are site-specific.
 # Examples are temporarily disabled
 }
 \seealso{
-\code{\link[=load_site_order]{load_site_order()}}
+\code{\link[=load_network_order]{load_network_order()}}
 }

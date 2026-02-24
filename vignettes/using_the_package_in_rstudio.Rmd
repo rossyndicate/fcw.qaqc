@@ -49,7 +49,7 @@ You can customize the workflow by:
 
 Modifying the sites_to_process vector to include/exclude specific sites
 Adjusting the date range for data retrieval
-Changing the summarization interval in `tidy_api_data()`
+Changing the summarization interval in `prep_incoming_HydroVu_data()`
 Adding custom threshold files for different parameters or seasons
 Modifying chunk sizes for different hardware configurations
 
@@ -135,38 +135,38 @@ Load threshold data and API credentials:
 # read threshold data
 sensor_thresholds <- read_yaml(sensor_thresholds_file)
 season_thresholds <- read_csv(seasonal_thresholds_file, show_col_types = FALSE) %>%
-  fix_site_names()
+  standardize_site_names()
 
 # read API credentials
 mWater_creds <- read_yaml(mwater_creds_file)
 hv_creds <- read_yaml(hydrovu_creds_file)
 
 # authenticate access to HydroVu API
-hv_token <- hv_auth(client_id = as.character(hv_creds["client"]),
-                    client_secret = as.character(hv_creds["secret"]))
+hv_token <- api_HydroVu_auth(client_id = as.character(hv_creds["client"]),
+                             client_secret = as.character(hv_creds["secret"]))
 ```
 
 ## Step 2: Retrieve Field Notes and Metadata
 
-The `load_mWater()` function retrieves field data and sonde maintenance notes:
+The `api_mWater_puller()` function retrieves field data and sonde maintenance notes:
 
 ```{r}
 # pull field data from mWater API
-mWater_data <- load_mWater(creds = mWater_creds)
+mWater_data <- api_mWater_puller(creds = mWater_creds)
 
 # grab field notes with proper timezone handling
-all_field_notes <- grab_mWater_sensor_notes(mWater_api_data = mWater_data) %>%
+all_field_notes <- api_mWater_grab_sensor_notes(mWater_api_data = mWater_data) %>%
   mutate(DT_round = with_tz(DT_round, tzone = "UTC"),
          last_site_visit = with_tz(last_site_visit, tzone = "UTC"),
          DT_join = as.character(DT_round))
 
 # grab sensor malfunction records
-sensor_malfunction_notes <- grab_mWater_malfunction_notes(mWater_api_data = mWater_data) %>%
+sensor_malfunction_notes <- api_mWater_grab_malfunction_notes(mWater_api_data = mWater_data) %>%
   mutate(start_DT = with_tz(start_DT, tzone = "UTC"),
          end_DT = with_tz(end_DT, tzone = "UTC"))
 
 # grab cleaning records
-sensor_cleaning_notes <- grab_mWater_cleaning_notes(mWater_api_data = mWater_data)
+sensor_cleaning_notes <- api_mWater_grab_cleaning_notes(mWater_api_data = mWater_data)
 ```
 
 ## Step 3: Retrieve Sensor Data
@@ -175,7 +175,7 @@ Pull sensor data from HydroVu API for all specified sites:
 
 ```{r}
 # get HydroVu site information
-hv_sites <- hv_locations_all(hv_token) %>%
+hv_sites <- api_HydroVu_locations_all(hv_token) %>%
   filter(!grepl("vulink", name, ignore.case = TRUE))
 
 # convert dates to proper timezone
@@ -186,7 +186,7 @@ mst_end <- ymd_hms(end_date, tz = "America/Denver")
 walk(sites_to_process,
      function(site) {
        message("Requesting HV data for: ", site)
-       api_puller(
+       api_HydroVu_puller(
          site = site,
          start_dt = with_tz(mst_start, tzone = "UTC"),
          end_dt = with_tz(mst_end, tzone = "UTC"),
@@ -199,12 +199,12 @@ walk(sites_to_process,
 
 ## Step 4: Load and Preprocess Raw Data
 
-The `api_puller()` function saves data as parquet files. Now we load and combine all files using `munge_api_data()`:
+The `api_HydroVu_puller()` function saves data as parquet files. Now we load and combine all files using `prep_incoming_HydroVu_data()`:
 
 ```{r}
 
 # preprocess data
-hv_data <- munge_api_data(api_dir = staging_directory)
+hv_data <- prep_incoming_HydroVu_data(api_dir = staging_directory)
 # standardize and remove unwanted data(Vulink, virridy and FDOM Fluorescence)
 hv_data_standardized <- hv_data%>%
   # Filter out VuLink data (not used in CSU/FCW networks)
@@ -215,7 +215,7 @@ hv_data_standardized <- hv_data%>%
   dplyr::filter(!grepl("FDOM Fluorescence", parameter, ignore.case = TRUE)) %>%
   # Remove the equipment name column
   select(-name)%>%
-  fix_site_names() %>%
+  standardize_site_names() %>%
   split(f = list(.$site, .$parameter), sep = "-") %>%
   purrr::discard(~ nrow(.) == 0)
 
@@ -223,21 +223,21 @@ hv_data_standardized <- hv_data%>%
 
 ## Step 5: Data Tidying and Summarization
 
-The `tidy_api_data()` function cleans and summarizes data at 15-minute intervals:
+The `prep_incoming_HydroVu_data()` function cleans and summarizes data at 15-minute intervals:
 
 ```{r}
 # tidy raw data (default 15-minute intervals)
 tidy_data <- hv_data_standardized %>%
-  future_map(~tidy_api_data(api_data = .), .progress = TRUE) %>%
+  future_map(~prep_incoming_HydroVu_data(api_dir = .), .progress = TRUE) %>%
   keep(~!is.null(.))
 
 # add field notes to tidied data
 combined_data <- tidy_data %>%
-  future_map(~add_field_notes(df = ., notes = all_field_notes), .progress = TRUE)
+  future_map(~prep_add_field_notes(df = ., notes = all_field_notes), .progress = TRUE)
 
 # generate summary statistics
 summarized_data <- combined_data %>%
-  map(~generate_summary_statistics(.))
+  map(~prep_summary_statistics(.))
 ```
 
 ## Step 6: Single-Parameter Quality Control Flags
@@ -267,7 +267,7 @@ for (chunk_idx in seq_along(summarized_data_chunks)) {
           # flag missing/NA values
           add_na_flag(df = .) %>%
           # flag dissolved oxygen noise patterns
-          find_do_noise(df = .) %>%
+          detect_do_noise(df = .) %>%
           # flag repeating/stuck values
           add_repeat_flag(df = .) %>%
           # flag depth shifts (sonde movement)
@@ -332,7 +332,7 @@ for (chunk_idx in seq_along(intrasensor_data_chunks)) {
           # flag when water temperature below freezing
           add_frozen_flag(.) %>%
           # check for overlapping flags and resolve
-          intersensor_check(.) %>%
+          intrasensor_check(.) %>%
           # flag potential sensor burial
           add_burial_flag(.) %>%
           # flag when sonde is above water surface
@@ -367,12 +367,12 @@ Apply network-wide checks that compare data across multiple sites:
 
 ### Defining a site order 
 
-See `load_site_order()` for details on formatting. Here we load from a YAML file:
+See `load_network_order()` for details on formatting. Here we load from a YAML file:
 
 ```{r}
-site_order_list <- load_site_order("templates/template_site_orders.yaml")
+site_order_list <- load_network_order("inst/site_order_templates/template_site_orders.yml")
 #Or from CSV
-#site_order_list <- load_site_order("templates/template_site_orders.csv")
+#site_order_list <- load_network_order("templates/template_site_orders.csv")
 ```
 
 ## Applying network-level checks
@@ -428,7 +428,7 @@ iwalk(v_final_flags,
 
 `add_field_flag()`: Flags data during field maintenance visits
 `add_na_flag()`: Flags missing or invalid data points
-`find_do_noise()`: Identifies noise patterns in dissolved oxygen data
+`detect_do_noise()`: Identifies noise patterns in dissolved oxygen data
 `add_repeat_flag()`: Flags stuck or repeating sensor values
 `add_depth_shift_flag()`: Detects when sensors are moved within their housing
 `add_drift_flag()`: Identifies sensor drift in optical sensors
@@ -440,7 +440,7 @@ iwalk(v_final_flags,
 ### Inter-Parameter Flags
 
 `add_frozen_flag()`: Flags periods when water is frozen
-`intersensor_check()`: Resolves conflicting flags between parameters
+`intrasensor_check()`: Resolves conflicting flags between parameters
 `add_burial_flag()`: Identifies when sensors are buried in sediment
 `add_unsubmerged_flag()`: Flags when sensors are above water surface
 
