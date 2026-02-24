@@ -28,3 +28,5 @@ creds/
 # renv stuff
 ^renv$
 ^renv\.lock$
+# data
+data
