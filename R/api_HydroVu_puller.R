@@ -28,7 +28,11 @@
 #' @param dump_dir Character string specifying the directory path where
 #' downloaded CSV files should be saved.
 #'
-#' @param fs Logical, whether to use the file system functions
+#' @param synapse_env Logical, indicating whether function is running in Azure Synapse
+#' environment (TRUE) or local environment (FALSE). Default is FALSE.
+#'
+#' @param fs Optional filesystem object for Azure Data Lake Storage operations when
+#' running in Synapse environment.
 #'
 #' @return No direct return value. The function writes parquet files to the specified
 #' dump_dir, with filenames formatted as "sitename_timestamp.parquet".

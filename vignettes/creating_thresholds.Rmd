@@ -3,7 +3,7 @@ title: "Creating Thresholds"
 author: "Radical Open Science Syndicate"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using the Package}
+  %\VignetteIndexEntry{Creating Thresholds}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

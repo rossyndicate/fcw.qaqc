@@ -3,7 +3,7 @@ title: "PWQN Auto-QAQC Pipeline in Synapse"
 author: "Radical Open Science Syndicate"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using the Package}
+  %\VignetteIndexEntry{PWQN Auto-QAQC Pipeline in Synapse}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

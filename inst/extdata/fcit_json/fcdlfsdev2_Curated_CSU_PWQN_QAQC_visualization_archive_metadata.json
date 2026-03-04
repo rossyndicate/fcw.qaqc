@@ -1,0 +1,203 @@
+{
+  "datasets": [
+    {
+      "Dataset Name": "AutoQAQCPWQNVisualizer archive",
+      "Description": "Rolling archive of the three most recent AutoQAQCPWQNVisualizer datasets.",
+      "StorageLocation": "fcdlfsdev2/Curated/CSU_PWQN_QAQC/visualization_archive/AutoQAQCPWQNVisualizer{YYYYMMDD-THHMMSSZ}.parquet",
+      "Columns": [
+        {
+          "Name": "DT_round",
+          "DataType": "TIMESTAMP",
+          "Description": "Rounded timestamp defining each 15-minute interval.",
+          "SemanticType": "Time",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "DT_join",
+          "DataType": "STRING",
+          "Description": "String version of DT_round for joining purposes.",
+          "SemanticType": "Time",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "site",
+          "DataType": "STRING",
+          "Description": "Monitoring location identifier.",
+          "SemanticType": "Identifier",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "parameter",
+          "DataType": "STRING",
+          "Description": "Measurement type (e.g., Temperature, DO).",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "mean",
+          "DataType": "DOUBLE",
+          "Description": "Average value for the 15-minute interval.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "units",
+          "DataType": "STRING",
+          "Description": "Measurement units (e.g., °C, mg/L).",
+          "SemanticType": "UnitOfMeasure",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "n_obs",
+          "DataType": "INT",
+          "Description": "Number of observations averaged in each interval.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "spread",
+          "DataType": "DOUBLE",
+          "Description": "Range of values within the interval (max - min).",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "auto_flag",
+          "DataType": "STRING",
+          "Description": "Auto-generated QAQC flags where network-wide events have been accounted for.",
+          "SemanticType": "Flag",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "mal_flag",
+          "DataType": "STRING",
+          "Description": "Field note-based sonde malfunction flags for affected measurements.",
+          "SemanticType": "Flag",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "sonde_moved",
+          "DataType": "STRING",
+          "Description": "Contains 'sonde moved' flags for periods when the sonde was physically moved or repositioned.",
+          "SemanticType": "Flag",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "historical",
+          "DataType": "BOOLEAN",
+          "Description": "Indicates whether the observation originates from the historical archive (true) or is newly incoming data (false).",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": "[true, false]"
+        },
+        {
+          "Name": "mean_filled",
+          "DataType": "DOUBLE",
+          "Description": "Turbidity mean with short gaps (up to 1 hour) filled by interpolation. NA for all non-Turbidity parameters.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "smoothed_mean",
+          "DataType": "DOUBLE",
+          "Description": "Low-pass filtered version of mean_filled applied to Turbidity to reduce high-frequency noise. NA for all non-Turbidity parameters.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "site_dashboard",
+          "DataType": "STRING",
+          "Description": "Human-readable site name for dashboard display (e.g., 'bellvue' -> 'Bellvue', 'cottonwood' -> 'Cottonwood Hollow').",
+          "SemanticType": "Identifier",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": "[Bellvue, Cottonwood Hollow, Salyer, Udall, Riverbend Ponds, ELC, Archery, River Bluffs]"
+        },
+        {
+          "Name": "mean_dashboard",
+          "DataType": "DOUBLE",
+          "Description": "Display-ready measurement value for dashboards: smoothed_mean for Turbidity, mean converted to °F for Temperature, mean for all other parameters.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        }
+      ]
+    }
+  ]
+}

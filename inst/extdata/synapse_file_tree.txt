@@ -1,6 +1,6 @@
 fcdlfsdev2/
 ├── Raw/
-│   └── HydroVu/
+│   └── CSU_PWQN_QAQC/
 │       ├── Incoming/
 │       │   └── (incoming files before processing)
 │       │       └── HydroVu_Incoming_{timestamp}.parquet
@@ -20,7 +20,7 @@ fcdlfsdev2/
 │           └── MWaterFieldNotes{YYYYMMDD-THHMMSSZ}.parquet   # mWater field notes snapshots
 │
 └── Curated/
-    └── HydroVu/
+    └── CSU_PWQN_QAQC/
         ├── AutoQAQCPWQN{YYYYMMDD-THHMMSSZ}.parquet             # latest autoQAQC product
         ├── AutoQAQCPWQNVisualizer{YYYYMMDD-THHMMSSZ}.parquet   # visualizer product
         ├── complete_archive/
