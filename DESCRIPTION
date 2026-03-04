@@ -35,7 +35,8 @@ Imports:
     readr,
     readxl,
     tibble,
-    tidyr
+    tidyr, 
+    slider
 Suggests: 
     knitr,
     AzureStor,
