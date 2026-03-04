@@ -2,7 +2,7 @@
   "datasets": [
     {
       "Dataset Name": "HydroVu Credentials",
-      "Description": "Static credentials file for HydroVu.",
+      "Description": "Static credentials file to access HydroVu API.",
       "StorageLocation": "fcdlfsdev2/Raw/CSU_PWQN_QAQC/Creds/HydroVuCreds{YYYYMMDD-THHMMSSZ}.yml",
       "Columns": [
         {
