@@ -152,7 +152,7 @@
         {
           "Name": "mean_filled",
           "DataType": "DOUBLE",
-          "Description": "Turbidity mean with short gaps (up to 1 hour) filled by interpolation. NA for all non-Turbidity parameters.",
+          "Description": "Turbidity mean with short gaps (up to 1 hour) filled by linear interpolation. NA for all non-Turbidity parameters.",
           "SemanticType": "",
           "isPrimaryKey": "false",
           "isForeignKey": "false",
