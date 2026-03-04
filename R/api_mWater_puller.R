@@ -10,7 +10,7 @@
 #'
 #' @param summarize_interval Character string specifying the time interval to round timestamps to.
 #' Default is "15 minutes". Accepts any interval format compatible with
-#' lubridate::floor_date() like "1 hour", "30 mins", etc.
+#' lubridate::round_date() like "1 hour", "30 mins", etc.
 #'
 #' @return A dataframe containing processed field notes with standardized columns:
 #' - site: Standardized site name (lowercase, no spaces)
@@ -71,7 +71,7 @@ api_mWater_puller <- function(creds = yaml::read_yaml("creds/mWaterCreds.yml"), 
       photos_downloaded = ifelse(photos_downloaded == "Other (please specify)", photos_downloaded_other, photos_downloaded),
 
       # Create a rounded timestamp for joining with sensor data at consistent intervals
-      DT_round = lubridate::floor_date(start_DT, unit = summarize_interval)) %>%
+      DT_round = lubridate::round_date(start_DT, unit = summarize_interval)) %>%
     # arrange by timestamp (most recent first)
     dplyr::arrange(DT_round)%>%
     # Remove redundant "other" columns that have been merged into primary columns

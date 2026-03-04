@@ -15,7 +15,7 @@ notes. Must contain a 'url' field.}
 
 \item{summarize_interval}{Character string specifying the time interval to round timestamps to.
 Default is "15 minutes". Accepts any interval format compatible with
-lubridate::floor_date() like "1 hour", "30 mins", etc.}
+lubridate::round_date() like "1 hour", "30 mins", etc.}
 }
 \value{
 A dataframe containing processed field notes with standardized columns:

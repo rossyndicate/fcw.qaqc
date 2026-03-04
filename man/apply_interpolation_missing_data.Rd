@@ -9,7 +9,7 @@ apply_interpolation_missing_data(
   site_col = "site",
   parameter_col = "parameter",
   dt_col = "DT_round",
-  value_col = "smoothed_mean",
+  value_col = "mean",
   max_gap = 4,
   new_value_col = "mean_filled",
   method = "linear"
@@ -46,14 +46,19 @@ Defaults to \code{"linear"}.}
 }
 \value{
 A data frame with the same structure as the input plus a new column
-named \code{new_value_col} containing the interpolated values. Rows within gaps
-exceeding \code{max_gap} retain \code{NA}. The data are sorted by \code{site_col},
+named \code{new_value_col} containing the interpolated values. For turbidity,
+rows within gaps exceeding \code{max_gap} retain \code{NA}. For all other parameters,
+\code{new_value_col} is set to \code{NA_integer_}. The data are sorted by \code{site_col},
 \code{parameter_col}, and \code{dt_col}.
 }
 \description{
 Fills NA values in a numeric column using linear or spline interpolation,
 limited to gaps of at most \code{max_gap} consecutive missing observations. Rows
 belonging to runs of NAs longer than \code{max_gap} are left as NA.
+
+Like \code{low_pass_filter()}, this function currently processes only turbidity
+data. For all other parameters it returns the input dataframe with
+\code{new_value_col} set to \code{NA_integer_}.
 
 The function validates two preconditions before interpolating:
 \itemize{

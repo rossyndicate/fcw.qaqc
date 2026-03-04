@@ -4,20 +4,27 @@
 \alias{low_pass_filter}
 \title{Apply low-pass binomial filter to reduce sensor noise}
 \usage{
-low_pass_filter(df)
+low_pass_filter(df, value_col = "mean", new_value_col = "smoothed_mean")
 }
 \arguments{
 \item{df}{A data frame containing water quality measurements. Must include columns:
 \itemize{
 \item \code{parameter}: The measurement type (function checks for "Turbidity")
-\item \code{mean}: The calculated mean value of measurements to be smoothed
 \item \code{DT_round}: Timestamp for temporal alignment (used for rolling window operations)
+\item The column named by \code{value_col}
 }}
+
+\item{value_col}{Name of the numeric column to filter. Defaults to \code{"mean"}.
+Pass \code{"mean_filled"} to filter the gap-interpolated values produced by
+\code{apply_interpolation_missing_data()}.}
+
+\item{new_value_col}{Name of the output column that will hold the filtered
+values. Defaults to \code{"smoothed_mean"}.}
 }
 \value{
-A data frame with the same structure as the input, but with an additional
-\code{smoothed_mean} column containing the filtered turbidity values. For non-turbidity
-parameters, returns the original dataframe unchanged.
+A data frame with the same structure as the input plus a new column
+named \code{new_value_col}. For turbidity, it contains the filtered values drawn
+from \code{value_col}. For all other parameters, it is set to \code{NA_integer_}.
 }
 \description{
 Reduces high-frequency noise in turbidity measurements using a 5-point binomial kernel
@@ -34,11 +41,14 @@ to a higher-order binomial filter.
 
 This function currently processes only turbidity data, as turbidity sensors are
 particularly susceptible to noise from suspended particles and optical interference.
-For other parameters, the function returns the input dataframe unchanged.
+For other parameters, the function returns the input dataframe with
+\code{new_value_col} set to \code{NA_integer_}.
 }
 \examples{
 # Examples are temporarily disabled
 }
 \seealso{
+\code{\link[=apply_interpolation_missing_data]{apply_interpolation_missing_data()}}
+
 \code{\link[=add_drift_flag]{add_drift_flag()}}
 }

@@ -6,6 +6,10 @@
 #' limited to gaps of at most `max_gap` consecutive missing observations. Rows
 #' belonging to runs of NAs longer than `max_gap` are left as NA.
 #'
+#' Like `low_pass_filter()`, this function currently processes only turbidity
+#' data. For all other parameters it returns the input dataframe with
+#' `new_value_col` set to `NA_integer_`.
+#'
 #' The function validates two preconditions before interpolating:
 #' - The datetime column must be of class `POSIXct`/`POSIXt`; an error is
 #'   thrown otherwise.
@@ -38,8 +42,9 @@
 #' Defaults to `"linear"`.
 #'
 #' @return A data frame with the same structure as the input plus a new column
-#' named `new_value_col` containing the interpolated values. Rows within gaps
-#' exceeding `max_gap` retain `NA`. The data are sorted by `site_col`,
+#' named `new_value_col` containing the interpolated values. For turbidity,
+#' rows within gaps exceeding `max_gap` retain `NA`. For all other parameters,
+#' `new_value_col` is set to `NA_integer_`. The data are sorted by `site_col`,
 #' `parameter_col`, and `dt_col`.
 #'
 #' @examples
@@ -47,9 +52,13 @@
 #' @seealso [low_pass_filter()]
 
 apply_interpolation_missing_data <- function(df, site_col = "site", parameter_col = "parameter",
-                                             dt_col = "DT_round", value_col = "smoothed_mean",
+                                             dt_col = "DT_round", value_col = "mean",
                                              max_gap = 4, new_value_col = "mean_filled",
                                              method = "linear") {
+  
+  if (unique(df$parameter) != "Turbidity"){
+    return(df %>% mutate(!!sym(new_value_col) := NA_integer_))
+  }
   
   dt_vals <- df[[dt_col]]
   if (!lubridate::is.POSIXt(dt_vals)) {
