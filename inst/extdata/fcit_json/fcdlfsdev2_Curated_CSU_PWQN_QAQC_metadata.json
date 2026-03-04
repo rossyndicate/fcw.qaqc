@@ -8,7 +8,7 @@
         {
           "Name": "DT_round",
           "DataType": "TIMESTAMP",
-          "Description": "Rounded timestamp defining each 15-minute interval.",
+          "Description": "Rounded timestamp defining each 15-minute interval (UTC).",
           "SemanticType": "Time",
           "isPrimaryKey": "false",
           "isForeignKey": "false",
@@ -20,7 +20,7 @@
         {
           "Name": "DT_join",
           "DataType": "STRING",
-          "Description": "String version of DT_round for joining purposes.",
+          "Description": "String version of DT_round (UTC) for joining purposes.",
           "SemanticType": "Time",
           "isPrimaryKey": "false",
           "isForeignKey": "false",
@@ -207,7 +207,7 @@
         {
           "Name": "DT_round",
           "DataType": "TIMESTAMP",
-          "Description": "Rounded timestamp defining each 15-minute interval.",
+          "Description": "Rounded timestamp defining each 15-minute interval (UTC).",
           "SemanticType": "Time",
           "isPrimaryKey": "false",
           "isForeignKey": "false",
@@ -219,7 +219,7 @@
         {
           "Name": "DT_join",
           "DataType": "STRING",
-          "Description": "String version of DT_round for joining purposes.",
+          "Description": "String version of DT_round (UTC) for joining purposes.",
           "SemanticType": "Time",
           "isPrimaryKey": "false",
           "isForeignKey": "false",

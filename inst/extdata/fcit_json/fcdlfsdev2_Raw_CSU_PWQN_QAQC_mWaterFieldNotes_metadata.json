@@ -128,7 +128,7 @@
         {
           "Name": "end_dt",
           "DataType": "TIMESTAMP",
-          "Description": "Raw end datetime of field visit as recorded in mWater (pre timezone conversion).",
+          "Description": "End datetime of field visit as recorded in mWater, converted to UTC.",
           "SemanticType": "Time",
           "isPrimaryKey": "false",
           "isForeignKey": "false",
@@ -752,7 +752,7 @@
         {
           "Name": "start_DT",
           "DataType": "TIMESTAMP",
-          "Description": "Start datetime of field visit converted to UTC.",
+          "Description": "Start datetime of field visit (UTC).",
           "SemanticType": "Time",
           "isPrimaryKey": "false",
           "isForeignKey": "false",
@@ -800,7 +800,7 @@
         {
           "Name": "DT_round",
           "DataType": "TIMESTAMP",
-          "Description": "start_DT rounded to the nearest 15 minutes for joining with sensor data.",
+          "Description": "start_DT rounded to the nearest 15 minutes for joining with sensor data (UTC).",
           "SemanticType": "Time",
           "isPrimaryKey": "false",
           "isForeignKey": "false",

@@ -56,7 +56,7 @@
         {
           "Name": "last_success",
           "DataType": "TIMESTAMP",
-          "Description": "Timestamp of last successful pull.",
+          "Description": "Timestamp of last successful pull (UTC).",
           "SemanticType": "Time",
           "isPrimaryKey": "false",
           "isForeignKey": "false",
