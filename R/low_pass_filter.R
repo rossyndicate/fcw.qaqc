@@ -25,7 +25,7 @@
 #' - The column named by `value_col`
 #'
 #' @param value_col Name of the numeric column to filter. Defaults to `"mean"`.
-#' Pass `"mean_filled"` to filter the gap-interpolated values produced by
+#' Pass `"mean_filled"` to apply low pass filter on the gap-interpolated values produced by
 #' `apply_interpolation_missing_data()`.
 #'
 #' @param new_value_col Name of the output column that will hold the filtered
