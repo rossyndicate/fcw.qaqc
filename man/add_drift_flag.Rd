@@ -27,12 +27,25 @@ unlikely to represent natural environmental conditions.
 
 The function only processes optical parameters prone to biofouling:
 \itemize{
-\item FDOM Fluorescence
 \item Turbidity
 \item Chl-a Fluorescence
 }
 
 For other parameters, the function returns the dataframe unchanged.
+}
+\details{
+This function checks for drift in 4 rolling windows and assigns a drift flag if any of these
+rolling windows has a linear relationship with an R-squared value >= 0.5 for at least 1 day. The four rolling windows are:
+\enumerate{
+\item 1-day window aligned to the right
+\item 1-day window centered
+\item 3-day window aligned to the right
+\item 3-day window centered
+}
+
+These windows are calculated using the \code{slider} package to efficiently compute rolling statistics.
+The windows are also broken up by site visits when a sensor is cleaned as we know that sensor biofouling is
+typically reset/stopped from a cleaning visit
 }
 \examples{
 # Examples are temporarily disabled
