@@ -21,6 +21,9 @@ be named using the "site-parameter" convention.}
 \item{hv_api_tracking_file_path}{File path to the parquet file that tracks API query
 status for site-parameter combinations, including eligibility and success metrics.}
 
+\item{sys_time_arg}{POSIXct timestamp used as the reference "current time" for
+computing session end dates and seasonal defaults. Defaults to Sys.time().}
+
 \item{synapse_env}{Logical, indicating whether function is running in Azure Synapse
 environment (TRUE) or local environment (FALSE). Default is FALSE.}
 

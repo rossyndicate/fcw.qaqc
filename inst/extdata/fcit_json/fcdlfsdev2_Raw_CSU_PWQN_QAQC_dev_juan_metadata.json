@@ -1,0 +1,10 @@
+{
+  "datasets": [
+    {
+      "Dataset Name": "Dev sandbox (juan)",
+      "Description": "Personal development and experimentation area for Juan. Files here are arbitrary and have no fixed schema.",
+      "StorageLocation": "fcdlfsdev2/Raw/CSU_PWQN_QAQC/_dev/juan/",
+      "Columns": []
+    }
+  ]
+}

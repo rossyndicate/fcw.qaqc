@@ -10,6 +10,12 @@ api_move_dir_data(src_dir, dest_dir, synapse_env = FALSE, fs = NULL)
 \item{src_dir}{File path to the working API directory containing processed data files}
 
 \item{dest_dir}{File path to the archive directory where files will be stored}
+
+\item{synapse_env}{Logical, indicating whether function is running in Azure Synapse
+environment (TRUE) or local environment (FALSE). Default is FALSE.}
+
+\item{fs}{Optional filesystem object for Azure Data Lake Storage operations when
+running in Synapse environment.}
 }
 \value{
 No return value, called for side effects (file operations)

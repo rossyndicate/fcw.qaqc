@@ -1,0 +1,212 @@
+{
+  "datasets": [
+    {
+      "Dataset Name": "seasonal_thresholds",
+      "Description": "Static, manually updated seasonal thresholds dataset. There are two more deprecated seasonal thresholds in this directory. The one named here is the most recent one that is actively being used.",
+      "StorageLocation": "fcdlfsdev2/Curated/CSU_PWQN_QAQC/qaqc_files/seasonal_thresholds20260304-T175010Z.parquet",
+      "Columns": [
+        {
+          "Name": "season",
+          "DataType": "STRING",
+          "Description": "Seasonal period (e.g., fall_baseflow, monsoon).",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": "[fall_baseflow, monsoon, snowmelt, winter_baseflow]"
+        },
+        {
+          "Name": "site",
+          "DataType": "STRING",
+          "Description": "Site code.",
+          "SemanticType": "Identifier",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "parameter",
+          "DataType": "STRING",
+          "Description": "Parameter name (e.g., DO, pH, Temperature).",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "t_mean01",
+          "DataType": "DOUBLE",
+          "Description": "1st percentile mean value for the parameter in this season/site.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "t_mean99",
+          "DataType": "DOUBLE",
+          "Description": "99th percentile mean value for the parameter in this season/site.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "t_slope_behind_01",
+          "DataType": "DOUBLE",
+          "Description": "1st percentile slope (rate of change) for the parameter.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "t_slope_behind_99",
+          "DataType": "DOUBLE",
+          "Description": "99th percentile slope (rate of change) for the parameter.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "t_sd_0199",
+          "DataType": "DOUBLE",
+          "Description": "Standard deviation for the parameter in this season/site.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        }
+      ]
+    },
+    {
+      "Dataset Name": "site_order",
+      "Description": "Static, manually updated file defining the upstream-to-downstream ordering of monitoring sites within each sub-network. Consumed by load_network_order() and passed as site_order_arg to network_check(), which uses it to identify upstream and downstream neighbors for each site during inter-sonde overflagging correction. Available in both YAML and CSV formats with equivalent content.",
+      "StorageLocation": "fcdlfsdev2/Curated/CSU_PWQN_QAQC/qaqc_files/site_order20260224-T204235Z.yml",
+      "Columns": [
+        {
+          "Name": "network_name",
+          "DataType": "STRING",
+          "Description": "Name of the sub-network (e.g., clp, springcreek, boxcreek). In the YAML this is the key under the top-level 'network' map; in the CSV it is the network_name column.",
+          "SemanticType": "Identifier",
+          "isPrimaryKey": "true",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": "[clp, springcreek, boxcreek, sfm, mtn_campus]"
+        },
+        {
+          "Name": "network",
+          "DataType": "STRING",
+          "Description": "Comma-separated, ordered list of site names from upstream to downstream for the sub-network. Used by network_check() to locate each site's upstream and downstream neighbors.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        }
+      ]
+    },
+    {
+      "Dataset Name": "site_order (CSV)",
+      "Description": "CSV equivalent of the site_order YAML. Contains the same upstream-to-downstream site ordering per sub-network in a two-column tabular format. load_network_order() accepts either the YAML or CSV interchangeably.",
+      "StorageLocation": "fcdlfsdev2/Curated/CSU_PWQN_QAQC/qaqc_files/site_order20260224-T204235Z.csv",
+      "Columns": [
+        {
+          "Name": "network_name",
+          "DataType": "STRING",
+          "Description": "Name of the sub-network (e.g., clp, springcreek, boxcreek).",
+          "SemanticType": "Identifier",
+          "isPrimaryKey": "true",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": "[clp, springcreek, boxcreek, sfm, mtn_campus]"
+        },
+        {
+          "Name": "network",
+          "DataType": "STRING",
+          "Description": "Comma-separated, ordered list of site names from upstream to downstream for the sub-network.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        }
+      ]
+    },
+    {
+      "Dataset Name": "sensor_spec_thresholds",
+      "Description": "Static, manually updated sensor specification thresholds dataset.",
+      "StorageLocation": "fcdlfsdev2/Curated/CSU_PWQN_QAQC/qaqc_files/sensor_spec_thresholds{YYYYMMDD-THHMMSSZ}.yml",
+      "Columns": [
+        {
+          "Name": "parameter",
+          "DataType": "STRING",
+          "Description": "Parameter name (e.g., DO, pH, Temperature).",
+          "SemanticType": "",
+          "isPrimaryKey": "true",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "min",
+          "DataType": "DOUBLE",
+          "Description": "Minimum specification value for the parameter.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        },
+        {
+          "Name": "max",
+          "DataType": "DOUBLE",
+          "Description": "Maximum specification value for the parameter.",
+          "SemanticType": "",
+          "isPrimaryKey": "false",
+          "isForeignKey": "false",
+          "ReferencesDataset": "",
+          "ReferencesColumn": "",
+          "UnitOfMeasure": "",
+          "EnumValues": ""
+        }
+      ]
+    }
+  ]
+}

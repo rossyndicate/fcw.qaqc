@@ -2,8 +2,8 @@
 % Please edit documentation in R/fcw.qaqc-package.R
 \docType{package}
 \name{fcw.qaqc}
-\alias{fcw.qaqc-package}
 \alias{fcw.qaqc}
+\alias{fcw.qaqc-package}
 \title{FCWQAQC: Quality Assurance and Quality Control for Fort Collins Poudre Sonde Network Data}
 \description{
 Tools for processing, flagging, and analyzing water quality data

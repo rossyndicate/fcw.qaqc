@@ -16,6 +16,10 @@
 #'
 #' @param src_dir File path to the working API directory containing processed data files
 #' @param dest_dir File path to the archive directory where files will be stored
+#' @param synapse_env Logical, indicating whether function is running in Azure Synapse
+#' environment (TRUE) or local environment (FALSE). Default is FALSE.
+#' @param fs Optional filesystem object for Azure Data Lake Storage operations when
+#' running in Synapse environment.
 #'
 #' @return No return value, called for side effects (file operations)
 #'
